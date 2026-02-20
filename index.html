@@ -105,8 +105,82 @@
     
     /* Hero */
     .hero {
-      padding: 180px 0 120px;
+      padding: 180px 0 80px;
       text-align: center;
+    }
+    
+    /* Floating icons */
+    .hero-icons {
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+    }
+    .floating-icon {
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    /* Hero subtitle */
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    
+    /* Hero search */
+    .hero-search {
+      max-width: 500px;
+      margin: 0 auto 24px;
+      display: flex;
+      gap: 8px;
+    }
+    .hero-search input {
+      flex: 1;
+      padding: 16px 24px;
+      font-size: 1rem;
+      background: var(--bg-card);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.3s;
+    }
+    .hero-search input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 30px rgba(99,102,241,0.3);
+    }
+    .hero-search button {
+      padding: 16px 24px;
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .hero-search button:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Trust badges */
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .trust-badge {
+      padding: 6px 16px;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 20px;
+      font-size: 0.875rem;
+      color: #818cf8;
     }
     .hero h1 {
       font-size: 3.5rem;
@@ -314,7 +388,41 @@
   
   <section class="hero">
     <div class="container">
-        <div class="stats">
+      <!-- Animated floating icons -->
+      <div class="hero-icons">
+        <span class="floating-icon" style="animation-delay: 0s;">🤖</span>
+        <span class="floating-icon" style="animation-delay: 0.5s;">🧠</span>
+        <span class="floating-icon" style="animation-delay: 1s;">⚡</span>
+        <span class="floating-icon" style="animation-delay: 1.5s;">🚀</span>
+      </div>
+      
+      <!-- Headline -->
+      <h1>Find Your Perfect <span>AI Tool</span> in 2026</h1>
+      
+      <!-- Subtext -->
+      <p class="hero-subtitle">Expert reviews, in-depth comparisons, and comprehensive guides to help you choose the best AI software.</p>
+      
+      <!-- Search in hero -->
+      <div class="hero-search">
+        <input type="text" placeholder="Search AI tools..." id="heroSearchInput">
+        <button onclick="searchHero()">🔍</button>
+      </div>
+      
+      <!-- Trust badges -->
+      <div class="trust-badges">
+        <span class="trust-badge">✓ Verified Reviews</span>
+        <span class="trust-badge">✓ Updated Daily</span>
+        <span class="trust-badge">✓ Unbiased</span>
+      </div>
+      
+      <!-- CTAs -->
+      <div class="hero-btns">
+        <a href="#reviews" class="btn">Explore Tools</a>
+        <a href="articles.html" class="btn btn-secondary">Browse Articles</a>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats">
         <div class="stat"><div class="stat-value">6</div><div class="stat-label">AI Tools Reviewed</div></div>
         <div class="stat"><div class="stat-value">6</div><div class="stat-label">Articles Published</div></div>
         <div class="stat"><div class="stat-value">2026</div><div class="stat-label">Year Established</div></div>
@@ -503,7 +611,7 @@
         <input type="email" placeholder="Enter your email" style="flex:1;min-width:250px;padding:14px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);background:var(--bg-card);color:var(--text-primary);font-size:1rem;">
         <button type="submit" class="btn" style="padding:14px 28px;font-size:1rem;">Subscribe</button>
       </form>
-      <p style="color:var(--text-secondary);font-size:0.75rem;margin-top:16px;">Join 2,000+ subscribers. No spam, unsubscribe anytime.</p>
+      <p style="color:var(--text-secondary);font-size:0.75rem;margin-top:16px;">No spam, unsubscribe anytime.</p>
     </div>
   </section>
   
@@ -520,5 +628,22 @@
       <p style="color:var(--text-secondary);font-size:0.75rem;margin-top:8px;">Ratings are our honest opinions based on research and testing. We may earn affiliate commissions from tool recommendations.</p>
     </div>
   </footer>
+  
+  <script>
+    // Hero search function
+    function searchHero() {
+      const query = document.getElementById('heroSearchInput').value.toLowerCase();
+      if (query) {
+        window.location.href = 'search.html?q=' + encodeURIComponent(query);
+      }
+    }
+    
+    // Enter key search
+    document.getElementById('heroSearchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchHero();
+      }
+    });
+  </script>
 </body>
 </html>

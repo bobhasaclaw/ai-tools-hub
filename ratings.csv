@@ -27,3 +27,6 @@ huggingface,4.6,,,4.6
 copilot,4.3,,,4.3
 gemini,4.5,,,4.5
 llama,4.4,,,4.4
+mistral,4.3,,,4.3
+writesonic,4.2,,,4.2
+articleforge,4.0,,,4.0

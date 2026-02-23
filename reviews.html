@@ -4,7 +4,7 @@
   <link rel="icon" type="image/svg+xml" href="/ai-tools-hub/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Tool Reviews & Guides | AI Tools Hub</title>
+  <title>Reviews | AI Tools Hub</title>
   <meta name="description" content="Browse AI tool reviews, comparisons, and guides. Find the best AI software for chat, image, writing, coding, and more.">
   <meta name="keywords" content="AI categories, AI tools, ChatGPT, Claude, Midjourney, AI software, AI reviews">
   <meta property="og:title" content="Reviews | AI Tools Hub">
@@ -172,14 +172,19 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .category-tag.chat { background: rgba(99,102,241,0.2); color: #a5b4fc; }
-    .category-tag.image { background: rgba(236,72,153,0.2); color: #f472b6; }
-    .category-tag.writing { background: rgba(34,197,94,0.2); color: #4ade80; }
+    .category-tag.chat-ai { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+    .category-tag.image-ai { background: rgba(236,72,153,0.2); color: #f472b6; }
+    .category-tag.video-ai { background: rgba(249,115,22,0.2); color: #fb923c; }
+    .category-tag.writing-ai { background: rgba(34,197,94,0.2); color: #4ade80; }
+    .category-tag.audio-ai { background: rgba(168,85,247,0.2); color: #c084fc; }
+    .category-tag.coding-ai { background: rgba(251,191,36,0.2); color: #fcd34d; }
+    .category-tag.research-ai { background: rgba(6,182,212,0.2); color: #22d3ee; }
     .category-tag.productivity { background: rgba(59,130,246,0.2); color: #60a5fa; }
-    .category-tag.music { background: rgba(168,85,247,0.2); color: #c084fc; }
-    .category-tag.coding { background: rgba(251,191,36,0.2); color: #fcd34d; }
+    .category-tag.design { background: rgba(236,72,153,0.2); color: #f472b6; }
+    .category-tag.platform { background: rgba(99,102,241,0.2); color: #a5b4fc; }
     .category-tag.search { background: rgba(6,182,212,0.2); color: #22d3ee; }
-    .category-tag.voice { background: rgba(249,115,22,0.2); color: #fb923c; }
+    .category-tag.guide { background: rgba(34,197,94,0.2); color: #4ade80; }
+    .category-tag.comparison { background: rgba(251,191,36,0.2); color: #fcd34d; }
     
     .read-time {
       color: var(--text-secondary);
@@ -219,7 +224,49 @@
     }
     .article-card:hover .read-more { gap: 8px; }
     
-    /* Stats */
+    /* Search Bar */
+    .search-container {
+      max-width: 500px;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+    .search-input::placeholder {
+      color: var(--text-secondary);
+    }
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+      display: none;
+    }
+    .no-results h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
     .stats {
       display: flex;
       justify-content: center;
@@ -265,12 +312,13 @@
 <body>
   <nav>
     <div class="container">
-      <a href="index.html" class="logo">🤖 AI Tools Hub</a>
+      <a href="index.html" class="logo">AI Tools Hub</a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="articles.html">Articles</a>
         <a href="reviews.html" class="active">Reviews</a>
-        <a href="#newsletter">Newsletter</a>
+        <a href="articles.html">Articles</a>
+        <a href="about.html">About</a>
+        <a href="search.html">Search</a>
       </div>
     </div>
   </nav>
@@ -285,14 +333,19 @@
   <div class="container">
     <div class="filters">
       <button class="filter-btn active" data-filter="all">All Tools</button>
-      <button class="filter-btn" data-filter="chat">💬 Chat AI</button>
-      <button class="filter-btn" data-filter="image">🎨 Image</button>
-      <button class="filter-btn" data-filter="writing">✍️ Writing</button>
+      <button class="filter-btn" data-filter="chat-ai">💬 Chat AI</button>
+      <button class="filter-btn" data-filter="image-ai">🎨 Image AI</button>
+      <button class="filter-btn" data-filter="video-ai">🎬 Video AI</button>
+      <button class="filter-btn" data-filter="coding-ai">💻 Coding AI</button>
+      <button class="filter-btn" data-filter="writing-ai">✍️ Writing AI</button>
+      <button class="filter-btn" data-filter="audio-ai">🎵 Audio AI</button>
+      <button class="filter-btn" data-filter="research-ai">🔬 Research AI</button>
       <button class="filter-btn" data-filter="productivity">📋 Productivity</button>
-      <button class="filter-btn" data-filter="music">🎵 Music</button>
-      <button class="filter-btn" data-filter="coding">💻 Coding</button>
-      <button class="filter-btn" data-filter="search">🔍 Search</button>
-      <button class="filter-btn" data-filter="voice">🎙️ Voice</button>
+    </div>
+
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search AI tools...">
     </div>
 
     <div class="stats">
@@ -611,6 +664,54 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
+      <a href="articles/chatgpt-o1-review-2026.html" class="article-card" data-category="research-ai">
+        <div class="card-header">
+          <span class="category-tag research-ai">Research AI</span>
+          <span class="read-time">8 min</span>
+        </div>
+        <h3>OpenAI o1 Review 2026</h3>
+        <p>Advanced reasoning model for complex research tasks.</p>
+        <div class="card-footer">
+          <span class="date">Feb 2026</span>
+          <span class="read-more">Read Review →</span>
+        </div>
+      </a>
+      <a href="articles/claude-sonnet-review-2026.html" class="article-card" data-category="research-ai">
+        <div class="card-header">
+          <span class="category-tag research-ai">Research AI</span>
+          <span class="read-time">7 min</span>
+        </div>
+        <h3>Claude Sonnet 2026</h3>
+        <p>Research-focused AI with advanced analysis capabilities.</p>
+        <div class="card-footer">
+          <span class="date">Feb 2026</span>
+          <span class="read-more">Read Review →</span>
+        </div>
+      </a>
+      <a href="articles/gamma-ai-review-2026.html" class="article-card" data-category="productivity">
+        <div class="card-header">
+          <span class="category-tag productivity">Productivity</span>
+          <span class="read-time">5 min</span>
+        </div>
+        <h3>Gamma AI Review 2026</h3>
+        <p>AI-powered presentations and documents.</p>
+        <div class="card-footer">
+          <span class="date">Feb 2026</span>
+          <span class="read-more">Read Review →</span>
+        </div>
+      </a>
+      <a href="articles/trello-ai-review-2026.html" class="article-card" data-category="productivity">
+        <div class="card-header">
+          <span class="category-tag productivity">Productivity</span>
+          <span class="read-time">4 min</span>
+        </div>
+        <h3>Trello AI Review 2026</h3>
+        <p>AI-enhanced project management.</p>
+        <div class="card-footer">
+          <span class="date">Feb 2026</span>
+          <span class="read-more">Read Review →</span>
+        </div>
+      </a>
       <a href="articles/otter-ai-review-2026.html" class="article-card" data-category="writing-ai">
         <div class="card-header">
           <span class="category-tag writing-ai">Writing AI</span>
@@ -913,34 +1014,82 @@
       </a>
     </div>
 
+    <div class="no-results" id="noResults">
+      <h3>No tools found</h3>
+      <p>Try adjusting your search or filter to find what you're looking for.</p>
+    </div>
+
   <footer>
-    <div class="container">
-      <p>🤖 AI Tools Hub | Best AI Software Reviews 2026</p>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div class="logo" style="font-size:1.25rem;font-weight:700;background:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">AI Tools Hub</div>
+      <div class="footer-links" style="display:flex;gap:24px;">
+        <a href="index.html" style="color:var(--text-secondary);text-decoration:none;font-size:0.875rem;">Home</a>
+        <a href="articles.html" style="color:var(--text-secondary);text-decoration:none;font-size:0.875rem;">Articles</a>
+        <a href="search.html" style="color:var(--text-secondary);text-decoration:none;font-size:0.875rem;">Search</a>
+        <a href="about.html" style="color:var(--text-secondary);text-decoration:none;font-size:0.875rem;">About</a>
+      </div>
+      <div style="color:var(--text-secondary);font-size:0.875rem;">© 2026 AI Tools Hub. All rights reserved.</div>
     </div>
   </footer>
 
   <script>
-    // Category filter functionality
+    // Category filter and search functionality
     const filterBtns = document.querySelectorAll('.filter-btn');
     const articleCards = document.querySelectorAll('.article-card');
+    const searchInput = document.getElementById('searchInput');
+    const noResults = document.getElementById('noResults');
+    
+    let currentFilter = 'all';
+    let currentSearch = '';
 
+    // Filter by category
+    function filterCards() {
+      let visibleCount = 0;
+      
+      articleCards.forEach(card => {
+        const category = card.dataset.category;
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        const searchText = currentSearch.toLowerCase();
+        
+        const matchesFilter = currentFilter === 'all' || category === currentFilter;
+        const matchesSearch = searchText === '' || 
+          title.includes(searchText) || 
+          description.includes(searchText);
+        
+        if (matchesFilter && matchesSearch) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Show/hide no results message
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // Filter button click handlers
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         // Update active button
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
-        // Filter cards
-        const filter = btn.dataset.filter;
-        articleCards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+        
+        // Set filter and apply
+        currentFilter = btn.dataset.filter;
+        filterCards();
       });
     });
+
+    // Search input handler
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value;
+      filterCards();
+    });
+
+    // Initialize - show all cards
+    filterCards();
   </script>
 </body>
 </html>

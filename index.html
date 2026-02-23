@@ -416,6 +416,21 @@
       transition: color 0.2s;
     }
     .footer-links a:hover { color: white; }
+    .social-links { display: flex; gap: 16px; margin-top: 16px; }
+    .social-links a {
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .social-links a:hover { color: white; transform: translateY(-2px); }
     .copyright { color: var(--text-secondary); font-size: 0.875rem; }
     
     @media (max-width: 768px) {
@@ -753,6 +768,16 @@
       <div class="footer-links">
         <a href="reviews.html">Reviews</a>
         <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
+      </div>
+      <div class="social-links">
+        <a href="https://twitter.com/aitoolshub" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://youtube.com/@aitoolshub" target="_blank" title="YouTube">▶</a>
+        <a href="https://github.com/aitoolshub" target="_blank" title="GitHub">⌘</a>
+        <a href="https://discord.gg/aitoolshub" target="_blank" title="Discord">💬</a>
       </div>
       <div class="copyright">© 2026 AI Tools Hub. All rights reserved.</div>
       <p style="color:var(--text-secondary);font-size:0.75rem;margin-top:8px;">Ratings are our honest opinions based on research and testing. We may earn affiliate commissions from tool recommendations.</p>

@@ -262,8 +262,44 @@
       h1 { font-size: 2rem; }
       .pros-cons { grid-template-columns: 1fr; }
     }
+    .related-articles { margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .related-articles h3 { font-size: 1.5rem; margin-bottom: 24px; color: #f0f0f5; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .related-card { background: #1a1a24; border-radius: 12px; padding: 20px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; display: block; }
+    .related-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .related-card h4 { color: #f0f0f5; font-size: 1rem; margin-bottom: 8px; }
+    .related-card p { color: #a0a0b0; font-size: 0.875rem; margin: 0; }
+    .related-category { display: inline-block; font-size: 0.75rem; color: #6366f1; margin-bottom: 8px; }
+
+
+    .last-updated { color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px; font-style: italic; }
   </style>
-</head>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "/ai-tools-hub/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "/ai-tools-hub/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Perplexity Ai Review 2026"
+    }
+  ]
+}
+</script>
+  </head>
 <body>
   <nav>
     <div class="container">
@@ -277,6 +313,21 @@
   </nav>
   
   <article class="article">
+  <nav aria-label="Breadcrumb" class="breadcrumb">
+<ol class="breadcrumb-list">
+<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+<a href="/ai-tools-hub/" itemprop="item"><span itemprop="name">Home</span></a>
+<meta itemprop="position" content="1" /></li>
+<li class="breadcrumb-separator" aria-hidden="true">›</li>
+<li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+<a href="/ai-tools-hub/articles.html" itemprop="item"><span itemprop="name">Articles</span></a>
+<meta itemprop="position" content="2" /></li>
+<li class="breadcrumb-separator" aria-hidden="true">›</li>
+<li class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+<span itemprop="name">Perplexity Ai Review 2026</span>
+<meta itemprop="position" content="3" /></li>
+</ol>
+</nav>
     <div class="container">
       <header class="article-header">
         <div class="breadcrumb">
@@ -291,7 +342,59 @@
         </div>
       </header>
       
-      <div class="toc">
+      
+      <p class="last-updated">Last Updated: February 24, 2026</p>
+
+      <div class="share-buttons">
+        <span>Share:</span>
+        <button class="twitter" onclick="shareTwitter()" title="Share on Twitter/X">𝕏</button>
+        <button class="facebook" onclick="shareFacebook()" title="Share on Facebook">f</button>
+        <button class="linkedin" onclick="shareLinkedIn()" title="Share on LinkedIn">in</button>
+        <button class="copy-link" onclick="copyLink()" title="Copy link">🔗</button>
+      </div>
+      
+      <script>
+      function getCurrentUrl() {
+        return window.location.href;
+      }
+      
+      function getPageTitle() {
+        return document.title;
+      }
+      
+      function shareTwitter() {
+        const url = encodeURIComponent(getCurrentUrl());
+        const title = encodeURIComponent(getPageTitle());
+        window.open('https://twitter.com/intent/tweet?url=' + url + '&text=' + title, '_blank', 'width=550,height=420');
+      }
+      
+      function shareFacebook() {
+        const url = encodeURIComponent(getCurrentUrl());
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=550,height=420');
+      }
+      
+      function shareLinkedIn() {
+        const url = encodeURIComponent(getCurrentUrl());
+        const title = encodeURIComponent(getPageTitle());
+        window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + url, '_blank', 'width=550,height=420');
+      }
+      
+      async function copyLink() {
+        try {
+          await navigator.clipboard.writeText(getCurrentUrl());
+          const btn = document.querySelector('.copy-link');
+          btn.classList.add('copied');
+          btn.textContent = '✓';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.textContent = '🔗';
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      }
+      </script>
+<div class="toc">
         <h3>Table of Contents</h3>
         <ul>
           <li><a href="#what-is-perplexity">What is Perplexity AI?</a></li>
@@ -504,6 +607,23 @@
     </div>
   </article>
   
+  <section class="related-articles"><h3>Related Articles</h3><div class="related-grid"><a href="chatgpt-review-2026.html" class="related-card">
+          <span class="related-category">Chat AI</span>
+          <h4>ChatGPT Review 2026</h4>
+          <p>Review of ChatGPT</p>
+        </a><a href="claude-review-2026.html" class="related-card">
+          <span class="related-category">Chat AI</span>
+          <h4>Claude Review 2026</h4>
+          <p>Review of Claude</p>
+        </a><a href="gemini-review-2026.html" class="related-card">
+          <span class="related-category">Chat AI</span>
+          <h4>Gemini Review 2026</h4>
+          <p>Review of Gemini</p>
+        </a><a href="mistral-review-2026.html" class="related-card">
+          <span class="related-category">Chat AI</span>
+          <h4>Mistral Review 2026</h4>
+          <p>Review of Mistral</p>
+        </a></div></section>
   <footer>
     <div class="container">
       <div class="logo">AI Tools Hub</div>

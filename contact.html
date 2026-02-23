@@ -25,7 +25,7 @@
   
   <link rel="canonical" href="https://bobhasaclaw.github.io/ai-tools-hub/contact.html">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --bg-primary: #0a0a0f;
       --bg-secondary: #12121a;
@@ -292,6 +292,21 @@
       flex-wrap: wrap;
       gap: 24px;
     }
+    .social-links { display: flex; gap: 16px; }
+    .social-links a {
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .social-links a:hover { color: white; transform: translateY(-2px); }
     footer p {
       color: var(--text-secondary);
       font-size: 0.875rem;
@@ -315,8 +330,35 @@
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 .nav-links.mobile-open { display: flex !important; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.95); padding: 16px 24px 24px; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 @media (max-width: 768px) { nav .nav-links { display: none; } .hamburger { display: flex; } nav { position: relative; } }
+  .breadcrumb { padding: 100px 24px 16px; max-width: 1200px; margin: 0 auto; font-size: 0.875rem; }
+  .breadcrumb-list { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .breadcrumb-item { display: flex; align-items: center; gap: 8px; }
+  .breadcrumb-item a { color: #a0a0b0; text-decoration: none; }
+  .breadcrumb-item a:hover { color: #6366f1; }
+  .breadcrumb-item.current { color: #f0f0f5; }
+  .breadcrumb-separator { color: #a0a0b0; opacity: 0.5; }
+
 </style>
-</head>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "/ai-tools-hub/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Contact"
+    }
+  ]
+}
+</script>
+  </head>
 <body>
   <!-- Navigation -->
   <nav>
@@ -421,6 +463,13 @@
         <a href="/ai-tools-hub/privacy.html">Privacy</a>
         <a href="/ai-tools-hub/terms.html">Terms</a>
         <a href="/ai-tools-hub/contact.html">Contact</a>
+        <a href="/ai-tools-hub/affiliate-disclosure.html">Affiliate Disclosure</a>
+      </div>
+      <div class="social-links">
+        <a href="https://twitter.com/aitoolshub" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://youtube.com/@aitoolshub" target="_blank" title="YouTube">▶</a>
+        <a href="https://github.com/aitoolshub" target="_blank" title="GitHub">⌘</a>
+        <a href="https://discord.gg/aitoolshub" target="_blank" title="Discord">💬</a>
       </div>
     </div>
   </footer>

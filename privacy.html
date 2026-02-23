@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/ai-tools-hub/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=  <title>1.0">
+Privacy Policy | AI Tools Hub</title>
+  <meta name="description" content="Privacy Policy for AI Tools Hub - Learn how we collect, use, and protect your data.">
+  <meta property="og:title" content="Privacy Policy | AI Tools Hub">
+  <meta property="og:description" content="Privacy Policy for AI Tools Hub.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobhasaclaw.github.io/ai-tools-hub/privacy.html">
+  <link rel="canonical" href="https://bobhasaclaw.github.io/ai-tools-hub/privacy.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "PrivacyPolicy",
+    "name": "Privacy Policy",
+    "url": "https://bobhasaclaw.github.io/ai-tools-hub/privacy.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI Tools Hub"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-02-24"
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+    }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(24px);
+      background: rgba(10,10,15,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--accent-primary); }
+    
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    
+    /* Mobile Nav */
+    .nav-links.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,15,0.95);
+      padding: 16px 24px 24px;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Content */
+    .content {
+      padding: 140px 0 80px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #f0f0f5 0%, #a0a0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .last-updated {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin: 40px 0 16px;
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 1.125rem;
+      margin: 24px 0 12px;
+      color: var(--text-primary);
+    }
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      font-size: 1.0625rem;
+    }
+    ul, ol {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 8px;
+      font-size: 1.0625rem;
+    }
+    a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Card */
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .info-card h3 {
+      margin-top: 0;
+      color: var(--text-primary);
+    }
+    .info-card p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 40px 0;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.875rem;
+      margin: 0;
+    }
+    footer a {
+      color: var(--text-secondary);
+    }
+    footer a:hover {
+      color: var(--accent-primary);
+    }
+    
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav .nav-links { display: none; }
+      nav { position: relative; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/ai-tools-hub/" class="logo">AI Tools Hub</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="/ai-tools-hub/">Home</a>
+        <a href="/ai-tools-hub/reviews.html">Reviews</a>
+        <a href="/ai-tools-hub/about.html">About</a>
+        <a href="/ai-tools-hub/privacy.html" class="active">Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container content">
+    <h1>Privacy Policy</h1>
+    <p class="last-updated">Last updated: February 24, 2026</p>
+
+    <p>AI Tools Hub ("we," "our," or "us") operates the website located at <a href="https://bobhasaclaw.github.io/ai-tools-hub">https://bobhasaclaw.github.io/ai-tools-hub</a>. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.</p>
+
+    <div class="info-card">
+      <h3>At a Glance</h3>
+      <p>We do not require you to create an account, we do not collect personally identifiable information, and we do not sell your data. We use only essential, privacy-respecting analytics to understand how our website is used.</p>
+    </div>
+
+    <h2>1. Information We Collect</h2>
+    <p>AI Tools Hub is designed to protect your privacy. We collect only the following non-personal information:</p>
+    <ul>
+      <li><strong>Analytics Data:</strong> We use Google Analytics to understand website traffic patterns. This data includes your browser type, device type, referring/exit pages, and approximate geographic location (country-level only). This data cannot be used to identify you personally.</li>
+      <li><strong>Cookies:</strong> We use essential cookies for analytics purposes. These cookies do not track you across websites or store personal information.</li>
+      <li><strong>Server Logs:</strong> Our hosting platform may automatically collect basic logs including your IP address (anonymized), request timestamp, and pages accessed. These logs are used for security and troubleshooting purposes only.</li>
+    </ul>
+
+    <h2>2. How We Use Your Information</h2>
+    <p>We use the collected information for the following purposes:</p>
+    <ul>
+      <li>To analyze how visitors navigate and use our website so we can improve the user experience</li>
+      <li>To understand which content and tools are most popular</li>
+      <li>To detect and prevent fraudulent or malicious activity</li>
+      <li>To maintain the security and stability of our website</li>
+    </ul>
+
+    <h2>3. Cookies and Tracking Technologies</h2>
+    <p>We use cookies primarily for analytics purposes. Cookies are small text files that are stored on your device when you visit websites.</p>
+    
+    <h3>Types of Cookies We Use</h3>
+    <ul>
+      <li><strong>Analytics Cookies:</strong> These help us understand how visitors interact with our website by collecting anonymized information about page views, time spent on pages, and navigation patterns.</li>
+      <li><strong>Essential Cookies:</strong> Some cookies are necessary for the website to function properly, such as remembering your language preferences.</li>
+    </ul>
+    
+    <p>You can control or disable cookies through your browser settings. Note that disabling cookies may affect some functionality of the website.</p>
+
+    <h2>4. Third-Party Services</h2>
+    <p>We use the following third-party services:</p>
+    
+    <h3>Google Analytics</h3>
+    <p>We use Google Analytics to understand website traffic and usage patterns. Google Analytics uses cookies to collect anonymized data about your visit. The information generated by the cookie about your use of our website (including your IP address) is transmitted to and stored by Google on servers in the United States.</p>
+    <p>Google's privacy practices are governed by their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>.</p>
+    <p>You can opt out of Google Analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
+
+    <h3>GitHub Pages</h3>
+    <p>Our website is hosted on GitHub Pages. GitHub may collect basic information as outlined in their <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">Privacy Statement</a>.</p>
+
+    <h2>5. Data Security</h2>
+    <p>We implement appropriate technical and organizational measures to protect your information:</p>
+    <ul>
+      <li>We use HTTPS to encrypt all data transmitted between your browser and our server</li>
+      <li>We limit access to analytics data to authorized personnel only</li>
+      <li>We regularly review our data practices to ensure compliance with this policy</li>
+    </ul>
+    <p>However, no method of electronic transmission or storage is 100% secure. While we strive to protect your information, we cannot guarantee absolute security.</p>
+
+    <h2>6. Your Rights</h2>
+    <p>Under applicable privacy laws, including the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), you have the following rights:</p>
+    <ul>
+      <li><strong>Right to Access:</strong> You can request information about what data we collect (though note we collect minimal, anonymized data).</li>
+      <li><strong>Right to Opt-Out:</strong> You can opt out of Google Analytics tracking using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</li>
+      <li><strong>Right to Control Cookies:</strong> You can manage cookies through your browser settings.</li>
+      <li><strong>Right to Erasure:</strong> Since we do not collect personal information, there is generally no personal data to erase. However, you can request removal of any specific data we may have collected.</li>
+    </ul>
+    <p>To exercise any of these rights, please contact us at the email address provided below.</p>
+
+    <h2>7. Children's Privacy</h2>
+    <p>Our website is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected information from a child, please contact us immediately.</p>
+
+    <h2>8. Changes to This Privacy Policy</h2>
+    <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for operational, legal, or regulatory reasons. When we make changes, we will update the "Last updated" date at the top of this page.</p>
+    <p>We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.</p>
+
+    <h2>9. Contact Us</h2>
+    <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+    <div class="info-card">
+      <p><strong>Email:</strong> We are a small team and can be reached through GitHub's issue tracker or pull request system.</p>
+      <p><strong>Website:</strong> <a href="https://bobhasaclaw.github.io/ai-tools-hub">https://bobhasaclaw.github.io/ai-tools-hub</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 AI Tools Hub. All rights reserved. | <a href="/ai-tools-hub/privacy.html">Privacy Policy</a></p>
+    </div>
+  </footer>
+</body>
+</html>

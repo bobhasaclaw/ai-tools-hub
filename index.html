@@ -118,6 +118,45 @@
     }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99,102,241,0.4); }
     
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    
+    /* Mobile Nav */
+    .nav-links.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,15,0.95);
+      padding: 16px 24px 24px;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
     /* Hero */
     .hero {
       padding: 180px 0 80px;
@@ -384,6 +423,8 @@
       .stats { flex-wrap: wrap; gap: 32px; }
       .why-grid { grid-template-columns: 1fr; }
       nav .nav-links { display: none; }
+      .hamburger { display: flex; }
+      nav { position: relative; }
     }
   </style>
 </head>
@@ -391,6 +432,11 @@
   <nav>
     <div class="container">
       <a href="index.html" class="logo">AI Tools Hub</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <div class="nav-links">
         <a href="index.html" class="active">Home</a>
         <a href="reviews.html">Reviews</a>
@@ -714,6 +760,22 @@
   </footer>
   
   <script>
+    // Toggle mobile menu
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      const hamburger = document.querySelector('.hamburger');
+      navLinks.classList.toggle('mobile-open');
+      hamburger.classList.toggle('active');
+    }
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('mobile-open');
+        document.querySelector('.hamburger').classList.remove('active');
+      });
+    });
+    
     // Hero search function - redirect to reviews page with query
     function searchHero() {
       const query = document.getElementById('heroSearchInput').value.trim();

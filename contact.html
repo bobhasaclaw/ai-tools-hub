@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/ai-tools-hub/favicon.svg">
+  <link rel="apple-touch-icon" href="/ai-tools-hub/favicon.svg">
+  <title>Contact | AI Tools Hub</title>
+  <meta name="description" content="Get in touch with AI Tools Hub. We'd love to hear from you!">
+  <meta name="keywords" content="contact AI Tools Hub, AI tools contact, get in touch">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobhasaclaw.github.io/ai-tools-hub/contact.html">
+  <meta property="og:title" content="Contact | AI Tools Hub">
+  <meta property="og:description" content="Get in touch with AI Tools Hub. We'd love to hear from you!">
+  <meta property="og:image" content="https://bobhasaclaw.github.io/ai-tools-hub/og-image.svg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://bobhasaclaw.github.io/ai-tools-hub/contact.html">
+  <meta name="twitter:title" content="Contact | AI Tools Hub">
+  <meta name="twitter:description" content="Get in touch with AI Tools Hub. We'd love to hear from you!">
+  <meta name="twitter:image" content="https://bobhasaclaw.github.io/ai-tools-hub/og-image.svg">
+  
+  <link rel="canonical" href="https://bobhasaclaw.github.io/ai-tools-hub/contact.html">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+      --accent-tertiary: #06b6d4;
+    }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(24px);
+      background: rgba(10,10,15,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--text-primary); }
+    .btn {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      color: white;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    /* Main Content */
+    main {
+      padding: 120px 0 80px;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .page-header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .page-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Contact Grid */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Contact Card */
+    .contact-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .contact-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .submit-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .form-note {
+      margin-top: 16px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* Email Section */
+    .email-section {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .email-link:hover {
+      color: var(--accent-secondary);
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .social-link:hover {
+      background: var(--accent-primary);
+      color: white;
+    }
+
+    /* Response Time */
+    .response-info {
+      margin-top: 32px;
+      padding: 20px;
+      background: rgba(99,102,241,0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(99,102,241,0.2);
+    }
+    .response-info h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--accent-primary);
+    }
+    .response-info p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* SVG Icons */
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 40px 0;
+      margin-top: 80px;
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    footer p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text-primary); }
+  /* Hamburger Menu */
+.hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 28px; height: 28px; cursor: pointer; background: none; border: none; padding: 0; }
+.hamburger span { display: block; width: 100%; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s ease; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-links.mobile-open { display: flex !important; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.95); padding: 16px 24px 24px; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+@media (max-width: 768px) { nav .nav-links { display: none; } .hamburger { display: flex; } nav { position: relative; } }
+</style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="/ai-tools-hub/" class="logo">AI Tools Hub</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu"><span></span><span></span><span></span></button><div class="nav-links">
+        <a href="/ai-tools-hub/">Home</a>
+        <a href="/ai-tools-hub/reviews.html">Reviews</a>
+        <a href="/ai-tools-hub/about.html">About</a>
+        <a href="/ai-tools-hub/contact.html" class="active">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>Get In Touch</h1>
+        <p>Have questions, suggestions, or just want to say hello? We'd love to hear from you. Fill out the form below or reach us directly.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-card">
+          <h2>Send Us a Message</h2>
+          <form id="contact-form" action="#" method="POST">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="" disabled selected>Select a topic...</option>
+                <option value="general">General Inquiry</option>
+                <option value="review">Request a Tool Review</option>
+                <option value="suggestion">Tool Suggestion</option>
+                <option value="feedback">Site Feedback</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+            <p class="form-note">Note: Form submission requires backend integration. For now, please email us directly.</p>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-card">
+          <h2>Contact Information</h2>
+          
+          <div class="email-section">
+            <p style="color: var(--text-secondary); margin-bottom: 8px; font-size: 0.875rem;">Email us directly at:</p>
+            <a href="mailto:contact@aitoolshub.com" class="email-link">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              contact@aitoolshub.com
+            </a>
+          </div>
+
+          <div style="margin-top: 32px;">
+            <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 0.875rem;">Follow us:</p>
+            <div class="social-links">
+              <a href="https://twitter.com/ai_tools_hub" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <a href="https://github.com/bobhasaclaw/ai-tools-hub" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="response-info">
+            <h3>Response Times</h3>
+            <p>We typically respond to all inquiries within 24-48 hours. For urgent matters, please mention "urgent" in your subject line. We appreciate your patience!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 AI Tools Hub. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/ai-tools-hub/about.html">About</a>
+        <a href="/ai-tools-hub/privacy.html">Privacy</a>
+        <a href="/ai-tools-hub/terms.html">Terms</a>
+        <a href="/ai-tools-hub/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+<script>function toggleMenu(){const n=document.querySelector(".nav-links"),e=document.querySelector(".hamburger");n.classList.toggle("mobile-open"),e.classList.toggle("active")}</script></body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/ai-tools-hub/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | AI Tools Hub</title>
+  <meta name="description" content="Terms of Service for AI Tools Hub - Usage terms, disclaimers, and legal information.">
+  <meta property="og:title" content="Terms of Service | AI Tools Hub">
+  <meta property="og:description" content="Terms of Service for AI Tools Hub.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobhasaclaw.github.io/ai-tools-hub/terms.html">
+  <link rel="canonical" href="https://bobhasaclaw.github.io/ai-tools-hub/terms.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "Terms of Service",
+    "url": "https://bobhasaclaw.github.io/ai-tools-hub/terms.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI Tools Hub"
+    },
+    "datePublished": "2026-01-01",
+    "dateModified": "2026-02-24"
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+    }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(24px);
+      background: rgba(10,10,15,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--accent-primary); }
+    
+    /* Content */
+    .content {
+      padding: 140px 0 80px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #f0f0f5 0%, #a0a0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .last-updated {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin: 40px 0 16px;
+      color: var(--text-primary);
+    }
+    h3 {
+      font-size: 1.125rem;
+      margin: 24px 0 12px;
+      color: var(--text-primary);
+    }
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      font-size: 1.0625rem;
+    }
+    ul, ol {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 8px;
+      font-size: 1.0625rem;
+    }
+    a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Card */
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    .info-card h3 {
+      margin-top: 0;
+      color: var(--text-primary);
+    }
+    .info-card p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 40px 0;
+      text-align: center;
+    }
+    footer p {
+      font-size: 0.875rem;
+      margin: 0;
+    }
+    footer a {
+      color: var(--text-secondary);
+    }
+    footer a:hover {
+      color: var(--accent-primary);
+    }
+  /* Hamburger Menu */
+.hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 28px; height: 28px; cursor: pointer; background: none; border: none; padding: 0; }
+.hamburger span { display: block; width: 100%; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s ease; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-links.mobile-open { display: flex !important; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.95); padding: 16px 24px 24px; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+@media (max-width: 768px) { nav .nav-links { display: none; } .hamburger { display: flex; } nav { position: relative; } }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/ai-tools-hub/" class="logo">AI Tools Hub</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu"><span></span><span></span><span></span></button><div class="nav-links">
+        <a href="/ai-tools-hub/">Home</a>
+        <a href="/ai-tools-hub/reviews.html">Reviews</a>
+        <a href="/ai-tools-hub/about.html">About</a>
+        <a href="/ai-tools-hub/terms.html" class="active">Terms</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container content">
+    <h1>Terms of Service</h1>
+    <p class="last-updated">Last updated: February 24, 2026</p>
+
+    <p>AI Tools Hub ("we," "our," or "us") operates the website located at <a href="https://bobhasaclaw.github.io/ai-tools-hub">https://bobhasaclaw.github.io/ai-tools-hub</a>. By accessing and using our website, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.</p>
+
+    <div class="info-card">
+      <h3>Important Notice</h3>
+      <p><strong>AI-Generated Content:</strong> This website contains AI-generated content, including tool descriptions, reviews, and other materials. While we strive for accuracy, AI-generated content may contain errors, omissions, or outdated information. Always verify critical information independently before making decisions based on content from this site.</p>
+    </div>
+
+    <h2>1. Acceptable Use</h2>
+    <p>By using this website, you agree to the following:</p>
+    <ul>
+      <li><strong>Lawful Purposes:</strong> You will use this website only for lawful purposes and in accordance with these Terms of Service.</li>
+      <li><strong>No Harmful Activity:</strong> You will not engage in any activity that could damage, disable, overburden, or impair the website or interfere with any other party's use of the website.</li>
+      <li><strong>No Unauthorized Access:</strong> You will not attempt to gain unauthorized access to any parts of the website or any systems or networks connected to the website.</li>
+      <li><strong>No Scraping or Automated Access:</strong> You will not use any automated means (including robots, spiders, or data mining tools) to access, collect, or copy content from this website without our prior written consent.</li>
+      <li><strong>Respect Intellectual Property:</strong> You will respect the intellectual property rights of AI Tools Hub and third parties as outlined in Section 3 below.</li>
+    </ul>
+
+    <h2>2. Nature of Content</h2>
+    <p>AI Tools Hub provides information about AI tools and services for educational and informational purposes only:</p>
+    <ul>
+      <li><strong>Informational Only:</strong> All content on this website is provided for general informational purposes. It should not be considered professional advice of any kind.</li>
+      <li><strong>AI-Generated Content:</strong> Much of our content, including tool descriptions, comparisons, and reviews, is generated using artificial intelligence. This content may not always be accurate, complete, or up-to-date.</li>
+      <li><strong>Independent Verification:</strong> You should independently verify any information before relying on it, particularly for important decisions regarding AI tools, software purchases, or business implementations.</li>
+      <li><strong>Third-Party Information:</strong> We may provide links to third-party websites, tools, and resources. We do not control and are not responsible for the content, accuracy, or practices of these third-party sites.</li>
+    </ul>
+
+    <h2>3. Intellectual Property</h2>
+    
+    <h3>Our Content</h3>
+    <p>The content on this website, including but not limited to text, graphics, logos, images, software, and design, is the intellectual property of AI Tools Hub or its content creators and is protected by copyright, trademark, and other intellectual property laws.</p>
+    <p>You may:</p>
+    <ul>
+      <li>View and read content on this website for personal, non-commercial use</li>
+      <li>Share links to our pages on social media or other platforms</li>
+      <li>Quote short excerpts with proper attribution</li>
+    </ul>
+    <p>You may not:</p>
+    <ul>
+      <li>Copy, reproduce, or distribute our content without prior written permission</li>
+      <li>Use our content for commercial purposes without authorization</li>
+      <li>Create derivative works based on our content</li>
+      <li>Remove or alter any copyright notices or proprietary markings</li>
+    </ul>
+
+    <h3>Trademarks</h3>
+    <p>All trademarks, service marks, and trade names used on this website are the property of their respective owners. References to third-party trademarks are for identification purposes only and do not imply endorsement by AI Tools Hub.</p>
+
+    <h3>AI-Generated Content and Ownership</h3>
+    <p>Content generated by artificial intelligence on this website may involve various AI tools and services. We make no claims to ownership of AI models or services referenced or used. AI-generated outputs may not be eligible for copyright protection in all jurisdictions.</p>
+
+    <h2>4. Disclaimers</h2>
+    
+    <h3>No Warranty</h3>
+    <p>THIS WEBSITE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.</p>
+    <p>We do not warrant that:</p>
+    <ul>
+      <li>The website will be available at all times or operate without interruption</li>
+      <li>The content on this website is accurate, complete, reliable, or current</li>
+      <li>Any errors in the content will be corrected</li>
+      <li>The website is free of viruses or other harmful components</li>
+    </ul>
+
+    <h3>AI Content Disclaimer</h3>
+    <div class="info-card">
+      <h3>AI-Generated Content Disclosure</h3>
+      <p><strong>We are transparent about the use of AI:</strong></p>
+      <ul>
+        <li>Many tool descriptions, reviews, and comparisons on this website are generated using AI tools</li>
+        <li>AI-generated content may contain inaccuracies, biases, or outdated information</li>
+        <li>Features, pricing, and availability of AI tools may change frequently; AI-generated content may not reflect the most current information</li>
+        <li>We encourage users to verify critical information directly with tool providers before making decisions</li>
+        <li>The inclusion of a tool on this website does not constitute endorsement or recommendation</li>
+      </ul>
+    </div>
+
+    <h3>Third-Party Links and Services</h3>
+    <p>This website may contain links to third-party websites, services, or tools. We do not endorse or assume responsibility for any third-party content, products, services, or practices. Your interactions with third-party sites are governed by those parties' own terms and privacy policies.</p>
+
+    <h2>5. Limitations of Liability</h2>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, AI TOOLS HUB AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AND LICENSORS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO:</p>
+    <ul>
+      <li>YOUR USE OR INABILITY TO USE THIS WEBSITE</li>
+      <li>ANY CONTENT ON THIS WEBSITE, INCLUDING AI-GENERATED CONTENT</li>
+      <li>ANY DECISIONS MADE BASED ON CONTENT FROM THIS WEBSITE</li>
+      <li>ANY THIRD-PARTY SERVICES, PRODUCTS, OR INFORMATION ACCESSED THROUGH THIS WEBSITE</li>
+      <li>ANY UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR DATA</li>
+    </ul>
+    <p>THIS LIMITATION OF LIABILITY APPLIES REGARDLESS OF THE THEORY OF LIABILITY, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+    <p><strong>Specific Disclaimers for AI Tool Information:</strong> We provide information about AI tools for informational purposes. We do not guarantee the accuracy, completeness, or currency of this information. Users should independently verify all information about AI tools before making purchasing decisions, implementing solutions, or relying on tool capabilities.</p>
+
+    <h2>6. User Representations</h2>
+    <p>By using this website, you represent and warrant that:</p>
+    <ul>
+      <li>You have the legal capacity to enter into these Terms of Service</li>
+      <li>You will use this website in accordance with these terms</li>
+      <li>You understand that content on this website is for informational purposes only</li>
+      <li>You will verify critical information independently before relying on it</li>
+    </ul>
+
+    <h2>7. Indemnification</h2>
+    <p>You agree to indemnify, defend, and hold harmless AI Tools Hub and its affiliates, officers, directors, employees, and agents from and against any and all claims, damages, losses, costs, and expenses (including reasonable attorneys' fees) arising out of or relating to:</p>
+    <ul>
+      <li>Your use of this website</li>
+      <li>Your violation of these Terms of Service</li>
+      <li>Your violation of any rights of any third party</li>
+      <li>Any content you submit to this website</li>
+    </ul>
+
+    <h2>8. Modifications to These Terms</h2>
+    <p>We may modify these Terms of Service at any time without prior notice. Your continued use of this website after any modification constitutes your agreement to the modified terms. We will indicate the "Last updated" date at the top of this page when changes are made.</p>
+
+    <h2>9. Termination</h2>
+    <p>We reserve the right to terminate or suspend your access to this website, without prior notice or liability, for any reason, including if we determine that you have violated these Terms of Service.</p>
+
+    <h2>10. Governing Law</h2>
+    <p>These Terms of Service shall be governed by and construed in accordance with applicable laws, without regard to conflict of law principles. Any disputes arising under these terms shall be subject to the jurisdiction of applicable courts.</p>
+
+    <h2>11. Severability</h2>
+    <p>If any provision of these Terms of Service is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary so that the remaining provisions will continue in full force and effect.</p>
+
+    <h2>12. Contact Us</h2>
+    <p>If you have any questions, concerns, or requests regarding these Terms of Service, please contact us:</p>
+    <div class="info-card">
+      <p><strong>Email:</strong> We are a small team and can be reached through GitHub's issue tracker or pull request system.</p>
+      <p><strong>Website:</strong> <a href="https://bobhasaclaw.github.io/ai-tools-hub">https://bobhasaclaw.github.io/ai-tools-hub</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 AI Tools Hub. All rights reserved. | <a href="/ai-tools-hub/privacy.html">Privacy Policy</a></p>
+    </div>
+  </footer>
+<script>function toggleMenu(){const n=document.querySelector(".nav-links"),e=document.querySelector(".hamburger");n.classList.toggle("mobile-open"),e.classList.toggle("active")}</script></body>
+</html>

@@ -662,28 +662,7 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
-        <div class="card-header">
-          <span class="category-tag research-ai">Research AI</span>
-          <span class="read-time">8 min</span>
-        </div>
-        <h3>OpenAI o1 Review 2026</h3>
-        <p>Advanced reasoning model for complex research tasks.</p>
-        <div class="card-footer">
-          <span class="date">Feb 2026</span>
-          <span class="read-more">Read Review →</span>
-        </div>
-      </a>
-        <div class="card-header">
-          <span class="category-tag research-ai">Research AI</span>
-          <span class="read-time">7 min</span>
-        </div>
-        <h3>Claude Sonnet 2026</h3>
-        <p>Research-focused AI with advanced analysis capabilities.</p>
-        <div class="card-footer">
-          <span class="date">Feb 2026</span>
-          <span class="read-more">Read Review →</span>
-        </div>
-      </a>
+      <a href="articles/gamma-ai-review-2026.html" class="article-card" data-category="productivity">
         <div class="card-header">
           <span class="category-tag productivity">Productivity</span>
           <span class="read-time">5 min</span>
@@ -695,6 +674,7 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
+      <a href="articles/trello-ai-review-2026.html" class="article-card" data-category="productivity">
         <div class="card-header">
           <span class="category-tag productivity">Productivity</span>
           <span class="read-time">4 min</span>
@@ -1092,6 +1072,15 @@
       currentSearch = e.target.value;
       filterCards();
     });
+
+    // Check for URL search parameter and pre-fill search
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('q');
+    if (searchQuery) {
+      searchInput.value = searchQuery;
+      currentSearch = searchQuery;
+      filterCards();
+    }
 
     // Initialize - show all cards
     filterCards();

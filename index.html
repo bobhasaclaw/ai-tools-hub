@@ -40,7 +40,7 @@
     },
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://bobhasaclaw.github.io/ai-tools-hub/search?q={search_term_string}",
+      "target": "https://bobhasaclaw.github.io/ai-tools-hub/reviews.html?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -437,8 +437,8 @@
       
       <!-- Stats -->
       <div class="stats">
-        <div class="stat"><div class="stat-value">47</div><div class="stat-label">AI Tools Reviewed</div></div>
-        <div class="stat"><div class="stat-value">47</div><div class="stat-label">Articles Published</div></div>
+        <div class="stat"><div class="stat-value">51</div><div class="stat-label">AI Tools Reviewed</div></div>
+        <div class="stat"><div class="stat-value">51</div><div class="stat-label">Articles Published</div></div>
         <div class="stat"><div class="stat-value">2026</div><div class="stat-label">Year Established</div></div>
       </div>
     </div>
@@ -467,6 +467,16 @@
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
             <span class="rating">★ 4.8</span>
             <a href="articles/claude-review-2026.html" class="card-link">Read Review →</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">💻</div>
+          <span class="card-badge">AI Coding</span>
+          <h3>Qwen 3.5 Coder</h3>
+          <p>Alibaba's powerful open-source coding model. Expert-level coding capabilities with 32K context.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+            <span class="rating">★ 4.8</span>
+            <a href="articles/qwen-3-5-coder-review-2026.html" class="card-link">Read Review →</a>
           </div>
         </div>
         <div class="card">
@@ -704,11 +714,14 @@
   </footer>
   
   <script>
-    // Hero search function
+    // Hero search function - redirect to reviews page with query
     function searchHero() {
-      const query = document.getElementById('heroSearchInput').value.toLowerCase();
+      const query = document.getElementById('heroSearchInput').value.trim();
       if (query) {
-        window.location.href = 'search.html?q=' + encodeURIComponent(query);
+        window.location.href = 'reviews.html?q=' + encodeURIComponent(query);
+      } else {
+        // If no query, just go to reviews page
+        window.location.href = 'reviews.html';
       }
     }
     

@@ -573,6 +573,86 @@
     .social-links a:hover { color: white; transform: translateY(-2px); }
     .copyright { color: var(--text-secondary); font-size: 0.875rem; }
     
+    /* Featured Tool Spotlight */
+    .spotlight-section {
+      padding: 80px 0;
+    }
+    .spotlight {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      padding: 48px;
+      border: 1px solid rgba(99,102,241,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+    }
+    .spotlight-label {
+      display: inline-block;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .spotlight-content {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .spotlight-icon {
+      font-size: 5rem;
+      width: 140px;
+      height: 140px;
+      background: var(--bg-card);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 40px var(--shadow-color);
+    }
+    .spotlight-info h3 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .spotlight-rating {
+      color: #fbbf24;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .spotlight-info p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+    .spotlight-features {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .spotlight-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    .spotlight-feature span { color: #10b981; font-weight: 600; }
+    
     @media (max-width: 768px) {
       .hero h1 { font-size: 2.5rem; }
       .stats { flex-wrap: wrap; gap: 32px; }
@@ -580,6 +660,12 @@
       nav .nav-links { display: none; }
       .hamburger { display: flex; }
       nav { position: relative; }
+      .spotlight { padding: 28px; margin: 0 16px; }
+      .spotlight-content { grid-template-columns: 1fr; text-align: center; }
+      .spotlight-icon { margin: 0 auto; width: 110px; height: 110px; font-size: 3.5rem; }
+      .spotlight-features { justify-content: center; }
+      .spotlight-info h3 { font-size: 1.75rem; }
+      .trust-badges { gap: 12px; flex-wrap: wrap; justify-content: center; }
     }
   </style>
 </head>
@@ -716,6 +802,29 @@
             <span class="premium-rating">★ 4.7</span>
           </div>
           <a href="articles/runway-ai-review-2026.html" class="card-link">Read Review →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured Tool Spotlight -->
+  <section class="spotlight-section">
+    <div class="container">
+      <div class="spotlight">
+        <span class="spotlight-label">★ Featured Tool Spotlight</span>
+        <div class="spotlight-content">
+          <div class="spotlight-icon">🤖</div>
+          <div class="spotlight-info">
+            <h3>ChatGPT</h3>
+            <div class="spotlight-rating">★★★★★ (4.9/5)</div>
+            <p>The world's leading AI chatbot, developed by OpenAI. ChatGPT excels at conversation, content creation, coding assistance, and brainstorming. With the latest GPT-4o model, it offers near-human reasoning and multimodal capabilities.</p>
+            <div class="spotlight-features">
+              <div class="spotlight-feature"><span>✓</span> Free tier available</div>
+              <div class="spotlight-feature"><span>✓</span> 24/7 availability</div>
+              <div class="spotlight-feature"><span>✓</span> Multimodal AI</div>
+            </div>
+            <a href="https://chat.openai.com" target="_blank" class="btn">Try ChatGPT Free →</a>
+          </div>
         </div>
       </div>
     </div>

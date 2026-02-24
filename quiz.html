@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/ai-tools-hub/favicon.svg">
+  <link rel="apple-touch-icon" href="/ai-tools-hub/favicon.svg">
+  <title>AI Tool Finder Quiz | Find Your Perfect AI Tool</title>
+  <meta name="description" content="Take our interactive quiz to discover the best AI tools matched to your needs. Get personalized recommendations for AI writing, coding, image, video, and music tools.">
+  <meta name="keywords" content="AI tool quiz, find AI tools, AI recommendations, best AI tools quiz, AI assistant finder, AI tool matcher">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bobhasaclaw.github.io/ai-tools-hub/quiz.html">
+  <meta property="og:title" content="AI Tool Finder Quiz | Find Your Perfect AI Tool">
+  <meta property="og:description" content="Take our interactive quiz to discover the best AI tools matched to your needs. Get personalized recommendations in under 2 minutes.">
+  <meta property="og:image" content="https://bobhasaclaw.github.io/ai-tools-hub/og-image.svg">
+  <meta property="og:site_name" content="AI Tools Hub">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://bobhasaclaw.github.io/ai-tools-hub/quiz.html">
+  <meta name="twitter:title" content="AI Tool Finder Quiz | Find Your Perfect AI Tool">
+  <meta name="twitter:description" content="Take our interactive quiz to discover the best AI tools matched to your needs. Get personalized recommendations in under 2 minutes.">
+  <meta name="twitter:image" content="https://bobhasaclaw.github.io/ai-tools-hub/og-image.svg">
+  <meta name="twitter:site" content="@ai_tools_hub">
+  <meta name="twitter:creator" content="@ai_tools_hub">
+  
+  <link rel="canonical" href="https://bobhasaclaw.github.io/ai-tools-hub/quiz.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "AI Tool Finder Quiz",
+    "description": "Interactive quiz to find the best AI tools matched to your needs.",
+    "url": "https://bobhasaclaw.github.io/ai-tools-hub/quiz.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI Tools Hub"
+    }
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      /* Dark mode (default) */
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+      --accent-tertiary: #06b6d4;
+      --border-color: rgba(255,255,255,0.1);
+      --nav-bg: rgba(10,10,15,0.8);
+      --shadow-color: rgba(0,0,0,0.3);
+    }
+    [data-theme="light"] {
+      --bg-primary: #f8f9fa;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a5a;
+      --accent-primary: #4f46e5;
+      --accent-secondary: #7c3aed;
+      --accent-tertiary: #0891b2;
+      --border-color: rgba(0,0,0,0.1);
+      --nav-bg: rgba(248,249,250,0.9);
+      --shadow-color: rgba(0,0,0,0.1);
+    }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(24px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+    .theme-toggle .icon-dark { display: block; }
+    .theme-toggle .icon-light { display: none; }
+    [data-theme="light"] .theme-toggle .icon-dark { display: none; }
+    [data-theme="light"] .theme-toggle .icon-light { display: block; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .btn {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      color: white;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99,102,241,0.4); }
+    
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    
+    /* Mobile Nav */
+    .nav-links.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,15,0.95);
+      padding: 16px 24px 24px;
+      gap: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    /* Quiz Hero */
+    .quiz-hero {
+      padding: 160px 0 60px;
+      text-align: center;
+    }
+    .quiz-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .quiz-hero h1 span {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .quiz-hero p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .quiz-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 24px;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      color: #818cf8;
+      margin-bottom: 24px;
+    }
+    
+    /* Quiz Container */
+    .quiz-container {
+      max-width: 700px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    
+    /* Progress Bar */
+    .progress-container {
+      margin-bottom: 40px;
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .progress-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .progress-text span {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+    .progress-percentage {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+    }
+    .progress-bar {
+      height: 6px;
+      background: var(--bg-card);
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+      border-radius: 3px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+    
+    /* Question Card */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.3s ease;
+    }
+    .question-number {
+      display: inline-block;
+      background: rgba(99,102,241,0.2);
+      color: #818cf8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .question-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      line-height: 1.4;
+    }
+    
+    /* Answer Options */
+    .options-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .option:hover {
+      border-color: var(--accent-primary);
+      background: rgba(99,102,241,0.1);
+    }
+    .option.selected {
+      border-color: var(--accent-primary);
+      background: rgba(99,102,241,0.15);
+    }
+    .option-icon {
+      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .option-text {
+      font-size: 1rem;
+      font-weight: 500;
+      flex: 1;
+    }
+    .option-check {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .option.selected .option-check {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+    .option.selected .option-check::after {
+      content: '✓';
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    
+    /* Navigation Buttons */
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+      gap: 16px;
+    }
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    .btn-secondary:hover {
+      background: var(--border-color);
+    }
+    .btn-nav {
+      padding: 14px 28px;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    /* Results Container */
+    .results-container {
+      display: none;
+      text-align: center;
+    }
+    .results-header {
+      margin-bottom: 40px;
+    }
+    .results-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      animation: bounce 0.6s ease;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .results-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .results-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+    }
+    
+    /* Recommendation Cards */
+    .recommendations {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+    .recommendation-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+    .recommendation-card:hover {
+      border-color: rgba(99,102,241,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .recommendation-card.top-pick {
+      border-color: #fbbf24;
+      background: linear-gradient(135deg, var(--bg-card), rgba(251,191,36,0.05));
+    }
+    .recommendation-rank {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+    .recommendation-card.top-pick .recommendation-rank {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    }
+    .recommendation-icon {
+      font-size: 2.5rem;
+      width: 70px;
+      height: 70px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .recommendation-content {
+      flex: 1;
+    }
+    .recommendation-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .recommendation-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .recommendation-badge {
+      display: inline-block;
+      background: rgba(251,191,36,0.2);
+      color: #fbbf24;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+    .recommendation-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+    .recommendation-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .meta-item .rating {
+      color: #fbbf24;
+    }
+    .recommendation-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-primary);
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 16px;
+      transition: gap 0.2s;
+    }
+    .recommendation-link:hover {
+      gap: 12px;
+    }
+    
+    /* Results Actions */
+    .results-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-retake {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    .btn-retake:hover {
+      background: var(--border-color);
+    }
+    
+    /* Intro Screen */
+    .quiz-intro {
+      text-align: center;
+    }
+    .intro-features {
+      display: grid;
+      gap: 16px;
+      margin: 32px 0;
+      text-align: left;
+    }
+    .intro-feature {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+    }
+    .intro-feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(99,102,241,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .intro-feature-text {
+      font-size: 0.95rem;
+    }
+    .intro-feature-text strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+    .intro-feature-text span {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    .btn-start {
+      padding: 18px 48px;
+      font-size: 1.125rem;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border-color);
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    footer .logo { font-size: 1.25rem; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: white; }
+    .copyright { color: var(--text-secondary); font-size: 0.875rem; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .quiz-hero h1 { font-size: 2rem; }
+      .question-card { padding: 28px; }
+      .question-text { font-size: 1.25rem; }
+      .option { padding: 14px 16px; }
+      .recommendation-card { flex-direction: column; }
+      .recommendation-icon { width: 100%; height: 60px; }
+      nav .nav-links { display: none; }
+      .hamburger { display: flex; }
+      nav { position: relative; }
+      .quiz-hero { padding: 120px 0 40px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">AI Tools Hub</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="compare.html">Compare</a>
+        <a href="quiz.html" class="active">Quiz</a>
+        <a href="about.html">About</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+          <span class="icon-dark">🌙</span>
+          <span class="icon-light">☀️</span>
+        </button>
+        <a href="reviews.html" class="btn">Get Started</a>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Quiz Hero -->
+  <section class="quiz-hero">
+    <div class="container">
+      <div class="quiz-badge">
+        <span>🎯</span> Free AI Tool Finder
+      </div>
+      <h1>Find Your Perfect <span>AI Tool</span></h1>
+      <p>Answer a few questions and we'll recommend the best AI tools matched to your needs.</p>
+    </div>
+  </section>
+  
+  <!-- Quiz Container -->
+  <div class="quiz-container">
+    
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progressContainer" style="display: none;">
+      <div class="progress-info">
+        <span class="progress-text">Question <span id="currentQ">1</span> of <span id="totalQ">5</span></span>
+        <span class="progress-percentage" id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+    
+    <!-- Question Card -->
+    <div class="question-card" id="questionCard">
+      <!-- Quiz Intro -->
+      <div class="quiz-intro" id="quizIntro">
+        <div class="intro-features">
+          <div class="intro-feature">
+            <div class="intro-feature-icon">⏱️</div>
+            <div class="intro-feature-text">
+              <strong>Quick & Easy</strong>
+              <span>Takes less than 2 minutes</span>
+            </div>
+          </div>
+          <div class="intro-feature">
+            <div class="intro-feature-icon">🎯</div>
+            <div class="intro-feature-text">
+              <strong>Personalized</strong>
+              <span>Recommendations tailored to your needs</span>
+            </div>
+          </div>
+          <div class="intro-feature">
+            <div class="intro-feature-icon">✅</div>
+            <div class="intro-feature-text">
+              <strong>Free to Use</strong>
+              <span>No signup required</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-start" id="startQuiz">Start Quiz →</button>
+      </div>
+      
+      <!-- Questions Container (hidden initially) -->
+      <div id="questionsContainer" style="display: none;">
+        <span class="question-number" id="questionNumber">Question 1 of 5</span>
+        <h2 class="question-text" id="questionText">What is your primary use case?</h2>
+        
+        <div class="options-grid" id="optionsGrid">
+          <!-- Options will be injected here -->
+        </div>
+        
+        <div class="quiz-nav">
+          <button class="btn btn-secondary btn-nav" id="prevBtn" disabled>
+            ← Previous
+          </button>
+          <button class="btn btn-nav" id="nextBtn" disabled>
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Results Container (hidden initially) -->
+    <div class="results-container" id="resultsContainer">
+      <div class="results-header">
+        <div class="results-icon">🎉</div>
+        <h2 class="results-title">Your Top Recommendations</h2>
+        <p class="results-subtitle">Based on your answers, here are the best AI tools for you:</p>
+      </div>
+      
+      <div class="recommendations" id="recommendations">
+        <!-- Recommendation cards will be injected here -->
+      </div>
+      
+      <div class="results-actions">
+        <a href="reviews.html" class="btn">Browse All Reviews</a>
+        <button class="btn btn-retake" id="retakeQuiz">↺ Take Quiz Again</button>
+      </div>
+    </div>
+    
+  </div>
+  
+  <footer>
+    <div class="container">
+      <div class="logo">AI Tools Hub</div>
+      <div class="footer-links">
+        <a href="reviews.html">Reviews</a>
+        <a href="compare.html">Compare</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="copyright">© 2026 AI Tools Hub. All rights reserved.</div>
+    </div>
+  </footer>
+  
+  <script>
+    // ============ QUIZ CONFIGURATION ============
+    
+    // Questions array
+    const questions = [
+      {
+        id: 'create',
+        text: 'What do you want to create?',
+        icon: '🎨',
+        options: [
+          { value: 'text', label: 'Text & Writing', icon: '📝' },
+          { value: 'images', label: 'Images & Art', icon: '🖼️' },
+          { value: 'video', label: 'Video & Animation', icon: '🎬' },
+          { value: 'code', label: 'Code & Development', icon: '💻' },
+          { value: 'audio', label: 'Audio & Music', icon: '🎵' }
+        ]
+      },
+      {
+        id: 'budget',
+        text: 'What is your budget?',
+        icon: '💰',
+        options: [
+          { value: 'free', label: 'Free only', icon: '🆓' },
+          { value: 'freemium', label: 'Freemium (ok with limits)', icon: '💳' },
+          { value: 'paid', label: 'Paid (full access)', icon: '💎' }
+        ]
+      },
+      {
+        id: 'experience',
+        text: 'What is your experience level?',
+        icon: '📊',
+        options: [
+          { value: 'beginner', label: 'Beginner (just starting)', icon: '🌱' },
+          { value: 'intermediate', label: 'Intermediate (some experience)', icon: '📈' },
+          { value: 'expert', label: 'Expert (power user)', icon: '🚀' }
+        ]
+      },
+      {
+        id: 'api',
+        text: 'Do you need API access?',
+        icon: '🔌',
+        options: [
+          { value: 'yes', label: 'Yes, for integrations', icon: '⚡' },
+          { value: 'no', label: 'No, web interface only', icon: '🌐' }
+        ]
+      },
+      {
+        id: 'speed',
+        text: 'How important is speed?',
+        icon: '⚡',
+        options: [
+          { value: 'very', label: 'Very important (need fast results)', icon: '🔥' },
+          { value: 'somewhat', label: 'Somewhat (reasonable speed)', icon: '⏱️' },
+          { value: 'not', label: 'Not important (quality over speed)', icon: '🐢' }
+        ]
+      },
+      {
+        id: 'collaboration',
+        text: 'Do you need real-time collaboration?',
+        icon: '👥',
+        options: [
+          { value: 'yes', label: 'Yes (team features)', icon: '🤝' },
+          { value: 'no', label: 'No (individual use)', icon: '🙋' }
+        ]
+      }
+    ];
+    
+    // Tool recommendation database
+    const toolsDatabase = [
+      { id: 'chatgpt', name: 'ChatGPT', category: 'text', icon: '🤖', description: 'Versatile AI assistant for text, coding, and analysis.', website: 'https://chat.openai.com', pricing: 'freemium', api: true, speed: 'somewhat', collaboration: true, beginner: true, expert: true },
+      { id: 'claude', name: 'Claude', category: 'text', icon: '🧠', description: 'Thoughtful AI focused on analysis, writing, and coding.', website: 'https://claude.ai', pricing: 'freemium', api: true, speed: 'somewhat', collaboration: true, beginner: true, expert: true },
+      { id: 'gemini', name: 'Gemini', category: 'text', icon: '✨', description: 'Google\'s multimodal AI. Excellent research and reasoning.', website: 'https://gemini.google.com', pricing: 'free', api: true, speed: 'very', collaboration: true, beginner: true, expert: true },
+      { id: 'perplexity', name: 'Perplexity', category: 'text', icon: '🔍', description: 'AI-powered search engine. Great for research.', website: 'https://www.perplexity.ai', pricing: 'freemium', api: true, speed: 'very', collaboration: true, beginner: true, expert: true },
+      { id: 'midjourney', name: 'Midjourney', category: 'images', icon: '🎨', description: 'Create stunning, artistic images from text.', website: 'https://www.midjourney.com', pricing: 'paid', api: false, speed: 'somewhat', collaboration: false, beginner: false, expert: true },
+      { id: 'dalle', name: 'DALL-E', category: 'images', icon: '🖼️', description: 'OpenAI\'s image generator. Easy to use.', website: 'https://openai.com/dall-e-3', pricing: 'paid', api: true, speed: 'very', collaboration: false, beginner: true, expert: true },
+      { id: 'stablediffusion', name: 'Stable Diffusion', category: 'images', icon: '🌊', description: 'Open-source image generation. Free to use.', website: 'https://stability.ai', pricing: 'free', api: true, speed: 'very', collaboration: false, beginner: false, expert: true },
+      { id: 'leonardo', name: 'Leonardo', category: 'images', icon: '🦁', description: 'Powerful image generation with community features.', website: 'https://leonardo.ai', pricing: 'freemium', api: true, speed: 'somewhat', collaboration: true, beginner: true, expert: true },
+      { id: 'runway', name: 'Runway', category: 'video', icon: '🎬', description: 'AI video generation and editing platform.', website: 'https://runwayml.com', pricing: 'freemium', api: true, speed: 'somewhat', collaboration: true, beginner: true, expert: true },
+      { id: 'synthesia', name: 'Synthesia', category: 'video', icon: '🎭', description: 'Create AI videos with virtual presenters.', website: 'https://synthesia.io', pricing: 'paid', api: true, speed: 'very', collaboration: true, beginner: true, expert: true },
+      { id: 'kling', name: 'Kling', category: 'video', icon: '🌀', description: 'Advanced AI video generation from text.', website: 'https://klingai.com', pricing: 'freemium', api: false, speed: 'very', collaboration: false, beginner: false, expert: true },
+      { id: 'pika', name: 'Pika', category: 'video', icon: '📹', description: 'Text-to-video AI. Simple and fast.', website: 'https://pika.art', pricing: 'freemium', api: false, speed: 'very', collaboration: false, beginner: true, expert: true },
+      { id: 'github-copilot', name: 'GitHub Copilot', category: 'code', icon: '👨‍💻', description: 'AI pair programmer for code completion.', website: 'https://github.com/features/copilot', pricing: 'freemium', api: true, speed: 'very', collaboration: false, beginner: true, expert: true },
+      { id: 'cursor', name: 'Cursor', category: 'code', icon: '📝', description: 'AI-first code editor for faster coding.', website: 'https://cursor.sh', pricing: 'freemium', api: true, speed: 'very', collaboration: false, beginner: true, expert: true },
+      { id: 'qwen-coder', name: 'Qwen Coder', category: 'code', icon: '🧑‍💻', description: 'Alibaba\'s coding assistant.', website: 'https://qwenlm.ai', pricing: 'free', api: true, speed: 'very', collaboration: false, beginner: false, expert: true },
+      { id: 'elevenlabs', name: 'Eleven Labs', category: 'audio', icon: '🎙️', description: 'Premium AI voice generator.', website: 'https://elevenlabs.io', pricing: 'freemium', api: true, speed: 'very', collaboration: false, beginner: true, expert: true }
+    ];
+    
+    // Quiz state
+    let currentQuestionIndex = 0;
+    let answers = {};
+    
+    // DOM Elements
+    const quizIntro = document.getElementById('quizIntro');
+    const questionsContainer = document.getElementById('questionsContainer');
+    const progressContainer = document.getElementById('progressContainer');
+    const questionCard = document.getElementById('questionCard');
+    const questionNumber = document.getElementById('questionNumber');
+    const questionText = document.getElementById('questionText');
+    const optionsGrid = document.getElementById('optionsGrid');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentQEl = document.getElementById('currentQ');
+    const totalQEl = document.getElementById('totalQ');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressFill = document.getElementById('progressFill');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const recommendationsEl = document.getElementById('recommendations');
+    const retakeQuiz = document.getElementById('retakeQuiz');
+    const startQuiz = document.getElementById('startQuiz');
+    
+    totalQEl.textContent = questions.length;
+    
+    // Start quiz
+    startQuiz.addEventListener('click', function() {
+      quizIntro.style.display = 'none';
+      questionsContainer.style.display = 'block';
+      progressContainer.style.display = 'block';
+      showQuestion(0);
+    });
+    
+    // Show question with animation
+    function showQuestion(index) {
+      currentQuestionIndex = index;
+      var question = questions[index];
+      var progress = ((index + 1) / questions.length) * 100;
+      currentQEl.textContent = index + 1;
+      progressPercent.textContent = Math.round(progress) + '%';
+      progressFill.style.width = progress + '%';
+      questionNumber.textContent = 'Question ' + (index + 1) + ' of ' + questions.length;
+      questionText.textContent = question.text;
+      optionsGrid.innerHTML = '';
+      question.options.forEach(function(opt, optIdx) {
+        var el = document.createElement('div');
+        el.className = 'option';
+        el.style.opacity = '0';
+        el.style.animation = 'slideIn 0.4s ease ' + (0.2 + optIdx * 0.1) + 's forwards';
+        el.dataset.value = opt.value;
+        if (answers[question.id] === opt.value) el.classList.add('selected');
+        el.innerHTML = '<div class="option-icon">' + opt.icon + '</div><span class="option-text">' + opt.label + '</span><div class="option-check"></div>';
+        el.addEventListener('click', function() { selectOption(question.id, opt.value, el); });
+        optionsGrid.appendChild(el);
+      });
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = !answers[question.id];
+      nextBtn.innerHTML = (index === questions.length - 1) ? 'See Results →' : 'Next →';
+    }
+    
+    function selectOption(qId, val, el) {
+      answers[qId] = val;
+      document.querySelectorAll('.option').forEach(function(o) { o.classList.remove('selected'); });
+      el.classList.add('selected');
+      nextBtn.disabled = false;
+    }
+    
+    prevBtn.addEventListener('click', function() {
+      if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1);
+    });
+    
+    nextBtn.addEventListener('click', function() {
+      if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1);
+      else showResults();
+    });
+    
+    function calculateRecommendations() {
+      var userCategory = answers.create;
+      var userBudget = answers.budget;
+      var userExperience = answers.experience;
+      var userApi = answers.api;
+      var userSpeed = answers.speed;
+      var userCollab = answers.collaboration;
+      var candidates = toolsDatabase.filter(function(t) { return t.category === userCategory; });
+      if (candidates.length === 0) candidates = [].concat(toolsDatabase);
+      var scored = candidates.map(function(tool) {
+        var score = 0;
+        if (userBudget === 'free' && tool.pricing === 'free') score += 30;
+        else if (userBudget === 'freemium' && (tool.pricing === 'free' || tool.pricing === 'freemium')) score += 25;
+        else if (userBudget === 'paid') score += 20;
+        else if (tool.pricing === 'freemium') score += 10;
+        else score += 5;
+        if (userApi === 'yes' && tool.api) score += 25;
+        else if (userApi === 'no' && !tool.api) score += 15;
+        if (userSpeed === 'very' && tool.speed === 'very') score += 20;
+        else if (userSpeed === 'somewhat' && (tool.speed === 'very' || tool.speed === 'somewhat')) score += 15;
+        else if (userSpeed === 'not') score += 10;
+        else score += 5;
+        if (userCollab === 'yes' && tool.collaboration) score += 15;
+        else if (userCollab === 'no' && !tool.collaboration) score += 10;
+        if (userExperience === 'beginner' && tool.beginner) score += 10;
+        else if (userExperience === 'expert' && tool.expert) score += 10;
+        else if (userExperience === 'intermediate') score += 5;
+        return { tool: tool, score: score };
+      });
+      return scored.sort(function(a, b) { return b.score - a.score; }).slice(0, 3).map(function(x) { return x.tool; });
+    }
+    
+    function showResults() {
+      var topTools = calculateRecommendations();
+      questionsContainer.style.display = 'none';
+      progressContainer.style.display = 'none';
+      resultsContainer.style.display = 'block';
+      recommendationsEl.innerHTML = '';
+      topTools.forEach(function(tool, idx) {
+        var card = document.createElement('div');
+        var isTop = idx === 0;
+        card.className = 'recommendation-card' + (isTop ? ' top-pick' : '');
+        card.style.opacity = '0';
+        card.style.animation = 'fadeInUp 0.5s ease ' + (idx * 0.15) + 's forwards';
+        var badge = isTop ? '<span class="recommendation-badge">Top Pick</span>' : '';
+        var speedLabel = tool.speed === 'very' ? 'Fast' : (tool.speed === 'somewhat' ? 'Moderate' : 'Quality-focused');
+        var pricingLabel = tool.pricing === 'freemium' ? 'Freemium' : (tool.pricing.charAt(0).toUpperCase() + tool.pricing.slice(1));
+        card.innerHTML = '<div class="recommendation-rank">' + (idx + 1) + '</div><div class="recommendation-icon">' + tool.icon + '</div><div class="recommendation-content"><div class="recommendation-header"><span class="recommendation-name">' + tool.name + '</span>' + badge + '</div><p class="recommendation-desc">' + tool.description + '</p><div class="recommendation-meta"><span class="meta-item">💰 ' + pricingLabel + '</span><span class="meta-item">⚡ ' + speedLabel + '</span>' + (tool.api ? '<span class="meta-item">🔌 API</span>' : '') + '</div><a href="' + tool.website + '" target="_blank" rel="noopener" class="recommendation-link">Visit Website →</a></div>';
+        recommendationsEl.appendChild(card);
+      });
+      resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    retakeQuiz.addEventListener('click', function() {
+      answers = {};
+      currentQuestionIndex = 0;
+      resultsContainer.style.display = 'none';
+      progressContainer.style.display = 'block';
+      questionsContainer.style.display = 'block';
+      showQuestion(0);
+    });
+    
+    // Add animations
+    var quizStyle = document.createElement('style');
+    quizStyle.textContent = '@keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } } @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }';
+    document.head.appendChild(quizStyle);
+    
+    // Theme toggle functionality
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+    
+    // Apply saved theme on load
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    })();
+    
+    // Toggle mobile menu
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      const hamburger = document.querySelector('.hamburger');
+      navLinks.classList.toggle('mobile-open');
+      hamburger.classList.toggle('active');
+    }
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('mobile-open');
+        document.querySelector('.hamburger').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

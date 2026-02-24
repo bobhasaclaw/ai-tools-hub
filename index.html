@@ -48,6 +48,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
+      /* Dark mode (default) */
       --bg-primary: #0a0a0f;
       --bg-secondary: #12121a;
       --bg-card: #1a1a24;
@@ -56,12 +57,29 @@
       --accent-primary: #6366f1;
       --accent-secondary: #8b5cf6;
       --accent-tertiary: #06b6d4;
+      --border-color: rgba(255,255,255,0.1);
+      --nav-bg: rgba(10,10,15,0.8);
+      --shadow-color: rgba(0,0,0,0.3);
+    }
+    [data-theme="light"] {
+      --bg-primary: #f8f9fa;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a5a;
+      --accent-primary: #4f46e5;
+      --accent-secondary: #7c3aed;
+      --accent-tertiary: #0891b2;
+      --border-color: rgba(0,0,0,0.1);
+      --nav-bg: rgba(248,249,250,0.9);
+      --shadow-color: rgba(0,0,0,0.1);
     }
     body {
       background: var(--bg-primary);
       color: var(--text-primary);
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     body::before {
       content: '';
@@ -73,6 +91,12 @@
       pointer-events: none;
       z-index: -1;
     }
+    [data-theme="light"] body::before {
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.08) 0%, transparent 50%);
+    }
+    }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     
     /* Nav */
@@ -81,8 +105,9 @@
       top: 0; left: 0; right: 0;
       z-index: 50;
       backdrop-filter: blur(24px);
-      background: rgba(10,10,15,0.8);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     nav .container {
       display: flex;
@@ -98,6 +123,26 @@
       -webkit-text-fill-color: transparent;
     }
     .nav-links { display: flex; gap: 32px; align-items: center; }
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+    .theme-toggle .icon-dark { display: block; }
+    .theme-toggle .icon-light { display: none; }
+    [data-theme="light"] .theme-toggle .icon-dark { display: none; }
+    [data-theme="light"] .theme-toggle .icon-light { display: block; }
     .nav-links a {
       color: var(--text-secondary);
       text-decoration: none;
@@ -154,7 +199,7 @@
       background: rgba(10,10,15,0.95);
       padding: 16px 24px 24px;
       gap: 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--border-color);
     }
     
     /* Hero */
@@ -197,7 +242,7 @@
       padding: 16px 24px;
       font-size: 1rem;
       background: var(--bg-card);
-      border: 2px solid rgba(255,255,255,0.1);
+      border: 2px solid var(--border-color);
       border-radius: 12px;
       color: var(--text-primary);
       outline: none;
@@ -255,11 +300,11 @@
     }
     .hero-btns { display: flex; gap: 16px; justify-content: center; }
     .btn-secondary {
-      background: rgba(255,255,255,0.08);
+      background: var(--border-color);
       color: var(--text-primary);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid var(--border-color);
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+    .btn-secondary:hover { background: var(--border-color); }
     
     /* Stats */
     .stats {
@@ -301,7 +346,7 @@
     }
     .card {
       background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 24px;
       transition: all 0.3s;
@@ -342,6 +387,101 @@
     .card:hover .card-link { gap: 12px; }
     .rating { color: #fbbf24; }
     
+    /* Editor's Choice Section */
+    .editors-choice {
+      padding: 80px 0;
+      background: var(--bg-secondary);
+    }
+    .editors-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .premium-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 28px;
+      position: relative;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    .premium-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .premium-card:hover::before {
+      opacity: 1;
+    }
+    .premium-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(245,158,11,0.05));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .premium-card:hover::after {
+      opacity: 1;
+    }
+    .premium-card > * { position: relative; z-index: 1; }
+    .premium-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      color: var(--bg-card);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .premium-card-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .premium-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .premium-card-tagline {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    .premium-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+    .best-for {
+      background: rgba(139,92,246,0.2);
+      color: #a78bfa;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .premium-rating {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+    
     /* Why section */
     .why { background: var(--bg-secondary); }
     .why-grid {
@@ -369,7 +509,7 @@
     /* CTA */
     .cta-card {
       background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 64px;
       text-align: center;
@@ -398,7 +538,7 @@
     /* Footer */
     footer {
       padding: 48px 0;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid var(--border-color);
     }
     footer .container {
       display: flex;
@@ -428,7 +568,7 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.05);
+      background: var(--border-color);
     }
     .social-links a:hover { color: white; transform: translateY(-2px); }
     .copyright { color: var(--text-secondary); font-size: 0.875rem; }
@@ -455,7 +595,12 @@
       <div class="nav-links">
         <a href="index.html" class="active">Home</a>
         <a href="reviews.html">Reviews</a>
+        <a href="compare.html">Compare</a>
         <a href="about.html">About</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+          <span class="icon-dark">🌙</span>
+          <span class="icon-light">☀️</span>
+        </button>
         <a href="#reviews" class="btn">Get Started</a>
       </div>
     </div>
@@ -501,6 +646,76 @@
         <div class="stat"><div class="stat-value">51</div><div class="stat-label">AI Tools Reviewed</div></div>
         <div class="stat"><div class="stat-value">51</div><div class="stat-label">Articles Published</div></div>
         <div class="stat"><div class="stat-value">2026</div><div class="stat-label">Year Established</div></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Editor's Choice -->
+  <section class="editors-choice">
+    <div class="container">
+      <h2 class="section-title">✨ Editor's Choice</h2>
+      <p class="section-desc">Our hand-picked selection of the absolute best AI tools, tested and trusted.</p>
+      <div class="editors-choice-grid">
+        <!-- ChatGPT -->
+        <div class="premium-card">
+          <div class="premium-badge">★ Editor's Pick</div>
+          <div class="premium-card-icon">🤖</div>
+          <h3>ChatGPT</h3>
+          <p class="premium-card-tagline">The world's most popular AI chatbot. Versatile, powerful, and constantly improving.</p>
+          <div class="premium-card-meta">
+            <span class="best-for">Best for General Use</span>
+            <span class="premium-rating">★ 4.9</span>
+          </div>
+          <a href="articles/chatgpt-review-2026.html" class="card-link">Read Review →</a>
+        </div>
+        <!-- Claude -->
+        <div class="premium-card">
+          <div class="premium-badge">★ Editor's Pick</div>
+          <div class="premium-card-icon">🧠</div>
+          <h3>Claude</h3>
+          <p class="premium-card-tagline">Anthropic's flagship AI known for thoughtful, nuanced, and detailed responses.</p>
+          <div class="premium-card-meta">
+            <span class="best-for">Best for Writing</span>
+            <span class="premium-rating">★ 4.8</span>
+          </div>
+          <a href="articles/claude-review-2026.html" class="card-link">Read Review →</a>
+        </div>
+        <!-- Midjourney -->
+        <div class="premium-card">
+          <div class="premium-badge">★ Editor's Pick</div>
+          <div class="premium-card-icon">🎨</div>
+          <h3>Midjourney</h3>
+          <p class="premium-card-tagline">Create stunning, photorealistic artwork from simple text descriptions.</p>
+          <div class="premium-card-meta">
+            <span class="best-for">Best for Images</span>
+            <span class="premium-rating">★ 4.9</span>
+          </div>
+          <a href="articles/midjourney-review-2026.html" class="card-link">Read Review →</a>
+        </div>
+        <!-- GitHub Copilot -->
+        <div class="premium-card">
+          <div class="premium-badge">★ Editor's Pick</div>
+          <div class="premium-card-icon">💻</div>
+          <h3>GitHub Copilot</h3>
+          <p class="premium-card-tagline">Your AI pair programmer. Write code faster with intelligent suggestions.</p>
+          <div class="premium-card-meta">
+            <span class="best-for">Best for Coding</span>
+            <span class="premium-rating">★ 4.8</span>
+          </div>
+          <a href="articles/github-copilot-review-2026.html" class="card-link">Read Review →</a>
+        </div>
+        <!-- Runway -->
+        <div class="premium-card">
+          <div class="premium-badge">★ Editor's Pick</div>
+          <div class="premium-card-icon">🎬</div>
+          <h3>Runway</h3>
+          <p class="premium-card-tagline">Professional AI video editing and generation platform for creators.</p>
+          <div class="premium-card-meta">
+            <span class="best-for">Best for Video</span>
+            <span class="premium-rating">★ 4.7</span>
+          </div>
+          <a href="articles/runway-ai-review-2026.html" class="card-link">Read Review →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -635,49 +850,49 @@
           <span class="card-badge">Reviews</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/deepseek-ai-review-2026.html" style="color:inherit;text-decoration:none;">DeepSeek AI Review 2026</a></h3>
           <p>The open-source AI model that's challenging ChatGPT and Claude.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
         </article>
         <article class="card">
           <span class="card-badge">Reviews</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/eleven-labs-review-2026.html" style="color:inherit;text-decoration:none;">Eleven Labs Review 2026</a></h3>
           <p>The definitive review of the leading AI voice synthesis platform in 2026.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">10 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">10 min read</span>
         </article>
         <article class="card">
           <span class="card-badge">Reviews</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/github-copilot-review-2026.html" style="color:inherit;text-decoration:none;">GitHub Copilot Review 2026</a></h3>
           <p>Discover how this AI pair programmer can boost your coding productivity by 55%.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
         </article>
         <article class="card">
           <span class="card-badge">Reviews</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/cursor-ai-editor-review-2026.html" style="color:inherit;text-decoration:none;">Cursor AI Editor Review 2026</a></h3>
           <p>Discover how this AI-powered code editor is transforming software development.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
         </article>
         <article class="card">
           <span class="card-badge">Reviews</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/perplexity-ai-review-2026.html" style="color:inherit;text-decoration:none;">Perplexity AI Review 2026</a></h3>
           <p>Discover why this AI-powered search engine is revolutionizing how we find information.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">12 min read</span>
         </article>
         <article class="card">
           <span class="card-badge">Reviews</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/grammarly-review-2026.html" style="color:inherit;text-decoration:none;">Best AI Writing Tools in 2026</a></h3>
           <p>Comprehensive guide to the top AI writing assistants for content creators.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">8 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">8 min read</span>
         </article>
         <article class="card">
           <span class="card-badge">Comparisons</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/chatgpt-review-2026.html" style="color:inherit;text-decoration:none;">ChatGPT vs Claude: Which is Better?</a></h3>
           <p>In-depth comparison of the two leading AI assistants in 2026.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">6 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">6 min read</span>
         </article>
         <article class="card">
           <span class="card-badge">Guides</span>
           <h3 style="margin-top:16px;"><a href="/ai-tools-hub/articles/midjourney-review-2026.html" style="color:inherit;text-decoration:none;">How to Use AI for Affiliate Marketing</a></h3>
           <p>Leverage AI tools to boost your affiliate commissions in 2026.</p>
-          <span style="color:#a0a0b0;font-size:0.875rem;display:block;margin-top:16px;">10 min read</span>
+          <span style="color:var(--text-secondary);font-size:0.875rem;display:block;margin-top:16px;">10 min read</span>
         </article>
       </div>
     </div>
@@ -726,22 +941,22 @@
       <h2 class="section-title">Featured Articles</h2>
       <p class="section-desc">In-depth guides and comparisons to help you choose the right AI tools.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px;">
-        <a href="articles/chatgpt-vs-claude.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s;">
+        <a href="articles/chatgpt-vs-claude.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid var(--border-color);transition:all 0.3s;">
           <span style="display:inline-block;padding:4px 12px;background:rgba(99,102,241,0.2);color:#818cf8;border-radius:20px;font-size:0.75rem;margin-bottom:12px;">COMPARISON</span>
           <h3 style="color:var(--text-primary);margin-bottom:8px;">ChatGPT vs Claude: Which is Better?</h3>
           <p style="color:var(--text-secondary);font-size:0.875rem;">In-depth comparison of the two leading AI assistants in 2026.</p>
         </a>
-        <a href="articles/ai-affiliate-marketing-guide.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s;">
+        <a href="articles/ai-affiliate-marketing-guide.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid var(--border-color);transition:all 0.3s;">
           <span style="display:inline-block;padding:4px 12px;background:rgba(6,182,212,0.2);color:#22d3ee;border-radius:20px;font-size:0.75rem;margin-bottom:12px;">GUIDE</span>
           <h3 style="color:var(--text-primary);margin-bottom:8px;">How to Use AI for Affiliate Marketing</h3>
           <p style="color:var(--text-secondary);font-size:0.875rem;">Leverage AI tools to boost your affiliate commissions.</p>
         </a>
-        <a href="articles/ai-video-creation-guide-2026.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s;">
+        <a href="articles/ai-video-creation-guide-2026.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid var(--border-color);transition:all 0.3s;">
           <span style="display:inline-block;padding:4px 12px;background:rgba(6,182,212,0.2);color:#22d3ee;border-radius:20px;font-size:0.75rem;margin-bottom:12px;">GUIDE</span>
           <h3 style="color:var(--text-primary);margin-bottom:8px;">How to Use AI for Video Creation in 2026</h3>
           <p style="color:var(--text-secondary);font-size:0.875rem;">Complete guide to AI video tools, techniques, and workflows for professional content.</p>
         </a>
-        <a href="reviews.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s;">
+        <a href="reviews.html" style="display:block;padding:24px;background:var(--bg-card);border-radius:12px;text-decoration:none;border:1px solid var(--border-color);transition:all 0.3s;">
           <span style="display:inline-block;padding:4px 12px;background:rgba(139,92,246,0.2);color:#a78bfa;border-radius:20px;font-size:0.75rem;margin-bottom:12px;">ARTICLES</span>
           <h3 style="color:var(--text-primary);margin-bottom:8px;">View All Articles</h3>
           <p style="color:var(--text-secondary);font-size:0.875rem;">Browse our complete collection of AI tool reviews and guides.</p>
@@ -755,7 +970,7 @@
       <h2 style="font-size:2rem;margin-bottom:16px;">Stay Updated with AI Tools</h2>
       <p style="color:var(--text-secondary);max-width:500px;margin:0 auto 32px;">Get the latest AI tool reviews, deals, and tips delivered to your inbox weekly.</p>
       <form style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:450px;margin:0 auto;">
-        <input type="email" placeholder="Enter your email" style="flex:1;min-width:250px;padding:14px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.2);background:var(--bg-card);color:var(--text-primary);font-size:1rem;">
+        <input type="email" placeholder="Enter your email" style="flex:1;min-width:250px;padding:14px 20px;border-radius:12px;border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-primary);font-size:1rem;">
         <button type="submit" class="btn" style="padding:14px 28px;font-size:1rem;">Subscribe</button>
       </form>
       <p style="color:var(--text-secondary);font-size:0.75rem;margin-top:16px;">No spam, unsubscribe anytime.</p>
@@ -767,6 +982,7 @@
       <div class="logo">AI Tools Hub</div>
       <div class="footer-links">
         <a href="reviews.html">Reviews</a>
+        <a href="compare.html">Compare</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
         <a href="privacy.html">Privacy</a>
@@ -785,6 +1001,23 @@
   </footer>
   
   <script>
+    // Theme toggle functionality
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+    
+    // Apply saved theme on load
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    })();
+    
     // Toggle mobile menu
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');

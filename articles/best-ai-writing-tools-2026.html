@@ -16,11 +16,11 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #12121a;
-      --bg-card: #1a1a24;
-      --text-primary: #f0f0f5;
-      --text-secondary: #a0a0b0;
+      --bg-primary: var(--bg-primary);
+      --bg-secondary: var(--bg-secondary);
+      --bg-card: var(--bg-card);
+      --text-primary: var(--text-primary);
+      --text-secondary: var(--text-secondary);
       --accent-primary: #6366f1;
       --accent-secondary: #8b5cf6;
       --accent-tertiary: #06b6d4;
@@ -48,7 +48,7 @@
       z-index: 50;
       backdrop-filter: blur(24px);
       background: rgba(10,10,15,0.9);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid var(--border-color);
     }
     nav .container {
       display: flex;
@@ -114,7 +114,7 @@
       font-size: 1.75rem;
       margin: 48px 0 20px;
       padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid var(--border-color);
     }
     .article-content h3 { font-size: 1.35rem; margin: 32px 0 16px; }
     .article-content ul, .article-content ol { margin: 0 0 24px 24px; }
@@ -156,7 +156,7 @@
     .comparison-table th, .comparison-table td {
       padding: 14px 12px;
       text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--border-color);
     }
     .comparison-table th {
       background: var(--bg-card);
@@ -197,7 +197,7 @@
     
     footer {
       padding: 48px 0;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid var(--border-color);
       text-align: center;
       color: var(--text-secondary);
     }
@@ -208,17 +208,27 @@
       .pros-cons { grid-template-columns: 1fr; }
       .comparison-table { font-size: 0.8rem; }
     }
-    .related-articles { margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
-    .related-articles h3 { font-size: 1.5rem; margin-bottom: 24px; color: #f0f0f5; }
+    .related-articles { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+    .related-articles h3 { font-size: 1.5rem; margin-bottom: 24px; color: var(--text-primary); }
     .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .related-card { background: #1a1a24; border-radius: 12px; padding: 20px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; display: block; }
+    .related-card { background: var(--bg-card); border-radius: 12px; padding: 20px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; display: block; }
     .related-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-    .related-card h4 { color: #f0f0f5; font-size: 1rem; margin-bottom: 8px; }
-    .related-card p { color: #a0a0b0; font-size: 0.875rem; margin: 0; }
+    .related-card h4 { color: var(--text-primary); font-size: 1rem; margin-bottom: 8px; }
+    .related-card p { color: var(--text-secondary); font-size: 0.875rem; margin: 0; }
     .related-category { display: inline-block; font-size: 0.75rem; color: #6366f1; margin-bottom: 8px; }
 
 
     .last-updated { color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px; font-style: italic; }
+    
+    /* Table of Contents */
+    .toc-container { margin: 32px 0; padding: 24px; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color); }
+    .toc-container h3 { font-size: 1rem; color: var(--text-secondary); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .toc-reading-time { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 16px; opacity: 0.8; }
+    .toc-list { list-style: none; padding: 0; margin: 0; }
+    .toc-list li { margin-bottom: 8px; }
+    .toc-list a { color: var(--text-primary); text-decoration: none; font-size: 0.95rem; display: block; padding: 8px 12px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
+    .toc-list a:hover { background: rgba(99,102,241,0.15); color: #818cf8; }
+    html { scroll-behavior: smooth; }
   </style>
   <script type="application/ld+json">
 {
@@ -247,6 +257,9 @@
 </script>
   </head>
 <body>
+<button class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:16px;right:16px;z-index:100;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1.1rem;"><span class="icon-dark">🌙</span><span class="icon-light" style="display:none;">☀️</span></button>
+<style>.theme-toggle:hover{background:var(--accent-primary)}[data-theme="light"] .theme-toggle .icon-dark{display:none}[data-theme="light"] .theme-toggle .icon-light{display:inline}</style>
+
   <nav>
     <div class="container">
       <a href="/ai-tools-hub/" class="logo">AI Tools Hub</a>
@@ -614,7 +627,7 @@
           <span style="display:block;margin-top:8px;color:var(--text-secondary);font-size:0.875rem;">(This is an affiliate link)</span>
         </div>
         
-        <div class="author-bio" style="margin-top:40px;padding:24px;background:var(--bg-secondary);border-radius:12px;border:1px solid rgba(255,255,255,0.1);">
+        <div class="author-bio" style="margin-top:40px;padding:24px;background:var(--bg-secondary);border-radius:12px;border:1px solid var(--border-color);">
           <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
             <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🤖</div>
             <div>
@@ -650,5 +663,7 @@
       <p>© 2026 AI Tools Hub. All rights reserved.</p>
     </div>
   </footer>
-</body>
+</body><script>
+(function() { const article = document.querySelector('article'); if (!article) return; const h2s = article.querySelectorAll('h2'); if (h2s.length < 5) return; h2s.forEach((h2, i) => { if (!h2.id) h2.id = 'section-' + i; }); const text = article.innerText; const wordCount = text.split(/\s+/).length; const readingTime = Math.max(1, Math.ceil(wordCount / 200)); let tocHtml = '<div class="toc-container"><h3>On This Page</h3><div class="toc-reading-time">📖 ' + readingTime + ' min read</div><ul class="toc-list">'; h2s.forEach((h2, i) => { tocHtml += '<li><a href="#' + h2.id + '">' + h2.textContent.trim() + '</a></li>'; }); tocHtml += '</ul></div>'; h2s[0].insertAdjacentHTML('beforebegin', tocHtml); })();
+function toggleTheme(){const html=document.documentElement;const t=html.getAttribute("data-theme");const n=t==="light"?"dark":"light";html.setAttribute("data-theme",n);localStorage.setItem("theme",n)}(function(){const s=localStorage.getItem("theme");if(s){document.documentElement.setAttribute("data-theme",s)}})()</script>
 </html>

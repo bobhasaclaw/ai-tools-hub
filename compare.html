@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/ai-tools-hub/favicon.svg">
+  <link rel="apple-touch-icon" href="/ai-tools-hub/favicon.svg">
+  <title>Compare AI Tools | AI Tools Hub</title>
+  <meta name="description" content="Compare top AI tools side-by-side. Compare pricing, features, ratings, pros and cons of ChatGPT, Claude, Midjourney, and more.">
+  <link rel="canonical" href="https://bobhasaclaw.github.io/ai-tools-hub/compare.html">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+      --accent-tertiary: #06b6d4;
+      --border-color: rgba(255,255,255,0.1);
+      --nav-bg: rgba(10,10,15,0.8);
+    }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(24px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .theme-toggle:hover { background: var(--accent-primary); }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+    .btn {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+    }
+    
+    .nav-links.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,15,0.95);
+      padding: 16px 24px;
+      gap: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .page-header { padding: 140px 0 60px; text-align: center; }
+    .page-header h1 { font-size: 2.75rem; font-weight: 700; margin-bottom: 16px; }
+    .page-header h1 span {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .page-header p { color: var(--text-secondary); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+    
+    .tool-selector {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    .selector-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+    .selector-header h2 { font-size: 1.25rem; }
+    .selector-slots { display: flex; gap: 16px; flex-wrap: wrap; }
+    .tool-slot { position: relative; min-width: 200px; flex: 1; }
+    .tool-slot label { display: block; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .tool-slot select {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .tool-slot select:focus { outline: none; border-color: var(--accent-primary); }
+    
+    .category-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .category-tab {
+      padding: 8px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .category-tab:hover, .category-tab.active { background: var(--accent-primary); border-color: var(--accent-primary); color: white; }
+    
+    .search-box { margin-bottom: 24px; }
+    .search-box input {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 16px 12px 44px;
+      font-size: 0.9rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-primary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a0a0b0'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 14px center;
+    }
+    .search-box input:focus { outline: none; border-color: var(--accent-primary); }
+    
+    .comparison-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+    .comparison-empty { padding: 80px 40px; text-align: center; }
+    .comparison-empty-icon { font-size: 4rem; margin-bottom: 24px; }
+    .comparison-empty h3 { font-size: 1.5rem; margin-bottom: 12px; }
+    .comparison-empty p { color: var(--text-secondary); }
+    
+    .comparison-table { width: 100%; border-collapse: collapse; }
+    .comparison-table th, .comparison-table td { padding: 20px 24px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    .comparison-table th { background: var(--bg-secondary); font-weight: 600; font-size: 0.875rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table td { vertical-align: top; }
+    
+    .tool-header { display: flex; align-items: center; gap: 12px; }
+    .tool-header-icon { font-size: 1.75rem; }
+    .tool-header-name { font-weight: 600; font-size: 1rem; }
+    .tool-header-category { font-size: 0.7rem; color: var(--accent-primary); text-transform: uppercase; }
+    
+    .rating { color: #fbbf24; font-weight: 600; }
+    .rating-num { color: var(--text-secondary); font-weight: 400; }
+    
+    .pricing-badge { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }
+    .pricing-free { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .pricing-freemium { background: rgba(251,191,36,0.2); color: #fbbf24; }
+    .pricing-paid { background: rgba(239,68,68,0.2); color: #ef4444; }
+    
+    .features-list { list-style: none; }
+    .features-list li { padding: 4px 0; font-size: 0.875rem; display: flex; align-items: flex-start; gap: 8px; }
+    .features-list li::before { content: '✓'; color: var(--accent-primary); font-weight: bold; }
+    
+    .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .pros, .cons { font-size: 0.8rem; }
+    .pros h4, .cons h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .pros h4 { color: #22c55e; }
+    .cons h4 { color: #ef4444; }
+    .pros ul, .cons ul { list-style: none; padding: 0; }
+    .pros li, .cons li { padding: 3px 0 3px 14px; position: relative; }
+    .pros li::before { content: '+'; position: absolute; left: 0; color: #22c55e; font-weight: bold; }
+    .cons li::before { content: '−'; position: absolute; left: 0; color: #ef4444; font-weight: bold; }
+    
+    .best-for-tag { display: inline-block; padding: 6px 12px; background: rgba(139,92,246,0.2); color: #a78bfa; border-radius: 6px; font-size: 0.8rem; }
+    
+    footer { padding: 48px 0; border-top: 1px solid var(--border-color); }
+    footer .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    footer .logo { font-size: 1.25rem; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--text-secondary); font-size: 0.875rem; text-decoration: none; }
+    .footer-links a:hover { color: white; }
+    .copyright { color: var(--text-secondary); font-size: 0.875rem; }
+    
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 2rem; }
+      .tool-selector { padding: 20px; }
+      .selector-slots { flex-direction: column; }
+      .tool-slot { min-width: 100%; }
+      .comparison-table th, .comparison-table td { padding: 12px; font-size: 0.8rem; }
+      .comparison-table { display: block; overflow-x: auto; }
+      .pros-cons { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">AI Tools Hub</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="compare.html" class="active">Compare</a>
+        <a href="about.html">About</a>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        <a href="reviews.html" class="btn">Get Started</a>
+      </div>
+    </div>
+  </nav>
+  
+  <section class="page-header">
+    <div class="container">
+      <h1>Compare <span>AI Tools</span></h1>
+      <p>Select 2-3 tools to see a side-by-side comparison of pricing, features, ratings, and more.</p>
+    </div>
+  </section>
+  
+  <section>
+    <div class="container">
+      <div class="tool-selector">
+        <div class="selector-header">
+          <h2>Select Tools to Compare</h2>
+          <button class="btn" onclick="clearAllSelections()" style="background: var(--bg-secondary); border: 1px solid var(--border-color);">Clear All</button>
+        </div>
+        
+        <div class="category-tabs">
+          <button class="category-tab active" data-category="all">All Tools</button>
+          <button class="category-tab" data-category="chat">Chat AI</button>
+          <button class="category-tab" data-category="image">Image AI</button>
+          <button class="category-tab" data-category="video">Video AI</button>
+          <button class="category-tab" data-category="coding">Coding AI</button>
+        </div>
+        
+        <div class="search-box">
+          <input type="text" id="toolSearch" placeholder="Search tools..." oninput="filterTools()">
+        </div>
+        
+        <div class="selector-slots">
+          <div class="tool-slot">
+            <label>Tool 1</label>
+            <select id="select1" onchange="updateComparison()">
+              <option value="">Select a tool...</option>
+            </select>
+          </div>
+          <div class="tool-slot">
+            <label>Tool 2</label>
+            <select id="select2" onchange="updateComparison()">
+              <option value="">Select a tool...</option>
+            </select>
+          </div>
+          <div class="tool-slot">
+            <label>Tool 3</label>
+            <select id="select3" onchange="updateComparison()">
+              <option value="">Select a tool...</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="comparison-container" id="comparisonContainer">
+        <div class="comparison-empty">
+          <div class="comparison-empty-icon">⚖️</div>
+          <h3>Select tools to compare</h3>
+          <p>Choose 2 or more tools from the dropdowns above to see a detailed comparison.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <a href="index.html" class="logo">AI Tools Hub</a>
+      <div class="footer-links">
+        <a href="reviews.html">Reviews</a>
+        <a href="compare.html">Compare</a>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <div class="copyright">© 2026 AI Tools Hub. All rights reserved.</div>
+    </div>
+  </footer>
+  
+  <script>
+    const aiToolsData = {
+      'chatgpt': { name: 'ChatGPT', icon: '🤖', category: 'chat', categoryName: 'Chat AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.9, bestFor: 'General conversation, writing, coding assistance', features: ['Natural language understanding', 'Code generation & debugging', 'Multi-language support', 'GPT-4o model', 'Voice conversations', 'Image analysis'], pros: ['Most widely adopted', 'Excellent coding', 'Constantly improving', 'Large plugin ecosystem'], cons: ['Can hallucinate', 'Knowledge cutoff', 'Free tier rate limits'] },
+      'claude': { name: 'Claude', icon: '🧠', category: 'chat', categoryName: 'Chat AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.8, bestFor: 'Thoughtful writing, analysis, long-form content', features: ['200K token context', 'Excellent writing', 'Strong analysis', 'Code assistance', 'Research', 'Computer use'], pros: ['Exceptional writing', 'Huge context', 'Low hallucination', 'Great for analysis'], cons: ['Slower responses', 'Less adoption', 'Fewer integrations'] },
+      'gemini': { name: 'Gemini', icon: '✨', category: 'chat', categoryName: 'Chat AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.7, bestFor: 'Multimodal tasks, Google ecosystem', features: ['Native multimodal', 'Google integration', 'Image understanding', 'Code execution', 'File upload', 'Live search'], pros: ['Best multimodal', 'Free advanced features', 'Google integration', 'Image analysis'], cons: ['Inconsistent', 'Less creative', 'Account required'] },
+      'perplexity': { name: 'Perplexity', icon: '🔍', category: 'chat', categoryName: 'Chat AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.7, bestFor: 'Research, fact-finding, cited answers', features: ['Real-time search', 'Cited sources', 'Follow-up questions', 'Multiple models', 'Collections', 'Pro search'], pros: ['Real-time info', 'All answers cited', 'Great research', 'Clean UI'], cons: ['Not for creative', 'Complex queries', 'Premium expensive'] },
+      'midjourney': { name: 'Midjourney', icon: '🎨', category: 'image', categoryName: 'Image AI', pricing: 'Paid', pricingType: 'paid', rating: 4.9, bestFor: 'Artistic image creation, concept art', features: ['Photorealistic', 'Artistic control', 'Variations', 'Character consistency', 'High res', 'Prompt syntax'], pros: ['Best artistic images', 'Style control', 'Active community', 'Constantly improving'], cons: ['No free tier', 'Discord only', 'Learning curve'] },
+      'dalle': { name: 'DALL-E', icon: '🖼️', category: 'image', categoryName: 'Image AI', pricing: 'Paid', pricingType: 'paid', rating: 4.6, bestFor: 'Quick generation, commercial use', features: ['Text-to-image', 'Inpainting', 'Variations', 'ChatGPT integration', 'API access', 'High res'], pros: ['Easy to use', 'ChatGPT integration', 'Commercial rights', 'Consistent'], cons: ['Credit pricing', 'Less artistic', 'Limited control'] },
+      'stable-diffusion': { name: 'Stable Diffusion', icon: '🌊', category: 'image', categoryName: 'Image AI', pricing: 'Free', pricingType: 'free', rating: 4.7, bestFor: 'Local generation, custom models', features: ['Open source', 'Run locally', 'Custom models', 'Inpainting', 'ControlNet', 'ComfyUI'], pros: ['Completely free', 'Privacy', 'Model ecosystem', 'Customizable'], cons: ['Needs GPU', 'Steep curve', 'Quality varies'] },
+      'runway': { name: 'Runway', icon: '🎬', category: 'video', categoryName: 'Video AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.7, bestFor: 'Professional video editing, AI effects', features: ['Text-to-video', 'Video editing', 'AI effects', 'Gen-3 Alpha', 'Green screen', 'Motion tracking'], pros: ['Professional tools', 'Continuous AI', 'Editing suite', 'Content creators'], cons: ['Credit system', 'Can be expensive', 'Learning curve'] },
+      'synthesia': { name: 'Synthesia', icon: '🎭', category: 'video', categoryName: 'Video AI', pricing: 'Paid', pricingType: 'paid', rating: 4.5, bestFor: 'AI avatars, corporate videos', features: ['AI avatars', '130+ languages', 'Custom avatars', 'Script-to-video', 'Presentation tools', 'Enterprise'], pros: ['Realistic avatars', 'Corporate videos', 'Language support', 'Professional'], cons: ['Expensive', 'Limited customization', 'Can feel robotic'] },
+      'kling': { name: 'Kling AI', icon: '🚀', category: 'video', categoryName: 'Video AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.6, bestFor: 'Long-form video, text-to-video', features: ['2-min videos', '1080p output', 'Aspect ratios', 'Image-to-video', 'Video extensions', 'Kling 1.5'], pros: ['Longest videos', 'High quality', 'Free tier', 'Fast generation'], cons: ['Limited features', 'Inconsistencies', 'Newer player'] },
+      'github-copilot': { name: 'GitHub Copilot', icon: '💻', category: 'coding', categoryName: 'Coding AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.8, bestFor: 'General coding, IDE integration', features: ['Code suggestions', 'Multi-language', 'IDE integration', 'Copilot Chat', 'Code review', 'CLI'], pros: ['Best IDE integration', 'Widely adopted', 'Boilerplate code', 'Continuous'], cons: ['Buggy code', 'Needs internet', 'Subscription'] },
+      'cursor': { name: 'Cursor', icon: '📝', category: 'coding', categoryName: 'Coding AI', pricing: 'Freemium', pricingType: 'freemium', rating: 4.8, bestFor: 'AI-first coding, project editing', features: ['AI editor', 'Project context', 'Chat mode', 'Edit mode', 'Terminal', 'Privacy mode'], pros: ['Project understanding', 'Refactoring', 'Fast', 'Privacy options'], cons: ['VS Code fork', 'Less mature', 'Paid features'] },
+      'qwen-coder': { name: 'Qwen Coder', icon: '🧮', category: 'coding', categoryName: 'Coding AI', pricing: 'Free', pricingType: 'free', rating: 4.8, bestFor: 'Open source coding, local deployment', features: ['Open source', '32K context', 'Multiple sizes', 'Code gen', 'Completion', 'Local'], pros: ['Free & open source', 'Excellent quality', 'Run locally', 'Context handling'], cons: ['No plugin', 'Setup required', 'Less polished'] }
+    };
+
+    let selectedTools = ['', '', ''];
+    let currentCategory = 'all';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      populateDropdowns();
+      setupCategoryTabs();
+    });
+
+    function populateDropdowns() {
+      ['select1', 'select2', 'select3'].forEach(id => {
+        const select = document.getElementById(id);
+        select.innerHTML = '<option value="">Select a tool...</option>';
+        Object.entries(aiToolsData).forEach(([key, tool]) => {
+          const opt = document.createElement('option');
+          opt.value = key;
+          opt.textContent = tool.name;
+          opt.dataset.category = tool.category;
+          select.appendChild(opt);
+        });
+      });
+    }
+
+    function setupCategoryTabs() {
+      document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentCategory = this.dataset.category;
+          filterDropdowns();
+          filterTools();
+        });
+      });
+    }
+
+    function filterDropdowns() {
+      ['select1', 'select2', 'select3'].forEach(id => {
+        const select = document.getElementById(id);
+        Array.from(select.options).forEach(opt => {
+          opt.style.display = (!opt.value || currentCategory === 'all' || opt.dataset.category === currentCategory) ? '' : 'none';
+        });
+      });
+    }
+
+    function filterTools() {
+      const search = document.getElementById('toolSearch').value.toLowerCase();
+      ['select1', 'select2', 'select3'].forEach(id => {
+        const select = document.getElementById(id);
+        Array.from(select.options).forEach(opt => {
+          if (!opt.value) { opt.style.display = ''; return; }
+          const tool = aiToolsData[opt.value];
+          const matchSearch = tool.name.toLowerCase().includes(search);
+          const matchCat = currentCategory === 'all' || tool.category === currentCategory;
+          opt.style.display = (matchSearch && matchCat) ? '' : 'none';
+        });
+      });
+    }
+
+    function updateComparison() {
+      selectedTools = [
+        document.getElementById('select1').value,
+        document.getElementById('select2').value,
+        document.getElementById('select3').value
+      ];
+      selectedTools = selectedTools.map((t, i) => t && selectedTools.slice(0, i).includes(t) ? '' : t);
+      document.getElementById('select1').value = selectedTools[0];
+      document.getElementById('select2').value = selectedTools[1];
+      document.getElementById('select3').value = selectedTools[2];
+      renderComparison();
+    }
+
+    function clearAllSelections() {
+      document.getElementById('select1').value = '';
+      document.getElementById('select2').value = '';
+      document.getElementById('select3').value = '';
+      document.getElementById('toolSearch').value = '';
+      selectedTools = ['', '', ''];
+      renderComparison();
+    }
+
+    function renderComparison() {
+      const container = document.getElementById('comparisonContainer');
+      const tools = selectedTools.filter(t => t !== '');
+      
+      if (tools.length < 2) {
+        container.innerHTML = `
+          <div class="comparison-empty">
+            <div class="comparison-empty-icon">⚖️</div>
+            <h3>Select tools to compare</h3>
+            <p>Choose 2 or more tools from the dropdowns above to see a detailed comparison.</p>
+          </div>`;
+        return;
+      }
+
+      const rows = [
+        { label: '', isHeader: true },
+        { label: 'Pricing', key: 'pricing', type: 'pricing' },
+        { label: 'Best For', key: 'bestFor', type: 'text' },
+        { label: 'Rating', key: 'rating', type: 'rating' },
+        { label: 'Key Features', key: 'features', type: 'features' },
+        { label: 'Pros & Cons', key: 'proscons', type: 'proscons' }
+      ];
+
+      let html = '<table class="comparison-table"><thead><tr><th></th>';
+      tools.forEach(key => {
+        const t = aiToolsData[key];
+        html += `<th><div class="tool-header"><span class="tool-header-icon">${t.icon}</span><div><div class="tool-header-name">${t.name}</div><div class="tool-header-category">${t.categoryName}</div></div></div></th>`;
+      });
+      html += '</tr></thead><tbody>';
+
+      rows.slice(1).forEach(row => {
+        html += `<tr><th>${row.label}</th>`;
+        tools.forEach(key => {
+          const t = aiToolsData[key];
+          let val = '';
+          if (row.type === 'pricing') {
+            val = `<span class="pricing-badge pricing-${t.pricingType}">${t.pricing}</span>`;
+          } else if (row.type === 'rating') {
+            val = `<span class="rating">★ ${t.rating}<span class="rating-num">/5</span></span>`;
+          } else if (row.type === 'text' && row.key === 'bestFor') {
+            val = `<span class="best-for-tag">${t.bestFor}</span>`;
+          } else if (row.type === 'features') {
+            val = `<ul class="features-list">${t.features.slice(0, 4).map(f => `<li>${f}</li>`).join('')}</ul>`;
+          } else if (row.type === 'proscons') {
+            val = `<div class="pros-cons"><div class="pros"><h4>Pros</h4><ul>${t.pros.map(p => `<li>${p}</li>`).join('')}</ul></div><div class="cons"><h4>Cons</h4><ul>${t.cons.map(c => `<li>${c}</li>`).join('')}</ul></div></div>`;
+          }
+          html += `<td>${val}</td>`;
+        });
+        html += '</tr>';
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('mobile-open');
+      document.querySelector('.hamburger').classList.toggle('active');
+    }
+    
+    function toggleTheme() {
+      // Theme toggle placeholder - can be extended
+    }
+  </script>
+</body>
+</html>

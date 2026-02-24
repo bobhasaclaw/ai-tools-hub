@@ -666,6 +666,14 @@
       <p class="copyright">© 2026 AI Tools Hub. All rights reserved.</p>
     </div>
   </footer>
+
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
 </body><script>
 (function() { const article = document.querySelector('article'); if (!article) return; const h2s = article.querySelectorAll('h2'); if (h2s.length < 5) return; h2s.forEach((h2, i) => { if (!h2.id) h2.id = 'section-' + i; }); const text = article.innerText; const wordCount = text.split(/\s+/).length; const readingTime = Math.max(1, Math.ceil(wordCount / 200)); let tocHtml = '<div class="toc-container"><h3>On This Page</h3><div class="toc-reading-time">📖 ' + readingTime + ' min read</div><ul class="toc-list">'; h2s.forEach((h2, i) => { tocHtml += '<li><a href="#' + h2.id + '">' + h2.textContent.trim() + '</a></li>'; }); tocHtml += '</ul></div>'; h2s[0].insertAdjacentHTML('beforebegin', tocHtml); })();
 function toggleTheme(){const html=document.documentElement;const t=html.getAttribute("data-theme");const n=t==="light"?"dark":"light";html.setAttribute("data-theme",n);localStorage.setItem("theme",n)}(function(){const s=localStorage.getItem("theme");if(s){document.documentElement.setAttribute("data-theme",s)}})()</script>

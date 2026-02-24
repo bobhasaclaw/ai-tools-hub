@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/ai-tools-hub/favicon.svg">
+  <link rel="apple-touch-icon" href="/ai-tools-hub/favicon.svg">
+  <title>404 - Page Not Found | AI Tools Hub</title>
+  <meta name="description" content="Oops! The page you're looking for doesn't exist. Browse our AI tool reviews, comparisons, and guides to find what you need.">
+  
+  <link rel="canonical" href="https://bobhasaclaw.github.io/ai-tools-hub/404.html">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      /* Dark mode (default) */
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+      --accent-tertiary: #06b6d4;
+      --border-color: rgba(255,255,255,0.1);
+      --nav-bg: rgba(10,10,15,0.8);
+      --shadow-color: rgba(0,0,0,0.3);
+    }
+    [data-theme="light"] {
+      --bg-primary: #f8f9fa;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a5a;
+      --accent-primary: #4f46e5;
+      --accent-secondary: #7c3aed;
+      --accent-tertiary: #0891b2;
+      --border-color: rgba(0,0,0,0.1);
+      --nav-bg: rgba(248,249,250,0.9);
+      --shadow-color: rgba(0,0,0,0.1);
+    }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    [data-theme="light"] body::before {
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.08) 0%, transparent 50%);
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      backdrop-filter: blur(24px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+    .theme-toggle .icon-dark { display: block; }
+    .theme-toggle .icon-light { display: none; }
+    [data-theme="light"] .theme-toggle .icon-dark { display: none; }
+    [data-theme="light"] .theme-toggle .icon-light { display: block; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .btn {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      color: white;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99,102,241,0.4); }
+    
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    
+    /* Mobile Nav */
+    .nav-links.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,15,0.95);
+      padding: 16px 24px 24px;
+      gap: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    /* 404 Hero */
+    .error-hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+    }
+    .error-content {
+      text-align: center;
+      max-width: 600px;
+    }
+    .error-icon {
+      font-size: 6rem;
+      margin-bottom: 24px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .error-code {
+      font-size: 8rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .error-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .error-desc {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-bottom: 32px;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Search */
+    .error-search {
+      max-width: 450px;
+      margin: 0 auto 40px;
+      display: flex;
+      gap: 8px;
+    }
+    .error-search input {
+      flex: 1;
+      padding: 16px 24px;
+      font-size: 1rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.3s;
+    }
+    .error-search input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 30px rgba(99,102,241,0.3);
+    }
+    .error-search button {
+      padding: 16px 24px;
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .error-search button:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Quick Links */
+    .quick-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .quick-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .quick-link:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.2);
+    }
+    .quick-link-icon {
+      font-size: 1.25rem;
+    }
+    
+    /* Popular Articles */
+    .popular-section {
+      padding: 0 0 80px;
+    }
+    .popular-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+    }
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .popular-card {
+      display: block;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .popular-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+    .popular-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .popular-card-title {
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border-color);
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    footer .logo { font-size: 1.25rem; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: white; }
+    .social-links { display: flex; gap: 16px; margin-top: 16px; }
+    .social-links a {
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--border-color);
+    }
+    .social-links a:hover { color: white; transform: translateY(-2px); }
+    .copyright { color: var(--text-secondary); font-size: 0.875rem; }
+    
+    @media (max-width: 768px) {
+      .error-code { font-size: 5rem; }
+      .error-title { font-size: 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      nav { position: relative; }
+      .quick-links { flex-direction: column; align-items: center; }
+      .quick-link { width: 100%; max-width: 280px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">AI Tools Hub</a>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="compare.html">Compare</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="about.html">About</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+          <span class="icon-dark">🌙</span>
+          <span class="icon-light">☀️</span>
+        </button>
+        <a href="reviews.html" class="btn">Get Started</a>
+      </div>
+    </div>
+  </nav>
+  
+  <section class="error-hero">
+    <div class="container">
+      <div class="error-content">
+        <!-- Animated 404 icon -->
+        <div class="error-icon">🔍</div>
+        
+        <!-- Large 404 code -->
+        <div class="error-code">404</div>
+        
+        <!-- Friendly error message -->
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-desc">Oops! The page you're looking for seems to have wandered off. Let's help you find what you need.</p>
+        
+        <!-- Search box -->
+        <div class="error-search">
+          <input type="text" placeholder="Search AI tools..." id="errorSearchInput">
+          <button onclick="searchError()">🔍</button>
+        </div>
+        
+        <!-- Quick links to popular pages -->
+        <div class="quick-links">
+          <a href="index.html" class="quick-link">
+            <span class="quick-link-icon">🏠</span>
+            Home
+          </a>
+          <a href="reviews.html" class="quick-link">
+            <span class="quick-link-icon">⭐</span>
+            Reviews
+          </a>
+          <a href="about.html" class="quick-link">
+            <span class="quick-link-icon">ℹ️</span>
+            About
+          </a>
+        </div>
+        
+        <!-- Popular articles suggestion -->
+        <div class="popular-section">
+          <h3 class="popular-title">Popular Articles</h3>
+          <div class="popular-grid">
+            <a href="articles/chatgpt-review-2026.html" class="popular-card">
+              <div class="popular-card-icon">🤖</div>
+              <div class="popular-card-title">ChatGPT Review 2026</div>
+            </a>
+            <a href="articles/claude-review-2026.html" class="popular-card">
+              <div class="popular-card-icon">🧠</div>
+              <div class="popular-card-title">Claude Review 2026</div>
+            </a>
+            <a href="articles/midjourney-review-2026.html" class="popular-card">
+              <div class="popular-card-icon">🎨</div>
+              <div class="popular-card-title">Midjourney Review</div>
+            </a>
+            <a href="articles/chatgpt-vs-claude.html" class="popular-card">
+              <div class="popular-card-icon">⚖️</div>
+              <div class="popular-card-title">ChatGPT vs Claude</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <div class="logo">AI Tools Hub</div>
+      <div class="footer-links">
+        <a href="reviews.html">Reviews</a>
+        <a href="compare.html">Compare</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
+      </div>
+      <div class="social-links">
+        <a href="https://twitter.com/aitoolshub" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://youtube.com/@aitoolshub" target="_blank" title="YouTube">▶</a>
+        <a href="https://github.com/aitoolshub" target="_blank" title="GitHub">⌘</a>
+        <a href="https://discord.gg/aitoolshub" target="_blank" title="Discord">💬</a>
+      </div>
+      <div class="copyright">© 2026 AI Tools Hub. All rights reserved.</div>
+      <p style="color:var(--text-secondary);font-size:0.75rem;margin-top:8px;">Ratings are our honest opinions based on research and testing. We may earn affiliate commissions from tool recommendations.</p>
+    </div>
+  </footer>
+  
+  <script>
+    // Theme toggle functionality
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+    
+    // Apply saved theme on load
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    })();
+    
+    // Toggle mobile menu
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      const hamburger = document.querySelector('.hamburger');
+      navLinks.classList.toggle('mobile-open');
+      hamburger.classList.toggle('active');
+    }
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('mobile-open');
+        document.querySelector('.hamburger').classList.remove('active');
+      });
+    });
+    
+    // Search function - redirect to reviews page with query
+    function searchError() {
+      const query = document.getElementById('errorSearchInput').value.trim();
+      if (query) {
+        window.location.href = 'reviews.html?q=' + encodeURIComponent(query);
+      } else {
+        window.location.href = 'reviews.html';
+      }
+    }
+    
+    // Enter key search
+    document.getElementById('errorSearchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchError();
+      }
+    });
+  </script>
+</body>
+</html>

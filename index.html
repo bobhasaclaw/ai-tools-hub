@@ -349,12 +349,36 @@
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 24px;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
     .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(99,102,241,0.3);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(99,102,241,0.2);
+      transform: scale(1.02);
+      border-color: rgba(99,102,241,0.5);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 30px rgba(99,102,241,0.25);
+    }
+    .card .preview-snippet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      padding: 16px 24px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .card:hover .preview-snippet {
+      max-height: 100px;
+      opacity: 1;
+    }
+    [data-theme="light"] .card:hover {
+      box-shadow: 0 24px 48px rgba(0,0,0,0.15), 0 0 30px rgba(99,102,241,0.2);
     }
     .card-icon { font-size: 2.5rem; margin-bottom: 16px; }
     .card-badge {
@@ -402,8 +426,15 @@
       border-radius: 20px;
       padding: 28px;
       position: relative;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       overflow: hidden;
+    }
+    .premium-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 40px rgba(251,191,36,0.2);
+    }
+    [data-theme="light"] .premium-card:hover {
+      box-shadow: 0 24px 48px rgba(0,0,0,0.15), 0 0 40px rgba(251,191,36,0.15);
     }
     .premium-card::before {
       content: '';

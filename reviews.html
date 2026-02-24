@@ -247,15 +247,39 @@
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 24px;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       text-decoration: none;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
     .article-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(99,102,241,0.3);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transform: scale(1.02);
+      border-color: rgba(99,102,241,0.5);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 30px rgba(99,102,241,0.25);
+    }
+    .article-card .preview-snippet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      padding: 16px 24px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .article-card:hover .preview-snippet {
+      max-height: 120px;
+      opacity: 1;
+    }
+    [data-theme="light"] .article-card:hover {
+      box-shadow: 0 24px 48px rgba(0,0,0,0.15), 0 0 30px rgba(99,102,241,0.2);
     }
     .card-header {
       display: flex;
@@ -615,6 +639,7 @@
         </div>
         <h3>ChatGPT Review 2026</h3>
         <p>The leading AI chatbot for conversation, writing, and coding assistance.</p>
+        <div class="preview-snippet">Discover why ChatGPT remains the top AI chatbot in 2026. Features GPT-4o with multimodal capabilities, real-time web browsing, and advanced reasoning. Perfect for content creation, coding help, and everyday tasks.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -627,6 +652,7 @@
         </div>
         <h3>Claude Review 2026</h3>
         <p>Anthropic's AI assistant known for thoughtful, detailed responses.</p>
+        <div class="preview-snippet">Claude excels in nuanced reasoning and long-form writing. The 200K context window handles extensive documents. Ideal for research, analysis, and creative projects requiring depth and accuracy.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -639,6 +665,7 @@
         </div>
         <h3>Gemini Review 2026</h3>
         <p>Google's multimodal AI model with advanced reasoning.</p>
+        <div class="preview-snippet">Google's flagship AI integrates seamlessly with Workspace. Strong multimodal capabilities combine text, image, and code generation. Excellent for research and productivity within Google's ecosystem.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -699,6 +726,7 @@
         </div>
         <h3>Midjourney Review 2026</h3>
         <p>The leading AI image generator for artistic creations.</p>
+        <div class="preview-snippet">Midjourney v7 produces stunning photorealistic and artistic images. Industry leader for conceptual art, marketing visuals, and creative projects. Discord-based workflow is intuitive and powerful.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -759,6 +787,7 @@
         </div>
         <h3>Runway ML Review 2026</h3>
         <p>Advanced AI video generation and editing platform.</p>
+        <div class="preview-snippet">Runway Gen-3 Alpha creates stunning videos from text and images. Professional editing tools, motion tracking, and green screen. The go-to platform for AI-powered video production.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -879,6 +908,7 @@
         </div>
         <h3>Suno AI Review 2026</h3>
         <p>AI-powered music and song generation.</p>
+        <div class="preview-snippet">Create complete songs with Suno AI - vocals, instruments, and lyrics. Perfect for content creators, musicians, and hobbyists. Generate professional-quality music in minutes without any musical training.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -891,6 +921,7 @@
         </div>
         <h3>Eleven Labs Review 2026</h3>
         <p>Industry-leading AI voice synthesis.</p>
+        <div class="preview-snippet">Create ultra-realistic AI voices with Eleven Labs. Perfect for content creators, audiobooks, and podcasts. Voice cloning and multi-language support available. The gold standard for AI audio.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -1131,6 +1162,7 @@
         </div>
         <h3>Cursor AI Review 2026</h3>
         <p>AI-first code editor.</p>
+        <div class="preview-snippet">Cursor combines VS Code with AI for an incredible coding experience. Features include AI autocomplete, natural language refactoring, and smart context awareness. Boost your productivity by 40% or more.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -1143,6 +1175,7 @@
         </div>
         <h3>GitHub Copilot Review 2026</h3>
         <p>Microsoft's AI pair programmer.</p>
+        <div class="preview-snippet">GitHub Copilot transforms your IDE with intelligent code suggestions. Supports 30+ languages and works with VS Code, JetBrains, and Neovim. Studies show 55% faster coding completion.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>
@@ -1191,6 +1224,7 @@
         </div>
         <h3>Perplexity AI Review 2026</h3>
         <p>AI-powered search engine.</p>
+        <div class="preview-snippet">Perplexity replaces traditional search with AI-powered answers. Get cited, comprehensive responses with sources. Ideal for research, learning, and quick fact-checking. The future of search is here.</div>
         <div class="card-footer">
           <span class="date">Feb 2026</span>
           <span class="read-more">Read Review →</span>

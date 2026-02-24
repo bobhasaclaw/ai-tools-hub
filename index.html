@@ -735,6 +735,18 @@
       width: 24px;
       height: 24px;
     }
+    
+    /* Fade-in scroll animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -1246,6 +1258,33 @@
     // Smooth scroll to top when clicked
     backToTopBtn.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Fade-in on scroll using Intersection Observer
+    const fadeElements = document.querySelectorAll('.card, .premium-card, .cta-card, section');
+    
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // Add staggered delay for cards within the same parent
+          const siblings = entry.target.parentElement.querySelectorAll('.fade-in');
+          let delay = 0;
+          Array.from(siblings).forEach((sibling, i) => {
+            if (sibling === entry.target) {
+              delay = i * 100;
+            }
+          });
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(el => {
+      el.classList.add('fade-in');
+      fadeObserver.observe(el);
     });
   </script>
   

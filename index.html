@@ -540,19 +540,8 @@
       padding: 80px 0;
       background: var(--bg-secondary);
     }
-    .editors-choice-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-    .premium-card {
-      background: var(--bg-card);
-      border-radius: 20px;
-      padding: 28px;
-      position: relative;
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
+    .editors-choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: stretch; }
+    .premium-card { background: var(--bg-card); border-radius: 20px; padding: 28px; position: relative; transition: all 0.3s ease; overflow: hidden; display: flex; flex-direction: column; min-height: 100%; }
     .premium-card:hover {
       transform: scale(1.02);
       box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 40px rgba(251,191,36,0.2);

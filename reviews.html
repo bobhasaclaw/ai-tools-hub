@@ -44,11 +44,11 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg-primary: var(--bg-primary);
-      --bg-secondary: var(--bg-secondary);
-      --bg-card: var(--bg-card);
-      --text-primary: var(--text-primary);
-      --text-secondary: var(--text-secondary);
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a24;
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
       --accent-primary: #6366f1;
       --accent-secondary: #8b5cf6;
       --accent-tertiary: #06b6d4;
@@ -751,7 +751,8 @@
     </div>
 
     <div class="articles-grid">
-      <a href="articles/chatgpt-review-2026.html" class="article-card" data-category="chat-ai">
+      <span id="llms"></span>
+              <a href="articles/chatgpt-review-2026.html" class="article-card" data-category="chat-ai">
         <div class="card-header">
           <span class="category-tag chat-ai">Chat AI</span>
           <span class="read-time">8 min</span>
@@ -838,7 +839,8 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
-      <a href="articles/midjourney-review-2026.html" class="article-card" data-category="image-ai">
+      <span id="image-ai"></span>
+              <a href="articles/midjourney-review-2026.html" class="article-card" data-category="image-ai">
         <span class="new-badge">New</span>
         <div class="card-header">
           <span class="category-tag image-ai">Image AI</span>
@@ -902,7 +904,8 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
-      <a href="articles/runway-ml-review-2026.html" class="article-card" data-category="video-ai">
+      <span id="video-ai"></span>
+              <a href="articles/runway-ml-review-2026.html" class="article-card" data-category="video-ai">
         <div class="card-header">
           <span class="category-tag video-ai">Video AI</span>
           <span class="read-time">7 min</span>
@@ -1024,6 +1027,7 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
+              <span id="audio-ai"></span>
       <a href="articles/suno-ai-review-2026.html" class="article-card" data-category="audio-ai">
         <div class="card-header">
           <span class="category-tag audio-ai">Audio AI</span>
@@ -1087,7 +1091,8 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
-      <a href="articles/otter-ai-review-2026.html" class="article-card" data-category="writing-ai">
+      <span id="writing"></span>
+              <a href="articles/otter-ai-review-2026.html" class="article-card" data-category="writing-ai">
         <div class="card-header">
           <span class="category-tag writing-ai">Writing AI</span>
           <span class="read-time">4 min</span>
@@ -1280,7 +1285,8 @@
           <span class="read-more">Read Review →</span>
         </div>
       </a>
-      <a href="articles/cursor-ai-editor-review-2026.html" class="article-card" data-category="coding-ai">
+      <span id="coding"></span>
+              <a href="articles/cursor-ai-editor-review-2026.html" class="article-card" data-category="coding-ai">
         <div class="card-header">
           <span class="category-tag coding-ai">Coding AI</span>
           <span class="read-time">6 min</span>

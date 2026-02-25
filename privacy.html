@@ -299,25 +299,38 @@ Privacy Policy | AI Tools Hub</title>
 </head>
 <body>
   <nav>
-    <div class="container">
-      <a href="/ai-tools-hub/" class="logo">AI Tools Hub</a>
-      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <div class="nav-links">
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
-          <span class="icon-dark">🌙</span>
-          <span class="icon-light">☀️</span>
-        </button>
-        <a href="/ai-tools-hub/">Home</a>
-        <a href="/ai-tools-hub/reviews.html">Reviews</a>
-        <a href="/ai-tools-hub/about.html">About</a>
-        <a href="/ai-tools-hub/privacy.html" class="active">Privacy</a>
-      </div>
-    </div>
-  </nav>
+ <div class="container">
+ <a href="index.html" class="logo">AI Tools Hub</a>
+ <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+ <span></span>
+ <span></span>
+ <span></span>
+ </button>
+ <div class="nav-links">
+ <a href="index.html">Home</a>
+ <a href="reviews.html">Reviews</a>
+ <div class="nav-item-dropdown">
+ <a href="#" class="dropdown-toggle">Categories</a>
+ <div class="dropdown-menu">
+ <a href="reviews.html#llms">LLMs</a>
+ <a href="reviews.html#image-ai">Image AI</a>
+ <a href="reviews.html#video-ai">Video AI</a>
+ <a href="reviews.html#audio-ai">Audio AI</a>
+ <a href="reviews.html#writing">Writing Tools</a>
+ <a href="reviews.html#coding">Coding Assistants</a>
+ </div>
+ </div>
+ <a href="compare.html">Compare</a>
+ <a href="quiz.html">Quiz</a>
+ <a href="about.html">About</a>
+ <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+ <span class="icon-dark">🌙</span>
+ <span class="icon-light">☀️</span>
+ </button>
+ <a href="#reviews" class="btn">Get Started</a>
+ </div>
+ </div>
+</nav>
 
   <main class="container content">
     <h1>Privacy Policy</h1>
@@ -420,5 +433,15 @@ Privacy Policy | AI Tools Hub</title>
       </div>
     </div>
   </footer>
+<script>
+// Theme toggle
+function toggleTheme() { const html = document.documentElement; const currentTheme = html.getAttribute('data-theme'); const newTheme = currentTheme === 'light' ? 'dark' : 'light'; html.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); }
+(function() { const savedTheme = localStorage.getItem('theme'); if (savedTheme) { document.documentElement.setAttribute('data-theme', savedTheme); } })();
+// Mobile menu
+function toggleMenu() { const navLinks = document.querySelector('.nav-links'); const hamburger = document.querySelector('.hamburger'); navLinks.classList.toggle('mobile-open'); hamburger.classList.toggle('active'); }
+document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { document.querySelector('.nav-links').classList.remove('mobile-open'); document.querySelector('.hamburger').classList.remove('active'); }); });
+document.querySelectorAll('.dropdown-toggle').forEach(toggle => { toggle.addEventListener('click', function(e) { if (window.innerWidth <= 768) { e.preventDefault(); const dropdown = this.parentElement; dropdown.classList.toggle('mobile-open'); } }); });
+
+</script>
 </body>
 </html>

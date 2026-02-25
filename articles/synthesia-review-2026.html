@@ -53,11 +53,37 @@
 
 
     .last-updated { color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px; font-style: italic; }
-  </style>
+  
+    .article-hero {
+        margin: 80px auto 40px;
+        max-width: 800px;
+        text-align: center;
+    }
+    .article-hero img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+</style>
 </head>
 <body>
 <button class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:16px;right:16px;z-index:100;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1.1rem;"><span class="icon-dark">🌙</span><span class="icon-light" style="display:none;">☀️</span></button>
-<style>.theme-toggle:hover{background:var(--accent-primary)}[data-theme="light"] .theme-toggle .icon-dark{display:none}[data-theme="light"] .theme-toggle .icon-light{display:inline}</style>
+<style>.theme-toggle:hover{background:var(--accent-primary)}[data-theme="light"] .theme-toggle .icon-dark{display:none}[data-theme="light"] .theme-toggle .icon-light{display:inline}
+    .article-hero {
+        margin: 80px auto 40px;
+        max-width: 800px;
+        text-align: center;
+    }
+    .article-hero img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+</style>
 
 <nav><div class="container"><a href="../index.html" class="logo">🤖 AI Tools Hub</a><div class="nav-links"><a href="../index.html">Home</a><a href="../reviews.html">Reviews</a><a href="../search.html">Search</a><a href="../about.html">About</a><h2>Rating</h2>
       <p style="font-size: 1.5rem; color: #fbbf24;">★★★★☆ 4.0/5 (Combined Average)</p>
@@ -136,7 +162,11 @@
 </ol>
 </nav><div class="container">
 <div class="tool-header"><img src="../images/synthesia.svg" alt="Synthesia" style="width:80px;height:80px;"><div><h1>Synthesia Review 2026</h1><span class="tool-badge">Video AI</span><p style="font-size:1.5rem;color:#fbbf24;margin-top:12px;">★★★★☆ 4.5/5</p></div></div>
-<h2>What is Synthesia?</h2><p>Synthesia is an AI video generation platform that creates professional videos from text. Perfect for training, marketing, and product demos without actors or filming equipment.</p>
+
+    <div class="article-hero" style="margin: 80px auto 40px; max-width: 800px;">
+        <img src="https://placehold.co/800x400/1a1a24/6366f1?text=Synthesia" alt="Synthesia interface" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+    </div>
+    <h2>What is Synthesia?</h2><p>Synthesia is an AI video generation platform that creates professional videos from text. Perfect for training, marketing, and product demos without actors or filming equipment.</p>
 <h2>Key Features</h2><ul style="margin-left:24px;color:var(--text-secondary)"><li><strong>AI Avatars</strong> - 130+ realistic presenters</li><li><strong>Text-to-Video</strong> in 120+ languages</li><li><strong>Custom avatar</strong> creation</li><li><strong>API access</strong> for automation</li></ul>
 <h2>Pricing</h2><ul style="margin-left:24px;color:var(--text-secondary)"><li><strong>Personal:</strong> $30/month</li><li><strong>Enterprise:</strong> Custom</li><li><strong>Free trial:</strong> Available</li></ul>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0"><div class="pros"><h3>✓ Pros</h3><ul><li>No acting needed</li><li>120+ languages</li><li>Professional quality</li><li>Easy to use</li></ul></div><div class="cons"><h3>✗ Cons</h3><ul><li>Can feel robotic</li><li>Credit limits</li><li>Enterprise pricey</li></ul></div></div>

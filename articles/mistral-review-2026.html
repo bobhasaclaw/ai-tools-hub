@@ -46,10 +46,36 @@
 
 
     .last-updated { color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 24px; font-style: italic; }
-  </style></head>
+  
+    .article-hero {
+        margin: 80px auto 40px;
+        max-width: 800px;
+        text-align: center;
+    }
+    .article-hero img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+</style></head>
 <body>
 <button class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:16px;right:16px;z-index:100;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1.1rem;"><span class="icon-dark">🌙</span><span class="icon-light" style="display:none;">☀️</span></button>
-<style>.theme-toggle:hover{background:var(--accent-primary)}[data-theme="light"] .theme-toggle .icon-dark{display:none}[data-theme="light"] .theme-toggle .icon-light{display:inline}</style>
+<style>.theme-toggle:hover{background:var(--accent-primary)}[data-theme="light"] .theme-toggle .icon-dark{display:none}[data-theme="light"] .theme-toggle .icon-light{display:inline}
+    .article-hero {
+        margin: 80px auto 40px;
+        max-width: 800px;
+        text-align: center;
+    }
+    .article-hero img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+</style>
 <div class="container"><div class="tool-header"><img src="../images/mistral.svg" alt="Mistral" style="width:80px;height:80px;"><div><h1>Mistral AI Review 2026</h1><span class="tool-badge">Open Source</span><p style="font-size:1.4rem;color:#fbbf24;margin-top:10px;">★★★★☆ 4.3/5</p><h2>Rating</h2>
       <p style="font-size: 1.5rem; color: #fbbf24;">★★★☆☆ 3.8/5 (Combined Average)</p>
       <p style="font-size: 0.875rem; color: var(--text-secondary);">Review Sources:</p>
@@ -67,6 +93,8 @@
         <button class="linkedin" onclick="shareLinkedIn()" title="Share on LinkedIn">in</button>
         <button class="copy-link" onclick="copyLink()" title="Copy link">🔗</button>
       </div>
+<div class="article-hero" style="margin: 80px auto 40px; max-width: 800px;"><img src="https://placehold.co/800x400/1a1a24/6366f1?text=Mistral" alt="Mistral interface" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);"></div>
+
       
       <script>
       function getCurrentUrl() {

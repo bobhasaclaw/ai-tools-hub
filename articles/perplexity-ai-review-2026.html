@@ -283,7 +283,20 @@
     .toc-list a { color: var(--text-primary); text-decoration: none; font-size: 0.95rem; display: block; padding: 8px 12px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
     .toc-list a:hover { background: rgba(99,102,241,0.15); color: #818cf8; }
     html { scroll-behavior: smooth; }
-  </style>
+  
+    .article-hero {
+        margin: 80px auto 40px;
+        max-width: 800px;
+        text-align: center;
+    }
+    .article-hero img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+</style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -312,7 +325,20 @@
   </head>
 <body>
 <button class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:16px;right:16px;z-index:100;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1.1rem;"><span class="icon-dark">🌙</span><span class="icon-light" style="display:none;">☀️</span></button>
-<style>.theme-toggle:hover{background:var(--accent-primary)}[data-theme="light"] .theme-toggle .icon-dark{display:none}[data-theme="light"] .theme-toggle .icon-light{display:inline}</style>
+<style>.theme-toggle:hover{background:var(--accent-primary)}[data-theme="light"] .theme-toggle .icon-dark{display:none}[data-theme="light"] .theme-toggle .icon-light{display:inline}
+    .article-hero {
+        margin: 80px auto 40px;
+        max-width: 800px;
+        text-align: center;
+    }
+    .article-hero img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+</style>
 
   <nav>
     <div class="container">
@@ -491,7 +517,11 @@
           </div>
         </div>
         
-        <p>The <strong>Free plan</strong> includes basic search with limited daily queries. The <strong>Pro plan</strong> at $20/month ($120/year when billed annually) unlocks unlimited searches, all AI models, and advanced features like file uploads.</p>
+        
+    <div class="article-hero" style="margin: 80px auto 40px; max-width: 800px;">
+        <img src="https://placehold.co/800x400/1a1a24/6366f1?text=Perplexity+AI" alt="Perplexity AI interface" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+    </div>
+    <p>The <strong>Free plan</strong> includes basic search with limited daily queries. The <strong>Pro plan</strong> at $20/month ($120/year when billed annually) unlocks unlimited searches, all AI models, and advanced features like file uploads.</p>
         
         <h2 id="comparison">How Perplexity Compares to Competitors</h2>
         

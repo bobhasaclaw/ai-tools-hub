@@ -315,6 +315,21 @@
     .hero {
       padding: 180px 0 80px;
       text-align: center;
+      background-image: url('images/hero-background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,15,0.7) 0%, rgba(10,10,15,0.5) 50%, rgba(10,10,15,0.9) 100%);
+    }
+    .hero .container {
+      position: relative;
+      z-index: 1;
     }
     
     /* Floating icons */
@@ -957,12 +972,9 @@
   
   <section class="hero">
     <div class="container">
-      <!-- Animated floating icons -->
+      <!-- Animated floating robot mascot -->
       <div class="hero-icons">
-        <span class="floating-icon" style="animation-delay: 0s;">🤖</span>
-        <span class="floating-icon" style="animation-delay: 0.5s;">🧠</span>
-        <span class="floating-icon" style="animation-delay: 1s;">⚡</span>
-        <span class="floating-icon" style="animation-delay: 1.5s;">🚀</span>
+        <img src="images/robot-mascot.png" alt="AI Tools Hub Mascot" class="floating-icon" style="width: 80px; height: 80px; animation-delay: 0s;" loading="lazy">
       </div>
       
       <!-- Headline -->

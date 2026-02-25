@@ -181,9 +181,12 @@
       max-width: 600px;
     }
     .error-icon {
-      font-size: 6rem;
       margin-bottom: 24px;
       animation: float 3s ease-in-out infinite;
+    }
+    .error-icon img {
+      width: 120px;
+      height: 120px;
     }
     @keyframes float {
       0%, 100% { transform: translateY(0); }
@@ -391,8 +394,10 @@
   <section class="error-hero">
     <div class="container">
       <div class="error-content">
-        <!-- Animated 404 icon -->
-        <div class="error-icon">🔍</div>
+        <!-- Animated robot mascot -->
+        <div class="error-icon">
+          <img src="images/robot-mascot.png" alt="AI Tools Hub Mascot" loading="lazy">
+        </div>
         
         <!-- Large 404 code -->
         <div class="error-code">404</div>

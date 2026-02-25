@@ -315,6 +315,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 24px;
+  grid-auto-flow: dense;
       padding-bottom: 80px;
     }
     .article-card {
@@ -1551,6 +1552,26 @@
       currentSearch = searchQuery;
       filterCards();
     }
+
+// Check for URL hash to filter by category from dropdown
+const hashToFilter = {
+  '#llms': 'chat-ai',
+  '#image-ai': 'image-ai',
+  '#video-ai': 'video-ai',
+  '#audio-ai': 'audio-ai',
+  '#writing': 'writing-ai',
+  '#coding': 'coding-ai'
+};
+const hash = window.location.hash;
+if (hash && hashToFilter[hash]) {
+  currentFilter = hashToFilter[hash];
+  filterBtns.forEach(b => {
+    b.classList.remove('active');
+    if (b.dataset.filter === currentFilter) {
+      b.classList.add('active');
+    }
+  });
+}
 
     // Initialize - show all cards
     filterCards();

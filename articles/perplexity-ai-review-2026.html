@@ -744,7 +744,5 @@ document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListene
 document.querySelectorAll('.dropdown-toggle').forEach(toggle => { toggle.addEventListener('click', function(e) { if (window.innerWidth <= 768) { e.preventDefault(); const dropdown = this.parentElement; dropdown.classList.toggle('mobile-open'); } }); });
 
 </script>
-</body><script>
-(function() { const article = document.querySelector('article'); if (!article) return; const h2s = article.querySelectorAll('h2'); if (h2s.length < 5) return; h2s.forEach((h2, i) => { if (!h2.id) h2.id = 'section-' + i; }); const text = article.innerText; const wordCount = text.split(/\s+/).length; const readingTime = Math.max(1, Math.ceil(wordCount / 200)); let tocHtml = '<div class="toc-container"><h3>On This Page</h3><div class="toc-reading-time">📖 ' + readingTime + ' min read</div><ul class="toc-list">'; h2s.forEach((h2, i) => { tocHtml += '<li><a href="#' + h2.id + '">' + h2.textContent.trim() + '</a></li>'; }); tocHtml += '</ul></div>'; h2s[0].insertAdjacentHTML('beforebegin', tocHtml); })();
-function toggleTheme(){const html=document.documentElement;const t=html.getAttribute("data-theme");const n=t==="light"?"dark":"light";html.setAttribute("data-theme",n);localStorage.setItem("theme",n)}(function(){const s=localStorage.getItem("theme");if(s){document.documentElement.setAttribute("data-theme",s)}})()</script>
-</html>
+
+</body></html>

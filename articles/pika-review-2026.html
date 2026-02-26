@@ -91,38 +91,39 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 
 </style>
 <nav>
- <div class="container">
- <a href="../index.html" class="logo">AI Tools Hub</a>
- <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
- <span></span>
- <span></span>
- <span></span>
- </button>
- <div class="nav-links">
- <a href="../index.html">Home</a>
- <a href="../reviews.html">Reviews</a>
- <div class="nav-item-dropdown">
- <a href="#" class="dropdown-toggle">Categories</a>
- <div class="dropdown-menu">
- <a href="../reviews.html#llms">LLMs</a>
- <a href="../reviews.html#image-ai">Image AI</a>
- <a href="../reviews.html#video-ai">Video AI</a>
- <a href="../reviews.html#audio-ai">Audio AI</a>
- <a href="../reviews.html#writing">Writing Tools</a>
- <a href="../reviews.html#coding">Coding Assistants</a>
- </div>
- </div>
- <a href="../compare.html">Compare</a>
- <a href="../quiz.html">Quiz</a>
- <a href="../about.html">About</a>
- <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
- <span class="icon-dark">🌙</span>
- <span class="icon-light">☀️</span>
- </button>
- <a href="../#reviews" class="btn">Get Started</a>
- </div>
- </div>
+<div class="container">
+<a href="../index.html" class="logo">AI Tools Hub</a>
+<button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="nav-links">
+<a href="../index.html">Home</a>
+<a href="../reviews.html" class="active">Reviews</a>
+<div class="nav-item-dropdown">
+<a href="#" class="dropdown-toggle">Categories</a>
+<div class="dropdown-menu">
+<a href="../reviews.html#llms">LLMs</a>
+<a href="../reviews.html#image-ai">Image AI</a>
+<a href="../reviews.html#video-ai">Video AI</a>
+<a href="../reviews.html#audio-ai">Audio AI</a>
+<a href="../reviews.html#writing">Writing Tools</a>
+<a href="../reviews.html#coding">Coding Assistants</a>
+</div>
+</div>
+<a href="../compare.html">Compare</a>
+<a href="../quiz.html">Quiz</a>
+<a href="../about.html">About</a>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+<span class="icon-dark">🌙</span>
+<span class="icon-light">☀️</span>
+</button>
+<a href="../reviews.html" class="btn">Get Started</a>
+</div>
+</div>
 </nav>
+
 </head>
 <body>
 <button class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:16px;right:16px;z-index:100;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1.1rem;"><span class="icon-dark">🌙</span><span class="icon-light" style="display:none;">☀️</span></button>
@@ -217,23 +218,32 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
           <h4>Synthesia Review 2026</h4>
           <p>Review of Synthesia</p>
         </a></div></section>
-  <footer><p>🤖 AI Tools Hub</p>
+  
+<footer>
+    <div class="container">
+      <div class="logo">AI Tools Hub</div>
+      <div class="footer-links">
+        <a href="../reviews.html">Reviews</a>
+        <a href="../compare.html">Compare</a>
+        <a href="../quiz.html">Quiz</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../affiliate-disclosure.html">Affiliate Disclosure</a>
+      </div>
+      <div class="social-links">
+        <a href="https://twitter.com/aitoolshub" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://youtube.com/@aitoolshub" target="_blank" title="YouTube">▶</a>
+        <a href="https://github.com/aitoolshub" target="_blank" title="GitHub">⌘</a>
+        <a href="https://discord.gg/aitoolshub" target="_blank" title="Discord">💬</a>
+      </div>
+      <div class="copyright">© 2026 AI Tools Hub. All rights reserved.</div>
+      <p style="color:var(--text-secondary);font-size:0.75rem;margin-top:8px;">Ratings are our honest opinions based on research and testing. We may earn affiliate commissions from tool recommendations.</p>
+    </div>
+  </footer>
 
-  <!-- Back to Top Button -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-    </svg>
-  </button>
-
-
-  <!-- Back to Top Button -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-    </svg>
-  </button>
-</footer><script>
+<script>
 // Theme toggle
 function toggleTheme() { const html = document.documentElement; const currentTheme = html.getAttribute('data-theme'); const newTheme = currentTheme === 'light' ? 'dark' : 'light'; html.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); }
 (function() { const savedTheme = localStorage.getItem('theme'); if (savedTheme) { document.documentElement.setAttribute('data-theme', savedTheme); } })();

@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Mission Control - Bob's Dashboard for Andrew</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border: #30363d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-yellow: #d29922;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --accent-cyan: #39c5cf;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header h1 span {
+            font-size: 28px;
+        }
+
+        .header-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .header-info strong {
+            color: var(--text-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-blue);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #4393e6;
+        }
+
+        .btn-danger {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .btn-danger:hover {
+            background: var(--accent-red);
+            color: #fff;
+        }
+
+        /* Main Layout */
+        .main {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 340px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-header h2 {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-tertiary);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .stat-value.running { color: var(--accent-green); }
+        .stat-value.idle { color: var(--text-secondary); }
+        .stat-value.error { color: var(--accent-red); }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .agent-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .agent-card {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .agent-card:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .agent-card.active {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .agent-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .agent-name {
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .agent-type {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--accent-purple);
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .agent-status {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .status-running {
+            background: rgba(63, 185, 80, 0.2);
+            color: var(--accent-green);
+        }
+
+        .status-idle {
+            background: rgba(139, 148, 158, 0.2);
+            color: var(--text-secondary);
+        }
+
+        .status-error {
+            background: rgba(248, 81, 73, 0.2);
+            color: var(--accent-red);
+        }
+
+        .status-completed {
+            background: rgba(88, 166, 255, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .agent-task {
+            font-size: 13px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .agent-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .content-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .content-header h2 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .content-header .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Current Task */
+        .current-task {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .task-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .task-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .task-progress {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            min-width: 60px;
+        }
+
+        /* Todo List */
+        .todo-list {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .todo-checkbox:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .todo-checkbox.checked {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .todo-checkbox.checked::after {
+            content: '✓';
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .todo-delete {
+            opacity: 0;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            transition: opacity 0.2s;
+        }
+
+        .todo-item:hover .todo-delete {
+            opacity: 1;
+        }
+
+        .todo-delete:hover {
+            color: var(--accent-red);
+        }
+
+        .todo-add {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .todo-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        /* History */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .history-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .history-item:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .history-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .history-duration {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .history-status {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .history-task {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .history-summary {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Activity Log */
+        .activity-list {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .activity-item {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-time {
+            color: var(--text-muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .activity-action {
+            color: var(--accent-cyan);
+        }
+
+        /* Detail Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 16px;
+        }
+
+        .detail-label {
+            width: 120px;
+            font-size: 13px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .detail-value {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .detail-content {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state span {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Auto-refresh indicator */
+        .refresh-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .refresh-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Drag and Drop Styles */
+        .task-card {
+            background: var(--bg-tertiary);
+            padding: 12px;
+            border-radius: 6px;
+            margin: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: grab;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .task-card:hover {
+            border-color: var(--border);
+        }
+
+        .task-card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+            border-color: var(--accent-blue);
+            transform: scale(1.02);
+        }
+
+        .task-card.drag-over {
+            border-color: var(--accent-green);
+            background: rgba(63, 185, 80, 0.1);
+        }
+
+        .drag-handle {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-right: 8px;
+            cursor: grab;
+            padding: 4px;
+        }
+
+        .drag-handle:hover {
+            color: var(--text-primary);
+        }
+
+        .task-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-text {
+            font-weight: 600;
+        }
+
+        .task-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .tasks-column {
+            min-height: 100px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .tasks-column.drag-over {
+            background: rgba(63, 185, 80, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1><span>🎯</span> Mission Control</h1>
+            <div class="header-info">
+                <span>🤖 Managed by <strong>Bob</strong></span>
+                <span style="margin-left: 16px;">👤 <strong>Andrew</strong>'s Dashboard</span>
+            </div>
+        <div class="header-actions">
+            <button class="btn" onclick="showView('agents')" id="tabAgents" style="background: var(--bg-tertiary);">
+                🤖 Agents
+            </button>
+            <button class="btn" onclick="showView('tasks')" id="tabTasks">
+                📋 Tasks
+            </button>
+            <button class="btn" onclick="showView('calendar')" id="tabCalendar">
+                📅 Calendar
+            </button>
+            <button class="btn" onclick="refreshData()">
+                <span>🔄</span> Refresh
+            </button>
+            <button class="btn btn-primary" onclick="openNewAgentModal()">
+                <span>➕</span> New Agent
+            </button>
+        </div>
+    </header>
+
+    <!-- Tasks Board View -->
+    <div id="tasksView" style="display: none; padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>📋 Tasks Board</h2>
+            <button class="btn btn-primary" onclick="openAddTaskModal()">➕ Add Task</button>
+        </div>
+        <div id="tasksBoard" style="display: flex; gap: 20px;">
+            <!-- Tasks will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Calendar View -->
+    <div id="calendarView" style="display: none; padding: 20px;">
+        <h2>📅 Cron Job Schedule</h2>
+        <div id="calendarGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 20px;">
+            <!-- Calendar events will be loaded here -->
+        </div>
+    </div>
+
+    <main class="main" id="agentsView">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Active Subagents</h2>
+            </div>
+            <!-- Agent Status Stats -->
+            <div class="stats-bar" id="statsBar">
+                <div class="stat-item">
+                    <div class="stat-value" id="statTotal">0</div>
+                    <div class="stat-label">Agents</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value running" id="statRunning">0</div>
+                    <div class="stat-label">Running</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value idle" id="statIdle">0</div>
+                    <div class="stat-label">Idle</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value error" id="statError">0</div>
+                    <div class="stat-label">Error</div>
+                </div>
+            </div>
+            
+            <!-- Task Tracker Stats -->
+            <div class="stats-bar" id="trackerBar" style="background: var(--bg-primary); border-bottom: 1px solid var(--border);">
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-cyan);" id="statCompleted">0</div>
+                    <div class="stat-label">✓ Tasks Done</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-purple);" id="statResearch">0</div>
+                    <div class="stat-label">🔬 Research</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-green);" id="statContent">0</div>
+                    <div class="stat-label">📝 Content</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-yellow);" id="statFailed">0</div>
+                    <div class="stat-label">✗ Failed</div>
+                </div>
+            </div>
+
+            <!-- Telemetry Stats -->
+            <div class="stats-bar" id="telemetryBar" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border);">
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-yellow);" id="statPending">0</div>
+                    <div class="stat-label">⏳ Pending</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-blue);" id="statInProgress">0</div>
+                    <div class="stat-label">🏃 In Progress</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-cyan);" id="statAvgDuration">0m</div>
+                    <div class="stat-label">⏱ Avg Duration</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" style="color: var(--accent-purple);" id="statAvgScore">N/A</div>
+                    <div class="stat-label">⭐ Avg Score</div>
+                </div>
+            </div>
+            <div class="agent-list" id="agentList">
+                <div class="loading"><div class="spinner"></div>Loading...</div>
+            </div>
+        </aside>
+
+        <section class="content" id="contentArea">
+            <div class="empty-state" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <span>🎯</span>
+                <h3>Select a Subagent</h3>
+                <p>Choose a subagent from the sidebar to view details</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Detail Modal -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Task Details</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Refresh Indicator -->
+    <div class="refresh-indicator">
+        <div class="refresh-dot"></div>
+        <span>Auto-refresh on</span>
+    </div>
+
+    <script>
+        const API_BASE = '';
+        let subagents = [];
+        let selectedAgent = null;
+        let selectedAgentData = null;
+
+        // Load all data from API
+        async function loadData() {
+            try {
+                // Load subagents
+                const subRes = await fetch(`${API_BASE}/api/subagents`);
+                subagents = await subRes.json();
+                
+                // Load stats
+                const statsRes = await fetch(`${API_BASE}/api/stats`);
+                const stats = await statsRes.json();
+                updateStats(stats);
+                
+                renderAgentList();
+            } catch (e) {
+                console.error('Error loading data:', e);
+            }
+        }
+
+        // Update stats display
+        function updateStats(stats) {
+            // Agent status stats
+            document.getElementById('statTotal').textContent = stats.totalSubagents || 0;
+            document.getElementById('statRunning').textContent = stats.running || 0;
+            document.getElementById('statIdle').textContent = stats.idle || 0;
+            document.getElementById('statError').textContent = stats.errors || 0;
+            
+            // Task tracker stats
+            document.getElementById('statCompleted').textContent = stats.completedTasks || 0;
+            document.getElementById('statResearch').textContent = stats.researchTasks || 0;
+            document.getElementById('statContent').textContent = stats.contentTasks || 0;
+            document.getElementById('statFailed').textContent = stats.failedTasks || 0;
+
+            // Telemetry stats
+            const t = stats.telemetry || {};
+            document.getElementById('statPending').textContent = t.pending || 0;
+            document.getElementById('statInProgress').textContent = t.inProgress || 0;
+            const avgMins = t.avgDurationMs ? Math.round(t.avgDurationMs / 60000) : 0;
+            document.getElementById('statAvgDuration').textContent = `${avgMins}m`;
+            document.getElementById('statAvgScore').textContent = (t.avgSelfScore ?? 'N/A');
+        }
+
+        // Render agent list
+        function renderAgentList() {
+            const list = document.getElementById('agentList');
+            
+            if (subagents.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state" style="padding: 40px 20px;">
+                        <span>🤖</span>
+                        <h3>No Subagents</h3>
+                        <p>Click "New Agent" to spawn your first subagent</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = subagents.map(agent => `
+                <div class="agent-card ${selectedAgent === agent.id ? 'active' : ''}" onclick="selectAgent('${agent.id}')">
+                    <div class="agent-card-header">
+                        <span class="agent-name">
+                            ${agent.name}
+                            <span class="agent-type">${agent.type}</span>
+                        </span>
+                        <span class="agent-status status-${agent.status || 'idle'}">${agent.status || 'idle'}</span>
+                    </div>
+                    <div class="agent-task">${agent.current_task ? agent.current_task.substring(0, 50) + '...' : 'No active task'}</div>
+                    <div class="agent-meta">
+                        <span>📋 ${agent.todoCount || 0} todos</span>
+                        <span>📜 ${agent.historyCount || 0} tasks</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Select agent and load details
+        async function selectAgent(id) {
+            selectedAgent = id;
+            renderAgentList();
+            
+            const content = document.getElementById('contentArea');
+            content.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+            
+            try {
+                const res = await fetch(`${API_BASE}/api/subagents/${id}`);
+                selectedAgentData = await res.json();
+                renderContent();
+            } catch (e) {
+                content.innerHTML = '<div class="empty-state">Error loading agent</div>';
+            }
+        }
+
+        // Render content area
+        function renderContent() {
+            const content = document.getElementById('contentArea');
+            
+            if (!selectedAgentData) {
+                content.innerHTML = `
+                    <div class="empty-state" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <span>🎯</span>
+                        <h3>Select a Subagent</h3>
+                        <p>Choose a subagent from the sidebar to view details</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const agent = selectedAgentData;
+            
+            content.innerHTML = `
+                <div class="content-header">
+                    <h2>${agent.name}</h2>
+                    <div class="subtitle">
+                        Type: <span class="agent-type">${agent.type}</span> | 
+                        Status: <span class="agent-status status-${agent.status || 'idle'}">${agent.status || 'idle'}</span>
+                    </div>
+                </div>
+                <div class="content-body">
+                    ${renderCurrentTask(agent)}
+                    ${renderTodos(agent)}
+                    ${renderHistory(agent)}
+                    ${renderActivity(agent)}
+                </div>
+            `;
+        }
+
+        // Render current task
+        function renderCurrentTask(agent) {
+            if (!agent.current_task) return '';
+            
+            return `
+                <div class="section">
+                    <div class="section-header">
+                        <span class="section-title">Current Task</span>
+                    </div>
+                    <div class="current-task">
+                        <div class="task-label">Running Since: ${formatTime(agent.start_time)}</div>
+                        <div class="task-text">${agent.current_task}</div>
+                        ${agent.progress !== null ? `
+                            <div class="task-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${agent.progress}%"></div>
+                                </div>
+                                <span class="progress-text">${agent.progress}%</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render todos
+        function renderTodos(agent) {
+            const todos = agent.todos || [];
+            
+            return `
+                <div class="section">
+                    <div class="section-header">
+                        <span class="section-title">Todo List</span>
+                        <span style="color: var(--text-muted); font-size: 12px;">${todos.filter(t => !t.completed).length} remaining</span>
+                    </div>
+                    <div class="todo-list">
+                        ${todos.map((todo, i) => `
+                            <div class="todo-item">
+                                <div class="todo-checkbox ${todo.completed ? 'checked' : ''}" onclick="toggleTodo(${todo.id})"></div>
+                                <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
+                                <span class="todo-delete" onclick="deleteTodo(${todo.id})">×</span>
+                            </div>
+                        `).join('')}
+                        <div class="todo-add">
+                            <input type="text" class="todo-input" placeholder="Add new todo..." id="newTodoInput" onkeypress="handleTodoKeypress(event)">
+                            <button class="btn btn-primary" onclick="addTodo()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render history
+        function renderHistory(agent) {
+            const history = agent.history || [];
+            
+            if (history.length === 0) return '';
+            
+            return `
+                <div class="section">
+                    <div class="section-header">
+                        <span class="section-title">Task History</span>
+                        <span style="color: var(--text-muted); font-size: 12px;">${history.length} total</span>
+                    </div>
+                    <div class="history-list">
+                        ${history.slice(0, 20).map((item, i) => `
+                            <div class="history-item" onclick="showHistoryDetail(${i})">
+                                <div class="history-header">
+                                    <span class="history-time">${formatTime(item.start_time)}</span>
+                                    <span class="history-duration">${item.duration || 'N/A'}</span>
+                                    <span class="history-status status-${item.status || 'completed'}">${item.status || 'completed'}</span>
+                                </div>
+                                <div class="history-task">${item.task}</div>
+                                ${item.summary ? `<div class="history-summary">${item.summary}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render activity
+        function renderActivity(agent) {
+            const activity = agent.activity || [];
+            
+            if (activity.length === 0) return '';
+            
+            return `
+                <div class="section">
+                    <div class="section-header">
+                        <span class="section-title">Activity Log</span>
+                    </div>
+                    <div class="activity-list">
+                        ${activity.slice(0, 20).map(item => `
+                            <div class="activity-item">
+                                <span class="activity-time">${formatTime(item.timestamp)}</span>
+                                <span class="activity-action">${item.action}</span>
+                                <span>${item.data ? JSON.parse(item.data).text || '' : ''}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Format time
+        function formatTime(timestamp) {
+            if (!timestamp) return 'N/A';
+            const date = new Date(timestamp);
+            return date.toLocaleString();
+        }
+
+        // API: Toggle todo
+        async function toggleTodo(todoId) {
+            await fetch(`${API_BASE}/api/todos/toggle`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: todoId })
+            });
+            refreshData();
+        }
+
+        // API: Delete todo
+        async function deleteTodo(todoId) {
+            await fetch(`${API_BASE}/api/todos/${todoId}`, {
+                method: 'DELETE'
+            });
+            refreshData();
+        }
+
+        // API: Add todo
+        async function addTodo() {
+            const input = document.getElementById('newTodoInput');
+            const text = input.value.trim();
+            if (!text || !selectedAgent) return;
+            
+            await fetch(`${API_BASE}/api/subagents/${selectedAgent}/todos`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+            
+            input.value = '';
+            refreshData();
+        }
+
+        // Handle todo keypress
+        function handleTodoKeypress(e) {
+            if (e.key === 'Enter') addTodo();
+        }
+
+        // Show history detail
+        function showHistoryDetail(index) {
+            const history = selectedAgentData.history || [];
+            const item = history[index];
+            if (!item) return;
+            
+            const modal = document.getElementById('detailModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = `Task: ${item.task.substring(0, 40)}...`;
+            modalBody.innerHTML = `
+                <div class="detail-row">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value"><span class="history-status status-${item.status || 'completed'}">${item.status || 'completed'}</span></div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Started</div>
+                    <div class="detail-value">${formatTime(item.start_time)}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Completed</div>
+                    <div class="detail-value">${formatTime(item.end_time)}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Duration</div>
+                    <div class="detail-value">${item.duration || 'N/A'}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Task</div>
+                    <div class="detail-value">${item.task}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Summary</div>
+                    <div class="detail-value">${item.summary || 'No summary available'}</div>
+                </div>
+                ${item.details ? `
+                    <div class="detail-row">
+                        <div class="detail-label">Full Details</div>
+                        <div class="detail-value"></div>
+                    </div>
+                    <div class="detail-content">${item.details}</div>
+                ` : ''}
+                ${item.file_path ? `
+                    <div class="detail-row" style="margin-top: 16px;">
+                        <div class="detail-label">Research File</div>
+                        <div class="detail-value">
+                            <a href="#" onclick="viewResearchFile('${item.file_path}'); return false;" style="color: var(--accent-blue); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                                📄 View Full Research
+                            </a>
+                        </div>
+                    </div>
+                ` : (item.task && item.task.toLowerCase().includes('research') ? `
+                    <div class="detail-row" style="margin-top: 16px;">
+                        <div class="detail-label">Research Files</div>
+                        <div class="detail-value">
+                            <a href="#" onclick="loadResearchFiles(); return false;" style="color: var(--accent-blue); text-decoration: none;">
+                                📂 Browse Research Library
+                            </a>
+                        </div>
+                    </div>
+                ` : '')}
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Open new agent modal
+        async function openNewAgentModal() {
+            const name = prompt('Enter subagent name:');
+            if (!name) return;
+            
+            const type = prompt('Enter type (research/code/web/files/agent):', 'general');
+            
+            const id = 'agent-' + Date.now();
+            await fetch(`${API_BASE}/api/subagents`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, name, type: type || 'general' })
+            });
+            
+            refreshData();
+            selectAgent(id);
+        }
+
+        // Refresh data
+        async function refreshData() {
+            await loadData();
+            if (selectedAgent) {
+                await selectAgent(selectedAgent);
+            }
+        }
+
+        // Initialize
+        loadData();
+
+        // Auto-refresh every 10 seconds
+        setInterval(refreshData, 10000);
+
+        // Close modal on overlay click
+        document.getElementById('detailModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Load and display research files
+        async function loadResearchFiles() {
+            try {
+                const res = await fetch(`${API_BASE}/api/research`);
+                const files = await res.json();
+                
+                const modal = document.getElementById('detailModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalBody = document.getElementById('modalBody');
+                
+                modalTitle.textContent = '📂 Research Library';
+                
+                if (files.length === 0) {
+                    modalBody.innerHTML = '<p>No research files found.</p>';
+                } else {
+                    modalBody.innerHTML = `
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            ${files.map(f => `
+                                <div style="background: var(--bg-tertiary); padding: 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <strong>${f.name}</strong>
+                                        <div style="font-size: 12px; color: var(--text-muted);">${Math.round(f.size/1024)} KB • ${new Date(f.modified).toLocaleDateString()}</div>
+                                    </div>
+                                    <button class="btn" onclick="viewResearchFile('${f.name}')">View</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+                
+                modal.classList.add('active');
+            } catch (e) {
+                console.error('Error loading research files:', e);
+            }
+        }
+
+        // View specific research file
+        async function viewResearchFile(filename) {
+            try {
+                const res = await fetch(`${API_BASE}/api/research/${filename}`);
+                const data = await res.json();
+                
+                const modal = document.getElementById('detailModal');
+                const modalTitle = document.getElementById('modalBody');
+                const modalBody = document.getElementById('modalBody');
+                
+                document.getElementById('modalTitle').textContent = `📄 ${data.filename}`;
+                modalBody.innerHTML = `
+                    <div style="max-height: 70vh; overflow-y: auto; white-space: pre-wrap; font-size: 13px; line-height: 1.6; background: var(--bg-tertiary); padding: 16px; border-radius: 6px;">
+${data.content}
+                    </div>
+                `;
+                
+                modal.classList.add('active');
+            } catch (e) {
+                console.error('Error loading research file:', e);
+                alert('Error loading file');
+            }
+        }
+
+        // View switching
+        let currentView = 'agents';
+        function showView(view) {
+            currentView = view;
+            document.getElementById('agentsView').style.display = view === 'agents' ? 'flex' : 'none';
+            document.getElementById('tasksView').style.display = view === 'tasks' ? 'block' : 'none';
+            document.getElementById('calendarView').style.display = view === 'calendar' ? 'block' : 'none';
+            
+            // Update tab styles
+            document.getElementById('tabAgents').style.background = view === 'agents' ? 'var(--accent-blue)' : 'var(--bg-tertiary)';
+            document.getElementById('tabTasks').style.background = view === 'tasks' ? 'var(--accent-blue)' : 'var(--bg-tertiary)';
+            document.getElementById('tabCalendar').style.background = view === 'calendar' ? 'var(--accent-blue)' : 'var(--bg-tertiary)';
+            
+            if (view === 'tasks') loadTasksBoard();
+            if (view === 'calendar') loadCalendar();
+        }
+
+        // Tasks Board
+        let tasksData = [];
+        
+        async function loadTasksBoard() {
+            try {
+                const res = await fetch(`${API_BASE}/api/tasks`);
+                const tasks = await res.json();
+                tasksData = tasks;
+                const res2 = await fetch(`${API_BASE}/api/subagents`);
+                const agents = await res2.json();
+                
+                const board = document.getElementById('tasksBoard');
+                if (tasks.length === 0) {
+                    board.innerHTML = '<p style="color: var(--text-muted);">No tasks yet. Click "Add Task" to create one.</p>';
+                    return;
+                }
+                
+                // Group by completed status
+                const todoTasks = tasks.filter(t => !t.completed);
+                const doneTasks = tasks.filter(t => t.completed);
+                
+                board.innerHTML = `
+                    <div style="flex: 1; background: var(--bg-secondary); padding: 16px; border-radius: 8px;" 
+                         class="tasks-column" data-status="todo"
+                         ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'todo')">
+                        <h3 style="color: var(--accent-yellow);">📝 To Do (${todoTasks.length})</h3>
+                        <div class="task-list" data-status="todo">
+                            ${todoTasks.map(t => renderTaskCard(t)).join('')}
+                        </div>
+                    </div>
+                    <div style="flex: 1; background: var(--bg-secondary); padding: 16px; border-radius: 8px;" 
+                         class="tasks-column" data-status="done"
+                         ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'done')">
+                        <h3 style="color: var(--accent-green);">✅ Done (${doneTasks.length})</h3>
+                        <div class="task-list" data-status="done">
+                            ${doneTasks.map(t => renderTaskCard(t)).join('')}
+                        </div>
+                    </div>
+                `;
+            } catch (e) {
+                console.error('Error loading tasks:', e);
+            }
+        }
+
+        function renderTaskCard(task) {
+            return `
+                <div class="task-card" draggable="true" data-id="${task.id}" data-completed="${task.completed ? 'true' : 'false'}"
+                     ondragstart="handleDragStart(event)" ondragend="handleDragEnd(event)">
+                    <span class="drag-handle">⋮⋮</span>
+                    <div class="task-content">
+                        <div>
+                            <div class="task-text">${task.text}</div>
+                            <div class="task-meta">${task.agentName || task.subagent_id}</div>
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <button class="btn" onclick="toggleTask(${task.id}, ${task.completed ? 0 : 1})" style="padding: 4px 8px;">
+                            ${task.completed ? '↩️' : '✓'}
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteTask(${task.id})" style="padding: 4px 8px;">🗑️</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Drag and Drop Handlers
+        let draggedTask = null;
+        let draggedFromStatus = null;
+
+        function handleDragStart(e) {
+            console.log('=== DRAG START ===');
+            
+            // Get the task card (might be the card itself or a child)
+            let target = e.target.closest('.task-card');
+            if (!target) {
+                console.log('ERROR: No task card found');
+                e.preventDefault();
+                return;
+            }
+            
+            draggedTask = parseInt(target.dataset.id);
+            draggedFromStatus = target.dataset.completed === 'true' ? 'done' : 'todo';
+            
+            target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', draggedTask);
+            
+            console.log('draggedTask:', draggedTask, 'from:', draggedFromStatus);
+        }
+
+        function handleDragEnd(e) {
+            console.log('=== DRAG END ===');
+            const handle = e.target.classList.contains('drag-handle') ? e.target : e.target.closest('.drag-handle');
+            if (handle) {
+                handle.classList.remove('dragging');
+            }
+            document.querySelectorAll('.task-card').forEach(card => {
+                card.classList.remove('drag-over');
+            });
+            document.querySelectorAll('.tasks-column').forEach(col => {
+                col.classList.remove('drag-over');
+            });
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const column = e.target.closest('.tasks-column');
+            if (column) {
+                column.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            const column = e.target.closest('.tasks-column');
+            // Only remove if we're actually leaving the column (not entering a child)
+            if (column && !column.contains(e.relatedTarget)) {
+                column.classList.remove('drag-over');
+            }
+        }
+
+        function handleDrop(e, targetStatus) {
+            e.preventDefault();
+            
+            console.log('=== DROP to:', targetStatus);
+            
+            // Remove drag-over styling
+            document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+            
+            if (!draggedTask) {
+                console.log('No dragged task');
+                return;
+            }
+            
+            const newCompleted = targetStatus === 'done';
+            const task = tasksData.find(t => t.id === draggedTask);
+            
+            console.log('Task:', task ? task.text : 'not found', '-> completed:', newCompleted);
+            
+            if (task && task.completed !== newCompleted) {
+                toggleTask(draggedTask, newCompleted ? 1 : 0);
+            } else {
+                console.log('Same status, no change needed');
+            }
+            
+            draggedTask = null;
+        }
+
+        async function toggleTask(id, completed) {
+            await fetch(`${API_BASE}/api/tasks/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ completed: completed })
+            });
+            loadTasksBoard();
+        }
+
+        async function deleteTask(id) {
+            if (!confirm('Delete this task?')) return;
+            await fetch(`${API_BASE}/api/tasks/${id}`, { method: 'DELETE' });
+            loadTasksBoard();
+        }
+
+        async function openAddTaskModal() {
+            const res = await fetch(`${API_BASE}/api/subagents`);
+            const agents = await res.json();
+            
+            let agentOptions = agents.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+            const text = prompt('Enter task description:');
+            if (!text) return;
+            
+            const agentId = prompt(`Enter agent ID (or click OK for 'bob'):\n${agents.map(a => a.id).join(', ')}`) || 'bob';
+            
+            await fetch(`${API_BASE}/api/tasks`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ subagent_id: agentId, text: text })
+            });
+            loadTasksBoard();
+        }
+
+        // Calendar View - Professional Google Calendar Style
+        async function loadCalendar() {
+            try {
+                const res = await fetch(`${API_BASE}/api/calendar?days=14`);
+                if (!res.ok) throw new Error('API error: ' + res.status);
+                const data = await res.json();
+                
+                const grid = document.getElementById('calendarGrid');
+                if (!grid) {
+                    console.error('Calendar grid not found');
+                    return;
+                }
+                
+                const jobs = data.jobs || [];
+                const runs = data.runs || [];
+                
+                console.log('Calendar loaded:', jobs.length, 'jobs,', runs.length, 'runs');
+                
+                // If no data, show message
+                if (jobs.length === 0) {
+                    grid.innerHTML = '<p style="color: var(--text-muted); padding: 20px;">No cron jobs found.</p>';
+                    return;
+                }
+                
+                // Get job name map
+                const jobMap = {};
+                for (const job of jobs) {
+                    jobMap[job.id] = job.name;
+                }
+                
+                // Calculate week range (today + 6 days)
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const weekStart = new Date(today);
+                const weekDays = [];
+                for (let i = 0; i < 7; i++) {
+                    const d = new Date(weekStart);
+                    d.setDate(weekStart.getDate() + i);
+                    weekDays.push(d);
+                }
+                
+                // Group runs by day and hour
+                const runsByDay = {};
+                for (const run of runs) {
+                    const runDate = new Date(run.runAt);
+                    const dateKey = runDate.toDateString();
+                    if (!runsByDay[dateKey]) runsByDay[dateKey] = [];
+                    runsByDay[dateKey].push({...run, date: runDate});
+                }
+                
+                // Sort jobs by next run
+                const sortedJobs = [...jobs].sort((a, b) => {
+                    if (!a.nextRun) return 1;
+                    if (!b.nextRun) return -1;
+                    return new Date(a.nextRun) - new Date(b.nextRun);
+                });
+                
+                // Get upcoming jobs (next 7 days)
+                const upcomingJobs = sortedJobs.filter(j => j.nextRun).slice(0, 8);
+                
+                // Mini calendar data
+                const miniCalDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+                const firstDayOfWeek = miniCalDate.getDay();
+                
+                // Build the calendar HTML
+                const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                    'July', 'August', 'September', 'October', 'November', 'December'];
+                
+                let html = `
+                <style>
+                    .calendar-container {
+                        display: flex;
+                        gap: 20px;
+                        height: calc(100vh - 140px);
+                    }
+                    .calendar-sidebar {
+                        width: 260px;
+                        flex-shrink: 0;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+                    }
+                    .mini-calendar {
+                        background: var(--bg-secondary);
+                        border-radius: 8px;
+                        padding: 16px;
+                        border: 1px solid var(--border);
+                    }
+                    .mini-calendar-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 12px;
+                    }
+                    .mini-calendar-header h3 {
+                        font-size: 14px;
+                        font-weight: 600;
+                    }
+                    .mini-calendar-grid {
+                        display: grid;
+                        grid-template-columns: repeat(7, 1fr);
+                        gap: 2px;
+                        text-align: center;
+                        font-size: 11px;
+                    }
+                    .mini-calendar-day-name {
+                        color: var(--text-muted);
+                        font-weight: 500;
+                        padding: 4px;
+                    }
+                    .mini-calendar-day {
+                        padding: 6px 2px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        transition: background 0.2s;
+                    }
+                    .mini-calendar-day:hover {
+                        background: var(--bg-tertiary);
+                    }
+                    .mini-calendar-day.selected {
+                        background: var(--accent-purple) !important;
+                        color: white;
+                    }
+                    .mini-calendar-day.other-month {
+                        color: var(--text-muted);
+                    }
+                    .mini-calendar-day.today {
+                        background: var(--accent-blue);
+                        color: white;
+                        font-weight: 600;
+                    }
+                    .mini-calendar-day.has-runs {
+                        position: relative;
+                    }
+                    .mini-calendar-day.has-runs::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 2px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 4px;
+                        height: 4px;
+                        border-radius: 50%;
+                        background: var(--accent-green);
+                    }
+                    .upcoming-jobs {
+                        background: var(--bg-secondary);
+                        border-radius: 8px;
+                        padding: 16px;
+                        border: 1px solid var(--border);
+                        flex: 1;
+                        overflow-y: auto;
+                    }
+                    .upcoming-jobs h3 {
+                        font-size: 14px;
+                        font-weight: 600;
+                        margin-bottom: 12px;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    }
+                    .upcoming-job {
+                        padding: 10px;
+                        background: var(--bg-tertiary);
+                        border-radius: 6px;
+                        margin-bottom: 8px;
+                        cursor: pointer;
+                        transition: background 0.2s;
+                        border-left: 3px solid var(--accent-green);
+                    }
+                    .upcoming-job:hover {
+                        background: var(--border);
+                    }
+                    .upcoming-job.error {
+                        border-left-color: var(--accent-red);
+                    }
+                    .upcoming-job-name {
+                        font-weight: 600;
+                        font-size: 13px;
+                        margin-bottom: 4px;
+                    }
+                    .upcoming-job-time {
+                        font-size: 11px;
+                        color: var(--text-secondary);
+                    }
+                    .upcoming-job-schedule {
+                        font-size: 10px;
+                        color: var(--text-muted);
+                        font-family: monospace;
+                        margin-top: 4px;
+                    }
+                    .calendar-main {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        background: var(--bg-secondary);
+                        border-radius: 8px;
+                        border: 1px solid var(--border);
+                        overflow: hidden;
+                    }
+                    .calendar-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 16px 20px;
+                        border-bottom: 1px solid var(--border);
+                    }
+                    .calendar-header-left {
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+                    }
+                    .calendar-header h2 {
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+                    .calendar-nav {
+                        display: flex;
+                        gap: 8px;
+                    }
+                    .calendar-nav-btn {
+                        background: var(--bg-tertiary);
+                        border: 1px solid var(--border);
+                        color: var(--text-primary);
+                        padding: 6px 12px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 13px;
+                        transition: background 0.2s;
+                    }
+                    .calendar-nav-btn:hover {
+                        background: var(--border);
+                    }
+                    .calendar-grid {
+                        display: grid;
+                        grid-template-columns: 60px repeat(7, 1fr);
+                        flex: 1;
+                        overflow-y: auto;
+                    }
+                    .calendar-time-column {
+                        background: var(--bg-secondary);
+                        border-right: 1px solid var(--border);
+                    }
+                    .calendar-time-slot {
+                        height: 50px;
+                        padding: 4px 8px;
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        text-align: right;
+                        border-bottom: 1px solid var(--border);
+                    }
+                    .calendar-days-header {
+                        display: contents;
+                    }
+                    .calendar-day-header {
+                        padding: 12px 8px;
+                        text-align: center;
+                        border-bottom: 1px solid var(--border);
+                        border-right: 1px solid var(--border);
+                        background: var(--bg-secondary);
+                    }
+                    .calendar-day-header:last-child {
+                        border-right: none;
+                    }
+                    .calendar-day-name {
+                        font-size: 11px;
+                        color: var(--text-muted);
+                        text-transform: uppercase;
+                        font-weight: 500;
+                    }
+                    .calendar-day-number {
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin-top: 4px;
+                    }
+                    .calendar-day-header.today .calendar-day-number {
+                        background: var(--accent-blue);
+                        color: white;
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 50%;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .calendar-day-column {
+                        position: relative;
+                        border-right: 1px solid var(--border);
+                        background: var(--bg-primary);
+                    }
+                    .calendar-day-column:last-child {
+                        border-right: none;
+                    }
+                    .calendar-hour-row {
+                        height: 50px;
+                        border-bottom: 1px solid var(--border);
+                        box-sizing: border-box;
+                    }
+                    .calendar-hour-row:nth-child(even) {
+                        border-bottom-style: dashed;
+                        opacity: 0.5;
+                    }
+                    .calendar-event {
+                        position: absolute;
+                        left: 2px;
+                        right: 2px;
+                        padding: 4px 6px;
+                        border-radius: 4px;
+                        font-size: 11px;
+                        cursor: pointer;
+                        overflow: hidden;
+                        transition: transform 0.1s, box-shadow 0.1s;
+                        z-index: 10;
+                        min-height: 20px;
+                    }
+                    .calendar-event:hover {
+                        transform: scale(1.02);
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                        z-index: 20;
+                    }
+                    .calendar-event.ok {
+                        background: var(--accent-green);
+                        color: white;
+                        border-left: 3px solid #2ea043;
+                    }
+                    .calendar-event.error {
+                        background: var(--accent-red);
+                        color: white;
+                        border-left: 3px solid #da3633;
+                    }
+                    .calendar-event-title {
+                        font-weight: 600;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    .calendar-event-time {
+                        font-size: 10px;
+                        opacity: 0.9;
+                    }
+                    .current-time-line {
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        height: 2px;
+                        background: var(--accent-red);
+                        z-index: 15;
+                        pointer-events: none;
+                    }
+                    .current-time-line::before {
+                        content: '';
+                        position: absolute;
+                        left: -5px;
+                        top: -4px;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background: var(--accent-red);
+                    }
+                    .calendar-legend {
+                        display: flex;
+                        gap: 16px;
+                        padding: 12px 20px;
+                        border-top: 1px solid var(--border);
+                        background: var(--bg-secondary);
+                    }
+                    .legend-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        font-size: 12px;
+                        color: var(--text-secondary);
+                    }
+                    .legend-dot {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 2px;
+                    }
+                    .legend-dot.ok {
+                        background: var(--accent-green);
+                    }
+                    .legend-dot.error {
+                        background: var(--accent-red);
+                    }
+                </style>
+                
+                <div class="calendar-container">
+                    <div class="calendar-sidebar">
+                        <div class="mini-calendar">
+                            <div class="mini-calendar-header">
+                                <h3>${monthNames[today.getMonth()]} ${today.getFullYear()}</h3>
+                            </div>
+                            <div class="mini-calendar-grid">
+                                ${dayNames.map(d => `<div class="mini-calendar-day-name">${d}</div>`).join('')}
+                                ${Array(firstDayOfWeek).fill().map(() => `<div class="mini-calendar-day other-month"></div>`).join('')}
+                                ${Array(daysInMonth).fill().map((_, i) => {
+                                    const day = i + 1;
+                                    const date = new Date(today.getFullYear(), today.getMonth(), day);
+                                    const dateStr = date.toISOString().split('T')[0];
+                                    const isToday = date.toDateString() === today.toDateString();
+                                    const hasRuns = runsByDay[date.toDateString()]?.length > 0;
+                                    return `<div class="mini-calendar-day${isToday ? ' today' : ''}${hasRuns ? ' has-runs' : ''}" onclick="showDayDetail('${dateStr}')" title="Click to see events">${day}</div>`;
+                                }).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="upcoming-jobs">
+                            <h3>📋 Upcoming Jobs</h3>
+                            ${upcomingJobs.map(job => {
+                                const nextRun = job.nextRun ? new Date(job.nextRun) : null;
+                                const statusClass = job.status === 'error' ? 'error' : 'ok';
+                                return `
+                                    <div class="upcoming-job ${statusClass}" onclick="showJobRuns('${job.id}')">
+                                        <div class="upcoming-job-name">${job.name}</div>
+                                        <div class="upcoming-job-time">${nextRun ? nextRun.toLocaleString() : 'N/A'}</div>
+                                        <div class="upcoming-job-schedule">${job.schedule}</div>
+                                    </div>
+                                `;
+                            }).join('')}
+                            ${upcomingJobs.length === 0 ? '<div style="color: var(--text-muted); font-size: 12px;">No scheduled jobs</div>' : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-main">
+                        <div class="calendar-header">
+                            <div class="calendar-header-left">
+                                <h2>${monthNames[weekStart.getMonth()]} ${weekStart.getDate()} - ${monthNames[weekDays[6].getMonth()]} ${weekDays[6].getDate()}, ${weekDays[6].getFullYear()}</h2>
+                            </div>
+                            <div class="calendar-nav">
+                                <button class="calendar-nav-btn" onclick="loadCalendar()">Today</button>
+                                <button class="calendar-nav-btn" onclick="loadCalendar()">◀</button>
+                                <button class="calendar-nav-btn" onclick="loadCalendar()">▶</button>
+                            </div>
+                        </div>
+                        
+                        <div class="calendar-grid">
+                            <div class="calendar-time-column">
+                                ${Array(24).fill().map((_, i) => {
+                                    const hour = i === 0 ? '12 AM' : i < 12 ? `${i} AM` : i === 12 ? '12 PM' : `${i-12} PM`;
+                                    return `<div class="calendar-time-slot">${hour}</div>`;
+                                }).join('')}
+                            </div>
+                            
+                            ${weekDays.map(day => {
+                                const dateKey = day.toDateString();
+                                const dayRuns = runsByDay[dateKey] || [];
+                                const isToday = day.toDateString() === today.toDateString();
+                                return `
+                                    <div class="calendar-day-column" data-date="${dateKey}">
+                                        <div class="calendar-day-header ${isToday ? 'today' : ''}">
+                                            <div class="calendar-day-name">${dayNames[day.getDay()]}</div>
+                                            <div class="calendar-day-number">${day.getDate()}</div>
+                                        </div>
+                                        ${Array(24).fill().map(() => '<div class="calendar-hour-row"></div>').join('')}
+                                        ${dayRuns.map(run => {
+                                            const runDate = run.date;
+                                            const hour = runDate.getHours();
+                                            const minute = runDate.getMinutes();
+                                            const top = (hour * 50) + (minute / 60 * 50);
+                                            const durationMins = Math.round(run.duration / 60000);
+                                            const height = Math.max((durationMins / 60 * 50), 20);
+                                            const statusClass = run.status === 'ok' ? 'ok' : 'error';
+                                            const jobName = jobMap[run.id] || run.id.substring(0, 8);
+                                            const timeStr = runDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                                            
+                                            return `
+                                                <div class="calendar-event ${statusClass}" 
+                                                     style="top: ${top}px; height: ${height}px;"
+                                                     onclick="event.stopPropagation(); showRunDetail('${run.id}', ${run.runAt}, ${run.duration}, '${run.status}', '${(run.summary || '').replace(/'/g, "\\'").replace(/"/g, '\\"').substring(0, 100)}')"
+                                                     title="${jobName} - ${timeStr} - ${durationMins}min">
+                                                    <div class="calendar-event-title">${jobName}</div>
+                                                    <div class="calendar-event-time">${timeStr} (${durationMins}m)</div>
+                                                </div>
+                                            `;
+                                        }).join('')}
+                                        ${isToday ? `
+                                            <div class="current-time-line" id="currentTimeLine"></div>
+                                        ` : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        
+                        <div class="calendar-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot ok"></div>
+                                <span>Success</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot error"></div>
+                                <span>Error</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <script>
+                    // Update current time indicator
+                    function updateCurrentTime() {
+                        const now = new Date();
+                        const hour = now.getHours();
+                        const minute = now.getMinutes();
+                        const top = (hour * 50) + (minute / 60 * 50);
+                        const timeLine = document.getElementById('currentTimeLine');
+                        if (timeLine) {
+                            timeLine.style.top = top + 'px';
+                        }
+                    }
+                    updateCurrentTime();
+                    setInterval(updateCurrentTime, 60000);
+                <\/script>
+                `;
+                
+                grid.innerHTML = html;
+            } catch (e) {
+                console.error('Error loading calendar:', e);
+                document.getElementById('calendarGrid').innerHTML = '<p>Error loading calendar: ' + e.message + '</p>';
+            }
+        }
+        
+        // Show day detail - all events for a specific day
+        // Global variables for day detail filtering
+        let dayDetailData = {
+            cronRuns: [],
+            subagentTasks: [],
+            jobMap: {},
+            allEvents: [],
+            currentFilter: 'all'
+        };
+        
+        async function showDayDetail(dateStr) {
+            const date = new Date(dateStr);
+            const dateEnd = new Date(date);
+            dateEnd.setDate(dateEnd.getDate() + 1);
+            
+            const modal = document.getElementById('detailModal');
+            document.getElementById('modalTitle').textContent = `📅 ${date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
+            document.getElementById('modalBody').innerHTML = '<div class="loading"><div class="spinner"></div>Loading events...</div>';
+            modal.classList.add('active');
+            
+            // Reset filter
+            dayDetailData.currentFilter = 'all';
+            
+            try {
+                // Fetch calendar runs and subagent history in parallel
+                const [calendarRes, historyRes] = await Promise.all([
+                    fetch(`${API_BASE}/api/calendar?days=30`),
+                    fetch(`${API_BASE}/api/history`)
+                ]);
+                
+                const calendarData = await calendarRes.json();
+                const allHistory = await historyRes.json();
+                
+                // Filter cron runs for this day
+                const dayStart = date.getTime();
+                const dayEnd = dateEnd.getTime();
+                
+                dayDetailData.cronRuns = (calendarData.runs || []).filter(r => {
+                    const runTime = r.runAt;
+                    return runTime >= dayStart && runTime < dayEnd;
+                });
+                
+                // Filter subagent history for this day
+                dayDetailData.subagentTasks = allHistory.filter(h => {
+                    const taskTime = new Date(h.start_time).getTime();
+                    return taskTime >= dayStart && taskTime < dayEnd;
+                });
+                
+                // Build job name map
+                dayDetailData.jobMap = {};
+                for (const job of calendarData.jobs || []) {
+                    dayDetailData.jobMap[job.id] = job.name;
+                }
+                
+                // Combine and sort all events
+                dayDetailData.allEvents = [];
+                
+                // Add cron runs
+                for (const run of dayDetailData.cronRuns) {
+                    dayDetailData.allEvents.push({
+                        type: 'cron',
+                        time: run.runAt,
+                        duration: run.duration,
+                        status: run.status,
+                        summary: run.summary,
+                        name: dayDetailData.jobMap[run.id] || run.id
+                    });
+                }
+                
+                // Add subagent tasks
+                for (const task of dayDetailData.subagentTasks) {
+                    dayDetailData.allEvents.push({
+                        type: 'task',
+                        time: new Date(task.start_time).getTime(),
+                        duration: null,
+                        status: task.status,
+                        summary: task.summary,
+                        name: task.task?.substring(0, 50) || 'Untitled Task',
+                        agentId: task.subagent_id
+                    });
+                }
+                
+                // Sort by time
+                dayDetailData.allEvents.sort((a, b) => b.time - a.time);
+                
+                // Render the modal content
+                renderDayDetailContent();
+                
+            } catch (e) {
+                console.error('Error loading day detail:', e);
+                document.getElementById('modalBody').innerHTML = `<p style="color: var(--accent-red);">Error loading events: ${e.message}</p>`;
+            }
+        }
+        
+        // Render day detail content with filtering
+        function renderDayDetailContent() {
+            const { cronRuns, subagentTasks, allEvents, currentFilter, jobMap } = dayDetailData;
+            
+            // Filter events based on current filter
+            let filteredEvents = allEvents;
+            if (currentFilter === 'cron') {
+                filteredEvents = allEvents.filter(e => e.type === 'cron');
+            } else if (currentFilter === 'task') {
+                filteredEvents = allEvents.filter(e => e.type === 'task');
+            }
+            
+            // Calculate stats based on filtered events
+            const cronCount = cronRuns.length;
+            const taskCount = subagentTasks.length;
+            const successCount = filteredEvents.filter(e => e.status === 'ok' || e.status === 'completed').length;
+            const errorCount = filteredEvents.filter(e => e.status === 'error').length;
+            
+            // Build filter buttons HTML
+            const filterButtonsHtml = `
+                <div style="margin-bottom: 16px; display: flex; gap: 8px;">
+                    <button class="filter-btn ${currentFilter === 'all' ? 'active' : ''}" onclick="setDayFilter('all')" style="
+                        padding: 8px 16px;
+                        border-radius: 6px;
+                        border: 1px solid var(--border);
+                        background: ${currentFilter === 'all' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'};
+                        color: ${currentFilter === 'all' ? '#fff' : 'var(--text-primary)'};
+                        cursor: pointer;
+                        font-size: 13px;
+                        font-weight: 500;
+                        transition: all 0.2s;
+                    ">All</button>
+                    <button class="filter-btn ${currentFilter === 'cron' ? 'active' : ''}" onclick="setDayFilter('cron')" style="
+                        padding: 8px 16px;
+                        border-radius: 6px;
+                        border: 1px solid var(--border);
+                        background: ${currentFilter === 'cron' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'};
+                        color: ${currentFilter === 'cron' ? '#fff' : 'var(--text-primary)'};
+                        cursor: pointer;
+                        font-size: 13px;
+                        font-weight: 500;
+                        transition: all 0.2s;
+                    ">Cron Jobs</button>
+                    <button class="filter-btn ${currentFilter === 'task' ? 'active' : ''}" onclick="setDayFilter('task')" style="
+                        padding: 8px 16px;
+                        border-radius: 6px;
+                        border: 1px solid var(--border);
+                        background: ${currentFilter === 'task' ? 'var(--accent-blue)' : 'var(--bg-tertiary)'};
+                        color: ${currentFilter === 'task' ? '#fff' : 'var(--text-primary)'};
+                        cursor: pointer;
+                        font-size: 13px;
+                        font-weight: 500;
+                        transition: all 0.2s;
+                    ">Tasks</button>
+                </div>
+            `;
+            
+            // Build the display
+            let html = `
+                ${filterButtonsHtml}
+                <div style="margin-bottom: 20px; display: flex; gap: 16px; flex-wrap: wrap;">
+                    <div style="background: var(--bg-tertiary); padding: 12px 16px; border-radius: 8px; flex: 1; min-width: 150px;">
+                        <div style="font-size: 24px; font-weight: 700; color: var(--accent-cyan);">${cronCount}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Cron Runs</div>
+                    </div>
+                    <div style="background: var(--bg-tertiary); padding: 12px 16px; border-radius: 8px; flex: 1; min-width: 150px;">
+                        <div style="font-size: 24px; font-weight: 700; color: var(--accent-purple);">${taskCount}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Subagent Tasks</div>
+                    </div>
+                    <div style="background: var(--bg-tertiary); padding: 12px 16px; border-radius: 8px; flex: 1; min-width: 150px;">
+                        <div style="font-size: 24px; font-weight: 700; color: var(--accent-green);">${successCount}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Successful</div>
+                    </div>
+                    <div style="background: var(--bg-tertiary); padding: 12px 16px; border-radius: 8px; flex: 1; min-width: 150px;">
+                        <div style="font-size: 24px; font-weight: 700; color: var(--accent-red);">${errorCount}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">Errors</div>
+                    </div>
+                </div>
+            `;
+            
+            if (filteredEvents.length === 0) {
+                html += `
+                    <div class="empty-state" style="padding: 40px;">
+                        <span>📭</span>
+                        <h3>No Events</h3>
+                        <p>No ${currentFilter === 'all' ? '' : currentFilter === 'cron' ? 'cron jobs' : 'subagent tasks'} ran on this day.</p>
+                    </div>
+                `;
+            } else {
+                html += `<div style="display: flex; flex-direction: column; gap: 12px; max-height: 60vh; overflow-y: auto;">`;
+                
+                for (const event of filteredEvents) {
+                    const eventTime = new Date(event.time);
+                    const timeStr = eventTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const dateStr2 = eventTime.toLocaleDateString();
+                    
+                    let statusClass = 'completed';
+                    let statusIcon = '✓';
+                    if (event.status === 'error') {
+                        statusClass = 'error';
+                        statusIcon = '✗';
+                    } else if (event.status === 'running') {
+                        statusClass = 'running';
+                        statusIcon = '⟳';
+                    }
+                    
+                    const typeIcon = event.type === 'cron' ? '⏰' : '🤖';
+                    const typeLabel = event.type === 'cron' ? 'Cron Job' : 'Subagent';
+                    
+                    html += `
+                        <div style="background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; padding: 14px; transition: border-color 0.2s;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="font-size: 18px;">${typeIcon}</span>
+                                    <div>
+                                        <div style="font-weight: 600; font-size: 14px;">${event.name}</div>
+                                        <div style="font-size: 11px; color: var(--text-muted);">${typeLabel} ${event.agentId ? `• ${event.agentId}` : ''}</div>
+                                    </div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <span class="history-status status-${statusClass}">${statusIcon} ${event.status || 'unknown'}</span>
+                                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">${timeStr}</div>
+                                </div>
+                            </div>
+                            ${event.summary ? `
+                                <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; padding-top: 8px; border-top: 1px solid var(--border);">
+                                    ${event.summary}
+                                </div>
+                            ` : ''}
+                            ${event.duration ? `
+                                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+                                    Duration: ${Math.round(event.duration / 60000)} minutes
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+            }
+            
+            document.getElementById('modalBody').innerHTML = html;
+        }
+        
+        // Set filter and re-render
+        function setDayFilter(filter) {
+            dayDetailData.currentFilter = filter;
+            renderDayDetailContent();
+        }
+        
+        // Show job runs
+        function showJobRuns(jobId) {
+            console.log('Show runs for job:', jobId);
+        }
+        
+        // Show run details in modal
+        function showRunDetail(jobId, runAt, duration, status, summary) {
+            const modal = document.getElementById('detailModal');
+            const jobMap = {};
+            fetch(`${API_BASE}/api/calendar?days=7`).then(r => r.json()).then(data => {
+                for (const j of data.jobs || []) jobMap[j.id] = j.name;
+                
+                const name = jobMap[jobId] || jobId;
+                const date = new Date(runAt);
+                const durationMins = Math.round(duration / 60000);
+                const statusColor = status === 'ok' ? 'var(--accent-green)' : 'var(--accent-red)';
+                
+                document.getElementById('modalTitle').textContent = `Run: ${name}`;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="detail-row">
+                        <div class="detail-label">Time</div>
+                        <div class="detail-value">${date.toLocaleString()}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Duration</div>
+                        <div class="detail-value">${durationMins} minutes</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Status</div>
+                        <div class="detail-value"><span class="history-status status-${status}">${status}</span></div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Summary</div>
+                        <div class="detail-value">${summary || 'No summary'}</div>
+                    </div>
+                `;
+                modal.classList.add('active');
+            });
+        }
+        
+        function showRunDetails() {
+            // Show history view
+        }
+    </script>
+</body>
+</html>

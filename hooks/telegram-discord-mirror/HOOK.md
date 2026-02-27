@@ -2,7 +2,7 @@
 name: telegram-discord-mirror
 description: Mirror inbound Telegram messages into a Discord channel for Bob's Hub visibility.
 metadata:
-  {"openclaw":{"emoji":"🪞","events":["message:received"],"always":true}}
+  {"openclaw":{"emoji":"🪞","events":["message"],"always":true}}
 ---
 
 # Telegram → Discord Mirror (Scaffold)

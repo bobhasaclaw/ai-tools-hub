@@ -18,27 +18,27 @@ function get(obj: any, path: string, fallback?: any) {
 
 const handler = async (event: any) => {
   // First, log all message-related events so we can verify runtime shape.
-  if (event?.type === "message") {
-    const probeChannel =
-      get(event, "channel") ||
-      get(event, "context.channel") ||
-      get(event, "message.channel") ||
-      get(event, "inbound.channel") ||
-      "unknown";
+  if (event?.type !== "message") return;
 
-    safeWriteDebug({
-      note: "message event observed",
-      action: event?.action || null,
-      keys: Object.keys(event || {}),
-      channel: probeChannel,
-      chatId: get(event, "chatId") || get(event, "context.chatId") || get(event, "message.chatId") || null,
-      sender: get(event, "sender") || get(event, "message.sender") || null,
-      body: get(event, "body") || get(event, "message.text") || get(event, "message.body") || null,
-    });
-  }
+  const probeChannel =
+    get(event, "channel") ||
+    get(event, "context.channel") ||
+    get(event, "message.channel") ||
+    get(event, "inbound.channel") ||
+    get(event, "meta.channel") ||
+    "unknown";
 
-  // Only process inbound Telegram events for future forwarding.
-  if (event?.type !== "message" || event?.action !== "received") return;
+  safeWriteDebug({
+    note: "message event observed",
+    action: event?.action || null,
+    keys: Object.keys(event || {}),
+    channel: probeChannel,
+    chatId: get(event, "chatId") || get(event, "context.chatId") || get(event, "message.chatId") || null,
+    sender: get(event, "sender") || get(event, "message.sender") || null,
+    body: get(event, "body") || get(event, "message.text") || get(event, "message.body") || null,
+  });
+
+  // Only process Telegram events for future forwarding.
 
   const channel =
     get(event, "channel") ||

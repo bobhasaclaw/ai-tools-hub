@@ -1,7 +1,7 @@
 import { appendFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-const DEBUG_PATH = join(process.env.HOME || "~", ".openclaw", "logs", "telegram-discord-mirror-debug.jsonl");
+const DEBUG_PATH = join(process.cwd(), "telegram-discord-mirror-debug.jsonl");
 
 function safeWriteDebug(obj: unknown) {
   try {
@@ -17,10 +17,29 @@ function get(obj: any, path: string, fallback?: any) {
 }
 
 const handler = async (event: any) => {
-  // Only inspect inbound message events
+  // First, log all message-related events so we can verify runtime shape.
+  if (event?.type === "message") {
+    const probeChannel =
+      get(event, "channel") ||
+      get(event, "context.channel") ||
+      get(event, "message.channel") ||
+      get(event, "inbound.channel") ||
+      "unknown";
+
+    safeWriteDebug({
+      note: "message event observed",
+      action: event?.action || null,
+      keys: Object.keys(event || {}),
+      channel: probeChannel,
+      chatId: get(event, "chatId") || get(event, "context.chatId") || get(event, "message.chatId") || null,
+      sender: get(event, "sender") || get(event, "message.sender") || null,
+      body: get(event, "body") || get(event, "message.text") || get(event, "message.body") || null,
+    });
+  }
+
+  // Only process inbound Telegram events for future forwarding.
   if (event?.type !== "message" || event?.action !== "received") return;
 
-  // Probe channel identification across possible payload shapes
   const channel =
     get(event, "channel") ||
     get(event, "context.channel") ||
@@ -30,19 +49,9 @@ const handler = async (event: any) => {
 
   if (channel !== "telegram") return;
 
-  // Log a compact payload fingerprint for mapping confirmation
-  safeWriteDebug({
-    note: "telegram inbound observed",
-    keys: Object.keys(event || {}),
-    channel,
-    chatId: get(event, "chatId") || get(event, "context.chatId") || get(event, "message.chatId") || null,
-    sender: get(event, "sender") || get(event, "message.sender") || null,
-    body: get(event, "body") || get(event, "message.text") || get(event, "message.body") || null,
-  });
+  safeWriteDebug({ note: "telegram inbound observed (ready for mirror wiring)", channel });
 
   // Placeholder: mirror implementation goes here after payload keys are verified.
-  // Intention: send formatted mirror into Discord channel 1476842437312909396.
-  // Keep this scaffold side-effect free until mapping is confirmed.
 };
 
 export default handler;

@@ -257,6 +257,44 @@ radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.05) 0%, transparent 50%);
       .hamburger { display: flex; }
     }
   </style>
+
+<style>
+/* PRO_QUALITY_POLISH_V1 */
+:root {
+  --pro-radius: 12px;
+  --pro-border: rgba(99,102,241,.22);
+  --pro-shadow: 0 8px 24px rgba(0,0,0,.22);
+  --pro-shadow-hover: 0 14px 32px rgba(0,0,0,.28);
+}
+nav .container, .container { max-width: 1200px; }
+section { scroll-margin-top: 90px; }
+h2 { letter-spacing: .1px; }
+.card, .tool-card, .review-card, .popular-card, .feature-card {
+  border-radius: var(--pro-radius) !important;
+  border: 1px solid var(--pro-border) !important;
+  box-shadow: var(--pro-shadow);
+}
+.card:hover, .tool-card:hover, .review-card:hover, .popular-card:hover, .feature-card:hover {
+  box-shadow: var(--pro-shadow-hover);
+  transform: translateY(-2px);
+}
+.btn, .cta-button, button, a.button, .card-link {
+  border-radius: 10px !important;
+  font-weight: 600;
+}
+.btn-primary, .cta-button, .hero-cta, .btn.btn-primary {
+  box-shadow: 0 6px 16px rgba(99,102,241,.35);
+}
+.btn-primary:hover, .cta-button:hover, .hero-cta:hover, .btn.btn-primary:hover {
+  transform: translateY(-1px);
+}
+.footer, footer { margin-top: 3rem; }
+@media (max-width: 768px) {
+  .container { padding-left: 16px !important; padding-right: 16px !important; }
+  .hero, .hero-section { padding-top: 84px !important; }
+}
+</style>
+
 </head>
 <body>
   <nav>

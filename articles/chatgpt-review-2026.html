@@ -170,6 +170,44 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 @media (max-width: 768px) { .dropdown-menu { position: static; transform: none; opacity: 1; visibility: visible; background: transparent; border: none; padding-left: 16px; box-shadow: none; display: none; } .nav-item-dropdown.mobile-open .dropdown-menu { display: block; } .nav-item-dropdown:hover .dropdown-menu { transform: none; } }
 
 </style>
+
+<style>
+/* PRO_QUALITY_POLISH_V1 */
+:root {
+  --pro-radius: 12px;
+  --pro-border: rgba(99,102,241,.22);
+  --pro-shadow: 0 8px 24px rgba(0,0,0,.22);
+  --pro-shadow-hover: 0 14px 32px rgba(0,0,0,.28);
+}
+nav .container, .container { max-width: 1200px; }
+section { scroll-margin-top: 90px; }
+h2 { letter-spacing: .1px; }
+.card, .tool-card, .review-card, .popular-card, .feature-card {
+  border-radius: var(--pro-radius) !important;
+  border: 1px solid var(--pro-border) !important;
+  box-shadow: var(--pro-shadow);
+}
+.card:hover, .tool-card:hover, .review-card:hover, .popular-card:hover, .feature-card:hover {
+  box-shadow: var(--pro-shadow-hover);
+  transform: translateY(-2px);
+}
+.btn, .cta-button, button, a.button, .card-link {
+  border-radius: 10px !important;
+  font-weight: 600;
+}
+.btn-primary, .cta-button, .hero-cta, .btn.btn-primary {
+  box-shadow: 0 6px 16px rgba(99,102,241,.35);
+}
+.btn-primary:hover, .cta-button:hover, .hero-cta:hover, .btn.btn-primary:hover {
+  transform: translateY(-1px);
+}
+.footer, footer { margin-top: 3rem; }
+@media (max-width: 768px) {
+  .container { padding-left: 16px !important; padding-right: 16px !important; }
+  .hero, .hero-section { padding-top: 84px !important; }
+}
+</style>
+
 </head>
 <body>
 <button class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:16px;right:16px;z-index:100;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1.1rem;"><span class="icon-dark">🌙</span><span class="icon-light" style="display:none;">☀️</span></button>

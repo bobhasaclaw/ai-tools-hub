@@ -809,6 +809,7 @@
             <div class="header-info">
                 <span>🤖 Managed by <strong>Bob</strong></span>
                 <span style="margin-left: 16px;">👤 <strong>Andrew</strong>'s Dashboard</span>
+                <span style="margin-left: 16px; color: var(--accent-cyan);">Build <strong>MC-5590381</strong></span>
             </div>
         <div class="header-actions">
             <button class="btn" onclick="showView('agents')" id="tabAgents" style="background: var(--bg-tertiary);">
@@ -842,7 +843,7 @@
 
     <!-- Calendar View -->
     <div id="calendarView" style="display: none; padding: 20px;">
-        <h2>📅 Cron Job Schedule</h2>
+        <h2>📅 Cron Job Schedule <span style="font-size:12px;color:var(--text-muted);font-weight:400;">(includes day-range selector: 7d/14d/30d)</span></h2>
         <div id="calendarGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 20px;">
             <!-- Calendar events will be loaded here -->
         </div>

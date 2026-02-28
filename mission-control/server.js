@@ -31,6 +31,112 @@ const mimeTypes = {
     '.md': 'text/markdown'
 };
 
+const SAFEGUARDS = {
+    maxRetryCount: 3,
+    repeatEscalationThreshold: 2,
+    issueTokenLimit: 10
+};
+
+function classifyTask(text = '') {
+    const t = text.toLowerCase();
+    if (/(fix|patch|remed|resolve|repair)/.test(t)) return 'fix';
+    if (/(audit|reaudit|re-audit|verify|verification|finding|check|scan|inspect)/.test(t)) return 'audit';
+    return 'other';
+}
+
+function routeTaskToSwarmAgent(text = '', requested = 'bob') {
+    // Respect explicit non-bob routing
+    if (requested && requested !== 'bob') return requested;
+
+    const t = text.toLowerCase();
+    if (/(root.?cause|architecture|strategy|stability|policy|reliability|research|investigate)/.test(t)) return 'kimi';
+    if (/(fix|implement|build|code|refactor|repair|website|ui|css|html|script|automation)/.test(t)) return 'qwen';
+    if (/(summary|report|brief|checklist|verify|verification|status|notes|document)/.test(t)) return 'minimax';
+    return 'minimax';
+}
+
+function normalizeIssueKey(text = '', failureReason = '') {
+    const raw = `${text} ${failureReason}`.toLowerCase();
+    const cleaned = raw
+        .replace(/https?:\/\/\S+/g, ' ')
+        .replace(/[^a-z0-9\s-]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    const stop = new Set(['the', 'and', 'for', 'with', 'from', 'that', 'this', 'task', 'issue', 'error', 'failed', 'failure', 'check', 'audit', 'loop']);
+    const tokens = cleaned
+        .split(' ')
+        .filter(Boolean)
+        .filter((w) => !stop.has(w))
+        .slice(0, SAFEGUARDS.issueTokenLimit);
+
+    return tokens.join('-') || 'generic-issue';
+}
+
+async function findActiveDuplicate(db, subagentId, issueKey) {
+    return db.getOne(
+        `SELECT id, status_text FROM todos
+         WHERE subagent_id = ?
+           AND issue_key = ?
+           AND completed = 0
+           AND status_text IN ('pending','in_progress','running','failed','error')
+         ORDER BY id ASC
+         LIMIT 1`,
+        [subagentId, issueKey]
+    );
+}
+
+async function hasOpenCanonicalFix(db, subagentId) {
+    const row = await db.getOne(
+        `SELECT id FROM todos
+         WHERE subagent_id = ?
+           AND canonical_fix = 1
+           AND completed = 0
+           AND status_text IN ('pending','in_progress','running','failed','error')
+         LIMIT 1`,
+        [subagentId]
+    );
+    return !!row;
+}
+
+async function ensureCanonicalFixTask(db, subagentId, issueKey) {
+    const existing = await db.getOne(
+        `SELECT id FROM todos
+         WHERE subagent_id = ?
+           AND canonical_fix = 1
+           AND issue_key = ?
+           AND completed = 0
+           AND status_text IN ('pending','in_progress','running','failed','error')
+         LIMIT 1`,
+        [subagentId, issueKey]
+    );
+
+    if (existing) {
+        return { created: false, taskId: existing.id };
+    }
+
+    const text = `CANONICAL FIX-PASS: Resolve recurring issue [${issueKey}] before any re-audit. Root-cause, patch, and verify.`;
+    const insert = await db.runQuery(
+        `INSERT INTO todos (subagent_id, text, completed, status_text, priority, queued_at, retry_count, verification_status, issue_key, canonical_fix, escalated_from_issue)
+         VALUES (?, ?, 0, 'pending', 'high', datetime('now'), 0, 'unverified', ?, 1, ?)`,
+        [subagentId, text, issueKey, issueKey]
+    );
+
+    await db.logActivity(subagentId, 'auto_escalation_fix_pass', { issueKey, taskId: insert.lastID });
+    return { created: true, taskId: insert.lastID };
+}
+
+async function countFailedRepeats(db, subagentId, issueKey) {
+    const row = await db.getOne(
+        `SELECT COUNT(*) as count FROM todos
+         WHERE subagent_id = ?
+           AND issue_key = ?
+           AND status_text IN ('failed','error')`,
+        [subagentId, issueKey]
+    );
+    return row?.count || 0;
+}
+
 // Parse JSON body
 function parseBody(req) {
     return new Promise((resolve, reject) => {
@@ -203,23 +309,65 @@ async function handleAPI(req, res, pathname) {
         // POST /api/tasks - Add new task
         if (pathname === '/api/tasks' && req.method === 'POST') {
             const { subagent_id, text, status, priority } = await parseBody(req);
-            if (!subagent_id || !text) {
-                return sendError(res, 'Missing subagent_id or text', 400);
+            if (!text) {
+                return sendError(res, 'Missing text', 400);
             }
-            // Insert into todos table with telemetry defaults
-            const result = await db.addTodo(subagent_id, text, priority || 'normal');
-            // Update status if provided
-            if (status) {
-                const isDone = status === 'completed';
-                await db.runQuery(`UPDATE todos SET completed = ?, status_text = ?, ${isDone ? "finished_at = datetime('now'), duration_ms = CAST((julianday(datetime('now')) - julianday(COALESCE(started_at, queued_at, created_at))) * 86400000 AS INTEGER)" : "started_at = COALESCE(started_at, datetime('now'))"} WHERE id = ?`, [isDone ? 1 : 0, status, result.lastID]);
+
+            const routedSubagentId = routeTaskToSwarmAgent(text, subagent_id || 'bob');
+            const issueKey = normalizeIssueKey(text);
+            const taskType = classifyTask(text);
+
+            // Mandatory fix-before-reaudit gate
+            if (taskType === 'audit' && await hasOpenCanonicalFix(db, routedSubagentId)) {
+                return sendJSON(res, {
+                    blocked: true,
+                    reason: 'fix-before-reaudit',
+                    message: 'Blocked: unresolved canonical fix-pass exists. Complete fix task before re-audit.'
+                }, 409);
             }
-            return sendJSON(res, result);
+
+            // Duplicate-finding suppression
+            const duplicate = await findActiveDuplicate(db, routedSubagentId, issueKey);
+            if (duplicate) {
+                return sendJSON(res, {
+                    suppressed: true,
+                    reason: 'duplicate-issue',
+                    existingTaskId: duplicate.id,
+                    issueKey,
+                    assigned_subagent: routedSubagentId
+                });
+            }
+
+            const initialStatus = status || 'pending';
+            const isDone = initialStatus === 'completed';
+            const insert = await db.runQuery(
+                `INSERT INTO todos (subagent_id, text, completed, status_text, priority, queued_at, started_at, finished_at, duration_ms, retry_count, verification_status, issue_key, canonical_fix)
+                 VALUES (?, ?, ?, ?, ?, datetime('now'), ${isDone ? "datetime('now')" : "NULL"}, ${isDone ? "datetime('now')" : "NULL"}, ${isDone ? "0" : "NULL"}, 0, 'unverified', ?, 0)`,
+                [routedSubagentId, text, isDone ? 1 : 0, initialStatus, priority || 'normal', issueKey]
+            );
+
+            await db.logActivity(routedSubagentId, 'task_created', { taskId: insert.lastID, issueKey, taskType, routedFrom: subagent_id || 'auto' });
+            return sendJSON(res, { success: true, id: insert.lastID, issueKey, assigned_subagent: routedSubagentId });
         }
         
         // PUT /api/tasks/:id - Update task
         if (pathname.match(/\/api\/tasks\/\d+$/) && req.method === 'PUT') {
             const id = parseInt(pathname.split('/').pop());
-            const { text, completed, status, failure_reason, verification_status, verification_notes, self_score, retry_increment } = await parseBody(req);
+            const { text, completed, status, subagent_id, failure_reason, verification_status, verification_notes, self_score, retry_increment } = await parseBody(req);
+            const existing = await db.getOne(`SELECT * FROM todos WHERE id = ?`, [id]);
+            if (!existing) return sendError(res, 'Task not found', 404);
+
+            // Max retry cap + loop detector
+            if (retry_increment && (existing.retry_count || 0) >= SAFEGUARDS.maxRetryCount) {
+                const escalation = await ensureCanonicalFixTask(db, existing.subagent_id, existing.issue_key || normalizeIssueKey(existing.text, existing.failure_reason || ''));
+                return sendJSON(res, {
+                    blocked: true,
+                    reason: 'max-retries-exceeded',
+                    maxRetryCount: SAFEGUARDS.maxRetryCount,
+                    escalatedFixTaskId: escalation.taskId
+                }, 409);
+            }
+
             let updates = [];
             let params = [];
 
@@ -250,17 +398,39 @@ async function handleAPI(req, res, pathname) {
                     updates.push("finished_at = datetime('now')");
                 }
             }
+            if (subagent_id) { updates.push('subagent_id = ?'); params.push(subagent_id); }
             if (failure_reason !== undefined) { updates.push('failure_reason = ?'); params.push(failure_reason); }
             if (verification_status !== undefined) { updates.push('verification_status = ?'); params.push(verification_status); }
             if (verification_notes !== undefined) { updates.push('verification_notes = ?'); params.push(verification_notes); }
             if (self_score !== undefined) { updates.push('self_score = ?'); params.push(self_score); }
             if (retry_increment) { updates.push('retry_count = COALESCE(retry_count, 0) + 1'); }
 
+            const nextIssueKey = normalizeIssueKey(text || existing.text, failure_reason !== undefined ? failure_reason : (existing.failure_reason || ''));
+            updates.push('issue_key = ?');
+            params.push(nextIssueKey);
+
             params.push(id);
             if (updates.length > 0) {
                 await db.runQuery(`UPDATE todos SET ${updates.join(', ')} WHERE id = ?`, params);
             }
-            return sendJSON(res, { success: true });
+
+            const effectiveStatus = status || existing.status_text;
+            if (effectiveStatus === 'failed' || effectiveStatus === 'error') {
+                const repeats = await countFailedRepeats(db, existing.subagent_id, nextIssueKey);
+                if (repeats >= SAFEGUARDS.repeatEscalationThreshold) {
+                    const escalation = await ensureCanonicalFixTask(db, existing.subagent_id, nextIssueKey);
+                    return sendJSON(res, {
+                        success: true,
+                        escalated: true,
+                        reason: 'repeat-issue-threshold',
+                        repeats,
+                        fixTaskId: escalation.taskId,
+                        issueKey: nextIssueKey
+                    });
+                }
+            }
+
+            return sendJSON(res, { success: true, issueKey: nextIssueKey });
         }
         
         // DELETE /api/tasks/:id

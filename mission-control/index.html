@@ -1596,7 +1596,7 @@ ${data.content}
         }
 
         // Calendar View - Professional Google Calendar Style
-        let calendarRangeDays = 14;
+        let calendarRangeDays = 7;
         async function loadCalendar(days = calendarRangeDays) {
             try {
                 calendarRangeDays = Number(days) || 14;
@@ -1834,9 +1834,11 @@ ${data.content}
                     }
                     .calendar-grid {
                         display: grid;
-                        grid-template-columns: 60px repeat(7, 1fr);
+                        grid-template-columns: 60px repeat(7, minmax(180px, 1fr));
                         flex: 1;
-                        overflow-y: auto;
+                        overflow: auto;
+                        width: max-content;
+                        min-width: 100%;
                     }
                     .calendar-time-column {
                         background: var(--bg-secondary);
@@ -2037,7 +2039,7 @@ ${data.content}
                             </div>
                         </div>
                         
-                        <div class="calendar-grid">
+                        <div class="calendar-grid" style="grid-template-columns: 60px repeat(${calendarRangeDays}, minmax(180px, 1fr));">
                             <div class="calendar-time-column">
                                 ${Array(24).fill().map((_, i) => {
                                     const hour = i === 0 ? '12 AM' : i < 12 ? `${i} AM` : i === 12 ? '12 PM' : `${i-12} PM`;

@@ -1595,9 +1595,11 @@ ${data.content}
         }
 
         // Calendar View - Professional Google Calendar Style
-        async function loadCalendar() {
+        let calendarRangeDays = 14;
+        async function loadCalendar(days = calendarRangeDays) {
             try {
-                const res = await fetch(`${API_BASE}/api/calendar?days=14`);
+                calendarRangeDays = Number(days) || 14;
+                const res = await fetch(`${API_BASE}/api/calendar?days=${calendarRangeDays}`);
                 if (!res.ok) throw new Error('API error: ' + res.status);
                 const data = await res.json();
                 
@@ -1624,12 +1626,12 @@ ${data.content}
                     jobMap[job.id] = job.name;
                 }
                 
-                // Calculate week range (today + 6 days)
+                // Calculate visible day range (today + N days)
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 const weekStart = new Date(today);
                 const weekDays = [];
-                for (let i = 0; i < 7; i++) {
+                for (let i = 0; i < calendarRangeDays; i++) {
                     const d = new Date(weekStart);
                     d.setDate(weekStart.getDate() + i);
                     weekDays.push(d);
@@ -2022,12 +2024,15 @@ ${data.content}
                     <div class="calendar-main">
                         <div class="calendar-header">
                             <div class="calendar-header-left">
-                                <h2>${monthNames[weekStart.getMonth()]} ${weekStart.getDate()} - ${monthNames[weekDays[6].getMonth()]} ${weekDays[6].getDate()}, ${weekDays[6].getFullYear()}</h2>
+                                <h2>${monthNames[weekStart.getMonth()]} ${weekStart.getDate()} - ${monthNames[weekDays[weekDays.length - 1].getMonth()]} ${weekDays[weekDays.length - 1].getDate()}, ${weekDays[weekDays.length - 1].getFullYear()}</h2>
                             </div>
                             <div class="calendar-nav">
-                                <button class="calendar-nav-btn" onclick="loadCalendar()">Today</button>
-                                <button class="calendar-nav-btn" onclick="loadCalendar()">◀</button>
-                                <button class="calendar-nav-btn" onclick="loadCalendar()">▶</button>
+                                <select class="calendar-nav-btn" onchange="loadCalendar(this.value)" title="Visible day range">
+                                    <option value="7" ${calendarRangeDays === 7 ? 'selected' : ''}>7d</option>
+                                    <option value="14" ${calendarRangeDays === 14 ? 'selected' : ''}>14d</option>
+                                    <option value="30" ${calendarRangeDays === 30 ? 'selected' : ''}>30d</option>
+                                </select>
+                                <button class="calendar-nav-btn" onclick="loadCalendar(calendarRangeDays)">Refresh</button>
                             </div>
                         </div>
                         
@@ -2369,7 +2374,7 @@ ${data.content}
         function showRunDetail(jobId, runAt, duration, status, summary) {
             const modal = document.getElementById('detailModal');
             const jobMap = {};
-            fetch(`${API_BASE}/api/calendar?days=7`).then(r => r.json()).then(data => {
+            fetch(`${API_BASE}/api/calendar?days=30`).then(r => r.json()).then(data => {
                 for (const j of data.jobs || []) jobMap[j.id] = j.name;
                 
                 const name = jobMap[jobId] || jobId;

@@ -29,6 +29,12 @@ You are generating the Morning Brief for Andrew Priest.
 
 **Required sections with SOURCE LINKS:**
 
+**Important fallback rule (no Brave key yet):**
+- If `web_search` fails or is unavailable, use Google News RSS via `exec` as fallback, e.g.:
+  - `https://news.google.com/rss/search?q=<query>&hl=en-AU&gl=AU&ceid=AU:en`
+- You may also use `web_fetch` for direct page checks.
+- Do NOT skip sections just because web_search is unavailable; always provide best-effort alternatives with links.
+
 ## 1. 🌤️ Weather (Cooloola Cove, QLD)
 - Use wttr.in API: `curl wttr.in/Cooloola+Cove?format=v2`
 - Include: current temp, conditions, today's high/low, chance of rain

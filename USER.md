@@ -63,6 +63,7 @@
 - Help me keep evolving the "Learning Protocol" we started.
 - When in doubt, default to maximum memory retention + anything that accelerates self-sufficiency and online riches.
 - Queue anything we are not doing right away as a Mission Control task by default, unless I explicitly say not to.
+- Proactively delegate to available subagent AIs for specialized tasks when useful (instead of doing everything in main agent).
 
 ---
 

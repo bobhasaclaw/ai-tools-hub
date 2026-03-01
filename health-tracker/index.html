@@ -62,6 +62,7 @@
         <div><label>Waist (cm)</label><input id="waist" type="number" step="0.1"></div>
       </div>
       <label>Weekly notes</label><textarea id="weekNotes" rows="3"></textarea>
+      <label>Weekly photo (optional)</label><input id="weekPhoto" type="file" accept="image/*">
       <button id="saveWeekly" style="margin-top:10px">Save Weekly</button>
       <p class="muted" id="weeklyStatus" style="margin-top:8px"></p>
       <hr style="border-color:#223055">
@@ -88,7 +89,7 @@
     </table>
     <h3 style="margin:14px 0 6px">Weekly Waist Entries</h3>
     <table id="weeklyTable" style="margin-top:6px">
-      <thead><tr><th>Week Start</th><th>Waist (cm)</th><th>Notes</th></tr></thead>
+      <thead><tr><th>Week Start</th><th>Waist (cm)</th><th>Notes</th><th>Photo</th></tr></thead>
       <tbody></tbody>
     </table>
   </section>
@@ -133,9 +134,20 @@ $('saveDaily').onclick=()=>{
 $('clearDaily').onclick=()=>{$('weight').value='';$('energy').value='';$('hunger').value='';$('sleep').value='';$('training').value='no';$('stack').value='';$('notes').value='';};
 
 $('saveWeekly').onclick=()=>{
-  const row={week:$('week').value,waist:+$('waist').value||null,notes:$('weekNotes').value.trim()};
-  const arr=loadW(); const i=arr.findIndex(x=>x.week===row.week); if(i>=0) arr[i]=row; else arr.push(row);
-  saveW(arr); $('weeklyStatus').textContent='Saved weekly check ✅';
+  const file=$('weekPhoto').files[0];
+  const base={week:$('week').value,waist:+$('waist').value||null,notes:$('weekNotes').value.trim()};
+  const persist=(row)=>{
+    const arr=loadW(); const i=arr.findIndex(x=>x.week===row.week); if(i>=0) arr[i]=row; else arr.push(row);
+    saveW(arr); $('weeklyStatus').textContent='Saved weekly check ✅'; render();
+  };
+  if(file){
+    const reader=new FileReader();
+    reader.onload=()=>persist({...base,photo:reader.result});
+    reader.readAsDataURL(file);
+  } else {
+    const existing=loadW().find(x=>x.week===base.week);
+    persist({...base,photo:existing?.photo||null});
+  }
 };
 
 $('exportJson').onclick=()=>{
@@ -168,7 +180,8 @@ function render(){
     wtb.innerHTML='';
     loadW().slice().sort((a,b)=>a.week.localeCompare(b.week)).reverse().forEach(r=>{
       const tr=document.createElement('tr');
-      tr.innerHTML=`<td>${r.week||''}</td><td>${r.waist??''}</td><td>${r.notes||''}</td>`;
+      const photoCell = r.photo ? `<img src="${r.photo}" alt="Weekly check photo" style="width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid #2c3b5f;cursor:pointer" onclick="window.open('${r.photo}','_blank')">` : '';
+      tr.innerHTML=`<td>${r.week||''}</td><td>${r.waist??''}</td><td>${r.notes||''}</td><td>${photoCell}</td>`;
       wtb.appendChild(tr);
     });
   }

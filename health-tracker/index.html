@@ -35,6 +35,10 @@
         <div><label>Weight (kg)</label><input id="weight" type="number" step="0.1"></div>
       </div>
       <div class="row">
+        <div><label>Start weight (kg)</label><input id="startWeight" type="number" step="0.1"></div>
+        <div><label>&nbsp;</label><button id="saveStartWeight">Save Start Weight</button></div>
+      </div>
+      <div class="row">
         <div><label>Energy /10</label><input id="energy" type="number" min="1" max="10"></div>
         <div><label>Hunger /10</label><input id="hunger" type="number" min="1" max="10"></div>
       </div>
@@ -86,9 +90,14 @@
 <script>
 const K='andrew_health_tracker_v1';
 const W='andrew_health_weekly_v1';
+const S='andrew_health_start_weight_v1';
 const $=id=>document.getElementById(id);
+const $$=sel=>document.querySelector(sel);
 const today=new Date().toISOString().slice(0,10);
 $('date').value=today; $('week').value=today;
+if(!localStorage.getItem(S)) localStorage.setItem(S,'102.3');
+$('startWeight').value=localStorage.getItem(S) || '';
+$('saveStartWeight').onclick=()=>{ const v=+$('startWeight').value; if(!v) return alert('Enter start weight'); localStorage.setItem(S,String(v)); render(); };
 
 function load(){return JSON.parse(localStorage.getItem(K)||'[]').sort((a,b)=>a.date.localeCompare(b.date));}
 function save(arr){localStorage.setItem(K,JSON.stringify(arr)); render();}
@@ -133,7 +142,7 @@ function line(canvas, series, colors){
 
 function render(){
   const arr=load();
-  const tb=$('#table tbody'); tb.innerHTML='';
+  const tb=$$('#table tbody'); if(!tb) return; tb.innerHTML='';
   arr.slice().reverse().forEach(r=>{const tr=document.createElement('tr'); tr.innerHTML=`<td>${r.date}</td><td>${r.weight??''}</td><td>${r.energy??''}</td><td>${r.hunger??''}</td><td>${r.sleep??''}</td><td>${r.training||''}</td><td>${r.stack||''}</td>`; tb.appendChild(tr);});
 
   const dates=arr.map(r=>r.date), w=arr.map(r=>r.weight), e=arr.map(r=>r.energy), h=arr.map(r=>r.hunger);
@@ -145,7 +154,10 @@ function render(){
   const last=arr.length? arr[arr.length-1].weight:null;
   let trend='No trend yet';
   if(recent.length>=2){ const d=recent[recent.length-1]-recent[0]; trend=d<0?`Down ${Math.abs(d).toFixed(1)}kg over ${recent.length} entries`:d>0?`Up ${d.toFixed(1)}kg over ${recent.length} entries`:'Flat trend'; }
-  $('analysis').innerHTML=`Entries: <strong>${arr.length}</strong><br>Latest weight: <strong>${last??'n/a'}</strong> kg<br>7-entry avg: <strong>${avg?avg.toFixed(1):'n/a'}</strong> kg<br><span class="ok">${trend}</span>`;
+  const start=+(localStorage.getItem(S)||0) || null;
+  const sinceStart=(start!=null && last!=null) ? (last-start) : null;
+  const sinceTxt = sinceStart==null ? 'n/a' : (sinceStart<0 ? `Lost ${Math.abs(sinceStart).toFixed(1)}kg` : sinceStart>0 ? `Up ${sinceStart.toFixed(1)}kg` : 'No change');
+  $('analysis').innerHTML=`Entries: <strong>${arr.length}</strong><br>Start weight: <strong>${start??'n/a'}</strong> kg<br>Latest weight: <strong>${last??'n/a'}</strong> kg<br>Since start: <strong>${sinceTxt}</strong><br>7-entry avg: <strong>${avg?avg.toFixed(1):'n/a'}</strong> kg<br><span class="ok">${trend}</span>`;
 }
 render();
 </script>

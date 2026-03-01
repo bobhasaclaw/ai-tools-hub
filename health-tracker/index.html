@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Andrew Health Tracker</title>
+  <style>
+    :root{--bg:#0b1220;--card:#111a2e;--text:#e5eefc;--muted:#9cb0d3;--accent:#22d3ee;--ok:#22c55e}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+    .card{background:var(--card);border:1px solid #1f2a44;border-radius:14px;padding:14px}
+    h1,h2{margin:0 0 12px}
+    h1{font-size:26px}.muted{color:var(--muted);font-size:13px}
+    label{display:block;font-size:12px;color:var(--muted);margin:8px 0 4px}
+    input,select,textarea,button{width:100%;box-sizing:border-box;border-radius:10px;border:1px solid #2c3b5f;background:#0d1528;color:var(--text);padding:10px}
+    button{background:#0f2a3d;border-color:#1f526f;cursor:pointer}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th,td{padding:8px;border-bottom:1px solid #223055;text-align:left}
+    .ok{color:var(--ok)}
+    canvas{width:100%;height:220px;background:#0d1528;border:1px solid #24365a;border-radius:10px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏋️ Andrew OMAD & Longevity Tracker</h1>
+  <p class="muted">Local-only (browser localStorage). No cloud sync.</p>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Daily Entry</h2>
+      <div class="row">
+        <div><label>Date</label><input id="date" type="date"></div>
+        <div><label>Weight (kg)</label><input id="weight" type="number" step="0.1"></div>
+      </div>
+      <div class="row">
+        <div><label>Energy /10</label><input id="energy" type="number" min="1" max="10"></div>
+        <div><label>Hunger /10</label><input id="hunger" type="number" min="1" max="10"></div>
+      </div>
+      <div class="row">
+        <div><label>Sleep /10</label><input id="sleep" type="number" min="1" max="10"></div>
+        <div><label>Training</label><select id="training"><option>no</option><option>yes</option></select></div>
+      </div>
+      <label>Morning stack</label><input id="stack" placeholder="e.g. methylene blue, NMN, coffee">
+      <label>Notes</label><textarea id="notes" rows="3"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="saveDaily">Save Daily</button>
+        <button id="clearDaily">Clear Form</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Weekly Check</h2>
+      <div class="row">
+        <div><label>Week start</label><input id="week" type="date"></div>
+        <div><label>Waist (cm)</label><input id="waist" type="number" step="0.1"></div>
+      </div>
+      <label>Weekly notes</label><textarea id="weekNotes" rows="3"></textarea>
+      <button id="saveWeekly" style="margin-top:10px">Save Weekly</button>
+      <p class="muted" id="weeklyStatus" style="margin-top:8px"></p>
+      <hr style="border-color:#223055">
+      <h2>Analysis Snapshot</h2>
+      <p id="analysis" class="muted">No data yet.</p>
+    </section>
+  </div>
+
+  <div class="grid" style="margin-top:14px">
+    <section class="card"><h2>Weight Trend</h2><canvas id="weightChart" width="1000" height="280"></canvas></section>
+    <section class="card"><h2>Energy vs Hunger</h2><canvas id="ehChart" width="1000" height="280"></canvas></section>
+  </div>
+
+  <section class="card" style="margin-top:14px">
+    <h2>Entries</h2>
+    <div class="row">
+      <button id="exportJson">Export JSON</button>
+      <input id="importFile" type="file" accept="application/json" />
+    </div>
+    <table id="table" style="margin-top:10px">
+      <thead><tr><th>Date</th><th>Weight</th><th>Energy</th><th>Hunger</th><th>Sleep</th><th>Training</th><th>Stack</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+const K='andrew_health_tracker_v1';
+const W='andrew_health_weekly_v1';
+const $=id=>document.getElementById(id);
+const today=new Date().toISOString().slice(0,10);
+$('date').value=today; $('week').value=today;
+
+function load(){return JSON.parse(localStorage.getItem(K)||'[]').sort((a,b)=>a.date.localeCompare(b.date));}
+function save(arr){localStorage.setItem(K,JSON.stringify(arr)); render();}
+function loadW(){return JSON.parse(localStorage.getItem(W)||'[]');}
+function saveW(arr){localStorage.setItem(W,JSON.stringify(arr));}
+
+$('saveDaily').onclick=()=>{
+  const row={date:$('date').value,weight:+$('weight').value||null,energy:+$('energy').value||null,hunger:+$('hunger').value||null,sleep:+$('sleep').value||null,training:$('training').value,stack:$('stack').value.trim(),notes:$('notes').value.trim()};
+  if(!row.date) return alert('Date required');
+  const arr=load();
+  const i=arr.findIndex(x=>x.date===row.date);
+  if(i>=0) arr[i]=row; else arr.push(row);
+  save(arr);
+};
+$('clearDaily').onclick=()=>{$('weight').value='';$('energy').value='';$('hunger').value='';$('sleep').value='';$('training').value='no';$('stack').value='';$('notes').value='';};
+
+$('saveWeekly').onclick=()=>{
+  const row={week:$('week').value,waist:+$('waist').value||null,notes:$('weekNotes').value.trim()};
+  const arr=loadW(); const i=arr.findIndex(x=>x.week===row.week); if(i>=0) arr[i]=row; else arr.push(row);
+  saveW(arr); $('weeklyStatus').textContent='Saved weekly check ✅';
+};
+
+$('exportJson').onclick=()=>{
+  const blob=new Blob([JSON.stringify({daily:load(),weekly:loadW()},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='andrew-health-tracker.json'; a.click();
+};
+$('importFile').onchange=(e)=>{
+  const f=e.target.files[0]; if(!f) return; const r=new FileReader();
+  r.onload=()=>{try{const j=JSON.parse(r.result); if(j.daily) localStorage.setItem(K,JSON.stringify(j.daily)); if(j.weekly) localStorage.setItem(W,JSON.stringify(j.weekly)); render(); alert('Imported ✅');}catch{alert('Invalid JSON')}};
+  r.readAsText(f);
+};
+
+function line(canvas, series, colors){
+  const c=canvas.getContext('2d'); c.clearRect(0,0,canvas.width,canvas.height);
+  c.strokeStyle='#2a3b60'; c.beginPath(); c.moveTo(40,20); c.lineTo(40,250); c.lineTo(980,250); c.stroke();
+  const max=Math.max(10,...series.flatMap(s=>s.values.filter(v=>v!=null))); const min=Math.min(0,...series.flatMap(s=>s.values.filter(v=>v!=null)));
+  const sx=i=>40+(i*(940/Math.max(1,series[0].values.length-1))); const sy=v=>250-((v-min)/(max-min||1))*220;
+  series.forEach((s,idx)=>{ c.strokeStyle=colors[idx]; c.lineWidth=2; c.beginPath(); let started=false;
+    s.values.forEach((v,i)=>{ if(v==null) return; const x=sx(i), y=sy(v); if(!started){c.moveTo(x,y); started=true;} else c.lineTo(x,y); }); c.stroke();
+  });
+}
+
+function render(){
+  const arr=load();
+  const tb=$('#table tbody'); tb.innerHTML='';
+  arr.slice().reverse().forEach(r=>{const tr=document.createElement('tr'); tr.innerHTML=`<td>${r.date}</td><td>${r.weight??''}</td><td>${r.energy??''}</td><td>${r.hunger??''}</td><td>${r.sleep??''}</td><td>${r.training||''}</td><td>${r.stack||''}</td>`; tb.appendChild(tr);});
+
+  const dates=arr.map(r=>r.date), w=arr.map(r=>r.weight), e=arr.map(r=>r.energy), h=arr.map(r=>r.hunger);
+  line($('weightChart'),[{name:'weight',values:w}],['#22d3ee']);
+  line($('ehChart'),[{name:'energy',values:e},{name:'hunger',values:h}],['#22c55e','#f97316']);
+
+  const recent=arr.slice(-7).filter(r=>r.weight!=null).map(r=>r.weight);
+  const avg=recent.length? (recent.reduce((a,b)=>a+b,0)/recent.length):null;
+  const last=arr.length? arr[arr.length-1].weight:null;
+  let trend='No trend yet';
+  if(recent.length>=2){ const d=recent[recent.length-1]-recent[0]; trend=d<0?`Down ${Math.abs(d).toFixed(1)}kg over ${recent.length} entries`:d>0?`Up ${d.toFixed(1)}kg over ${recent.length} entries`:'Flat trend'; }
+  $('analysis').innerHTML=`Entries: <strong>${arr.length}</strong><br>Latest weight: <strong>${last??'n/a'}</strong> kg<br>7-entry avg: <strong>${avg?avg.toFixed(1):'n/a'}</strong> kg<br><span class="ok">${trend}</span>`;
+}
+render();
+</script>
+</body>
+</html>

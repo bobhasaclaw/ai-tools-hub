@@ -1824,5 +1824,15 @@ footer .logo { font-size: 1.25rem; }
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
     </svg>
   </button>
+  
+  <!-- Mobile Fix - Force single column on small screens -->
+  <style>
+    @media (max-width: 768px) {
+      .top-picks-grid { display: flex !important; flex-direction: column !important; }
+      .editors-choice-grid { display: flex !important; flex-direction: column !important; }
+      [style*="grid-template-columns"] { display: flex !important; flex-direction: column !important; }
+      .premium-card, .top-pick-card, .tool-card, .card { width: 100% !important; margin-bottom: 12px !important; }
+    }
+  </style>
 </body>
 </html>

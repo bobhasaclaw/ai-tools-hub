@@ -1901,7 +1901,7 @@ if (hash && hashToFilter[hash]) {
       const previewDiv = document.createElement('div');
       previewDiv.className = 'card-preview-image';
       if (imgSrc) {
-        previewDiv.innerHTML = `<img src="${imgSrc}" alt="${iconName}" style="width:100%;height:100%;object-fit:contain;padding:20px;">`;
+        previewDiv.innerHTML = `<img src="${imgSrc}" alt="${iconName}" style="width:100%;height:100%;object-fit:cover;">`;
       } else {
         previewDiv.innerHTML = `<div class="card-preview-placeholder">🤖</div>`;
       }

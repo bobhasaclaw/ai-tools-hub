@@ -315,14 +315,14 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 24px;
-  grid-auto-flow: dense;
+      grid-auto-flow: dense;
       padding-bottom: 80px;
     }
     .article-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 24px;
+      padding: 0;
       transition: all 0.3s ease;
       text-decoration: none;
       display: flex;
@@ -331,9 +331,59 @@
       overflow: hidden;
     }
     .article-card:hover {
-      transform: scale(1.02);
+      transform: translateY(-4px);
       border-color: rgba(99,102,241,0.5);
       box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 30px rgba(99,102,241,0.25);
+    }
+    /* Preview Image Area */
+    .card-preview-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .card-preview-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-preview-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    }
+    .card-content {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .card-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .card-content p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      flex-grow: 1;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      margin-top: auto;
     }
     .article-card .preview-snippet {
       position: absolute;
@@ -590,12 +640,17 @@
     
     @media (max-width: 768px) {
       .hero h1 { font-size: 1.75rem; }
-      .articles-grid { grid-template-columns: 1fr; }
+      .articles-grid { 
+        grid-template-columns: 1fr !important; 
+        gap: 16px;
+      }
       .filters { gap: 8px; }
       .filter-btn { padding: 8px 16px; font-size: 0.8rem; }
       .hamburger { display: flex; }
       nav .nav-links { display: none; }
       nav { position: relative; }
+      .card-preview-image { height: 140px; }
+      .card-content { padding: 16px; }
     }
   .breadcrumb { padding: 100px 24px 16px; max-width: 1200px; margin: 0 auto; font-size: 0.875rem; }
   .breadcrumb-list { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; }
@@ -656,8 +711,8 @@
   /* New Badge */
   .new-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
     background: linear-gradient(135deg, #6366f1, #8b5cf6);
     color: white;
     font-size: 0.7rem;
@@ -672,6 +727,14 @@
   
   .article-card {
     position: relative;
+  }
+
+  /* Card header improvements */
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
   }
 
 
@@ -1813,6 +1876,40 @@ if (hash && hashToFilter[hash]) {
       const hasRating = data && data.rating;
       const hasPricing = data && data.pricing;
       
+      // Add preview image to card
+      const iconName = hasRating ? data.icon : 'chatgpt';
+      const previewEmojis = {
+        'chatgpt': '🤖', 'claude': '🧠', 'gemini': '✨', 'llama': '🦙', 
+        'mistral': '💨', 'deepseek': '🔍', 'cohere': '🔗', 'midjourney': '🎨',
+        'stablediffusion': '🖼️', 'dalle': '🖌️', 'firefly': '🔥', 'stability': '⚡',
+        'runway': '🎬', 'pika': '📹', 'heygen': '👤', 'synthesia': '🎭',
+        'kling': '🚀', 'sora': '🌊', 'invideo': '📱', 'veed': '✂️',
+        'pictory': '📝', 'lumen5': '💡', 'suno': '🎵', 'elevenlabs': '🎤',
+        'descript': '🎧', 'notion': '🧩', 'otter': '🦦', 'jasper': '✍️',
+        'copyai': '📄', 'writesonic': '📜', 'anyword': '📊', 'grammarly': '✅',
+        'quillbot': '🔄', 'wordtune': '📝', 'rytr': '✏️', 'chatsonic': '💬',
+        'articleforge': '📚', 'frase': '🔎', 'simplified': '⚡', 'canva': '🎨',
+        'figma': '💅', 'cursor': '⌨️', 'github-copilot': '💻', 'copilot': '🤝',
+        'qwen': '🐰', 'huggingface': '🤗', 'perplexity': '🔮'
+      };
+      const emoji = previewEmojis[iconName] || '🤖';
+      
+      // Create preview image element
+      const previewDiv = document.createElement('div');
+      previewDiv.className = 'card-preview-image';
+      previewDiv.innerHTML = `<div class="card-preview-placeholder">${emoji}</div>`;
+      
+      // Insert preview at the beginning of the card
+      card.insertBefore(previewDiv, card.firstChild);
+      
+      // Wrap existing content in card-content div
+      const cardContent = document.createElement('div');
+      cardContent.className = 'card-content';
+      while (card.children.length > 1) { // Keep preview-image, move everything else
+        cardContent.appendChild(card.children[1]);
+      }
+      card.appendChild(cardContent);
+      
       // Get existing elements before modifying
       const categoryTag = card.querySelector('.category-tag');
       const readTime = card.querySelector('.read-time');
@@ -1828,7 +1925,6 @@ if (hash && hashToFilter[hash]) {
       // Create icon element
       const iconDiv = document.createElement('div');
       iconDiv.className = 'tool-icon';
-      const iconName = hasRating ? data.icon : 'chatgpt'; // Default icon for non-tools
       iconDiv.innerHTML = `<img src="images/${iconName}.svg" alt="" style="width:28px;height:28px;object-fit:contain;" onerror="this.parentElement.innerHTML='🤖'">`;
       
       // Create meta container

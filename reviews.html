@@ -1753,7 +1753,8 @@ footer .logo { font-size: 1.25rem; }
           description.includes(searchText);
         
         if (matchesFilter && matchesSearch) {
-          card.style.display = 'flex';
+          card.style.display = '';
+          card.removeAttribute('style');
           visibleCount++;
         } else {
           card.style.display = 'none';

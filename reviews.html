@@ -1884,18 +1884,18 @@ if (hash && hashToFilter[hash]) {
         iconName = hasRating ? data.icon : 'chatgpt';
       }
       const previewImages = {
-        'chatgpt': 'images/chatgpt.svg', 'claude': 'images/claude.svg', 'gemini': 'images/gemini.svg', 'llama': 'images/llama.svg', 
-        'mistral': 'images/mistral.svg', 'deepseek': 'images/deepseek.svg', 'cohere': 'images/cohere.svg', 'midjourney': 'images/midjourney.svg',
-        'stablediffusion': 'images/stablediffusion.svg', 'dalle': 'images/dalle.svg', 'firefly': 'images/firefly.svg', 'stability': 'images/stability.svg',
-        'runway': 'images/runway.svg', 'pika': 'images/pika.svg', 'heygen': 'images/heygen.svg', 'synthesia': 'images/synthesia.svg',
-        'kling': 'images/kling.svg', 'sora': 'images/sora.svg', 'invideo': 'images/invideo.svg', 'veed': 'images/veed.svg',
-        'pictory': 'images/pictory.svg', 'lumen5': 'images/lumen5.svg', 'suno': 'images/suno.svg', 'elevenlabs': 'images/elevenlabs.svg',
-        'descript': 'images/descript.svg', 'notion': 'images/notion.svg', 'otter': 'images/otter.svg', 'jasper': 'images/jasper.svg',
-        'copyai': 'images/copyai.svg', 'writesonic': 'images/writesonic.svg', 'anyword': 'images/anyword.svg', 'grammarly': 'images/grammarly.svg',
-        'quillbot': 'images/quillbot.svg', 'wordtune': 'images/wordtune.svg', 'rytr': 'images/rytr.svg', 'chatsonic': 'images/chatsonic.svg',
-        'articleforge': 'images/articleforge.svg', 'frase': 'images/frase.svg', 'simplified': 'images/simplified.svg', 'canva': 'images/canva.svg',
-        'figma': 'images/figma.svg', 'cursor': 'images/cursor.svg', 'github-copilot': 'images/github-copilot.svg', 'copilot': 'images/copilot.svg',
-        'qwen': 'images/qwen.svg', 'huggingface': 'images/huggingface.svg', 'perplexity': 'images/perplexity.svg'
+        'chatgpt': 'images/chatgpt.png', 'claude': 'images/claude.png', 'gemini': 'images/gemini.png', 'llama': 'images/llama.png', 
+        'mistral': 'images/mistral.png', 'deepseek': 'images/deepseek.png', 'cohere': 'images/cohere.png', 'midjourney': 'images/midjourney.png',
+        'stablediffusion': 'images/stablediffusion.png', 'dalle': 'images/dalle.png', 'firefly': 'images/firefly.png', 'stability': 'images/stability.png',
+        'runway': 'images/runway.png', 'pika': 'images/pika.png', 'heygen': 'images/heygen.png', 'synthesia': 'images/synthesia.png',
+        'kling': 'images/kling.png', 'sora': 'images/sora.png', 'invideo': 'images/invideo.png', 'veed': 'images/veed.png',
+        'pictory': 'images/pictory.png', 'lumen5': 'images/lumen5.png', 'suno': 'images/suno.png', 'elevenlabs': 'images/elevenlabs.png',
+        'descript': 'images/descript.png', 'notion': 'images/notion.png', 'otter': 'images/otter.png', 'jasper': 'images/jasper.png',
+        'copyai': 'images/copyai.png', 'writesonic': 'images/writesonic.png', 'anyword': 'images/anyword.png', 'grammarly': 'images/grammarly.png',
+        'quillbot': 'images/quillbot.png', 'wordtune': 'images/wordtune.png', 'rytr': 'images/rytr.png', 'chatsonic': 'images/chatsonic.png',
+        'articleforge': 'images/articleforge.png', 'frase': 'images/frase.png', 'simplified': 'images/simplified.png', 'canva': 'images/canva.png',
+        'figma': 'images/figma.png', 'cursor': 'images/cursor.png', 'github-copilot': 'images/github-copilot.png', 'copilot': 'images/copilot.png',
+        'qwen': 'images/qwen.png', 'huggingface': 'images/huggingface.png', 'perplexity': 'images/perplexity.png'
       };
       const imgSrc = previewImages[iconName];
       const previewDiv = document.createElement('div');
@@ -1932,7 +1932,7 @@ if (hash && hashToFilter[hash]) {
       // Create icon element
       const iconDiv = document.createElement('div');
       iconDiv.className = 'tool-icon';
-      iconDiv.innerHTML = `<img src="images/${iconName}.svg" alt="" style="width:28px;height:28px;object-fit:contain;" onerror="this.parentElement.innerHTML='🤖'">`;
+      iconDiv.innerHTML = `<img src="images/${iconName}.png" alt="" style="width:28px;height:28px;object-fit:contain;" onerror="this.parentElement.innerHTML='🤖'">`;
       
       // Create meta container
       const metaDiv = document.createElement('div');

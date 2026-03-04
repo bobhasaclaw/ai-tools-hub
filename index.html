@@ -131,7 +131,7 @@
         radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.08) 0%, transparent 50%);
     }
     }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; width: 100%; }
     
     /* Nav */
     nav {
@@ -959,6 +959,27 @@ h2 { letter-spacing: .1px; }
   .container { padding-left: 16px !important; padding-right: 16px !important; }
   .hero, .hero-section { padding-top: 84px !important; }
 }
+
+/* FIXED: Better mobile responsiveness */
+@media (max-width: 900px) {
+  .container { max-width: 100% !important; }
+  .top-picks-grid,
+  .editors-choice-grid,
+  .grid { 
+    grid-template-columns: 1fr !important; 
+    gap: 16px !important;
+  }
+  .premium-card, .tool-card, .card {
+    min-height: auto !important;
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: clamp(1.9rem, 7vw, 2.35rem) !important; }
+  h2 { font-size: clamp(1.35rem, 5.4vw, 1.8rem) !important; }
+  .card, .tool-card, .review-card { padding: 1rem !important; }
+}
 </style>
 
 
@@ -977,6 +998,109 @@ section, .section { padding-top: clamp(2.5rem,4vw,4rem) !important; padding-bott
   .card, .tool-card, .review-card { padding: 1rem !important; }
 }
 </style>
+  <link rel="stylesheet" href="styles/design-system.css">
+
+<style id="site-chrome-pass2">
+/* Visual System Pass 2: unified header/nav/footer chrome */
+nav {
+  position: sticky !important;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  background: rgba(11, 13, 23, 0.82) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: var(--text-secondary); text-decoration: none; transition: color .2s; }
+.nav-links a:hover,
+.nav-links a.active { color: var(--accent-primary) !important; }
+.nav-item-dropdown { position: relative; }
+.dropdown-menu {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all .3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.nav-links.mobile-open {
+  display: flex !important;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(15, 17, 28, .98) !important;
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px;
+  gap: 12px;
+}
+
+footer {
+  padding: 48px 0 !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+footer .logo { font-size: 1.25rem; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a {
+  color: var(--text-secondary) !important;
+  font-size: .875rem;
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--text-primary) !important; }
+.social-links { display: flex; gap: 16px; margin-top: 16px; }
+.social-links a {
+  color: var(--text-secondary) !important;
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: color .2s, transform .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--border-color);
+}
+.social-links a:hover { color: var(--text-primary) !important; transform: translateY(-2px); }
+
+@media (max-width: 768px) {
+  nav { position: relative !important; }
+  nav .nav-links { display: none; }
+  .hamburger { display: flex; }
+  footer .container { justify-content: center; text-align: center; }
+  .footer-links { justify-content: center; }
+  .social-links { justify-content: center; width: 100%; }
+}
+</style>
+
 </head>
 <body>
   <nav>
@@ -1008,7 +1132,7 @@ section, .section { padding-top: clamp(2.5rem,4vw,4rem) !important; padding-bott
           <span class="icon-dark">🌙</span>
           <span class="icon-light">☀️</span>
         </button>
-        <a href="#reviews" class="btn">Get Started</a>
+        <a href="reviews.html#reviews" class="btn">Get Started</a>
       </div>
     </div>
   </nav>

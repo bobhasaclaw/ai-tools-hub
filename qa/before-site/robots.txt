@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bobhasaclaw.github.io/ai-affiliate-site-v2/sitemap.xml

@@ -1,0 +1,205 @@
+:root {
+  --ds-max-width: 1200px;
+  --ds-gutter: clamp(16px, 2.2vw, 28px);
+  --ds-radius: 14px;
+  --ds-radius-sm: 10px;
+  --ds-card-border: rgba(99, 102, 241, 0.2);
+  --ds-card-shadow: 0 10px 26px rgba(2, 8, 23, 0.32);
+  --ds-card-shadow-hover: 0 16px 36px rgba(2, 8, 23, 0.44);
+  --ds-text-soft: rgba(232, 234, 246, 0.84);
+}
+
+.container,
+nav .container,
+.nav__container,
+.footer__container {
+  width: min(var(--ds-max-width), 100% - var(--ds-gutter) * 2) !important;
+  margin-inline: auto !important;
+  padding-inline: 0 !important;
+}
+
+body {
+  text-wrap: pretty;
+}
+
+h1,
+.hero h1,
+.hero-title {
+  letter-spacing: -0.02em !important;
+  line-height: 1.12 !important;
+}
+
+h2,
+.section-title,
+.section h2 {
+  letter-spacing: -0.012em !important;
+  line-height: 1.2 !important;
+}
+
+p,
+li,
+.card p,
+.article-card p,
+.tool-card p,
+.review-card p {
+  line-height: 1.68 !important;
+}
+
+section,
+.section {
+  padding-block: clamp(2.6rem, 5vw, 4.4rem) !important;
+}
+
+.hero,
+.hero-section,
+.page-header {
+  padding-top: clamp(5.6rem, 10vw, 8.2rem) !important;
+}
+
+nav,
+.nav {
+  position: sticky !important;
+  top: 0;
+  z-index: 1000;
+  background: color-mix(in srgb, var(--nav-bg, #0a0a0f) 88%, transparent) !important;
+  border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.1)) !important;
+  backdrop-filter: blur(20px);
+}
+
+.nav-links,
+.nav__links {
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px) !important;
+}
+
+.btn,
+button,
+.filter-btn,
+.category-tab,
+.search__button,
+.theme-toggle {
+  border-radius: var(--ds-radius-sm) !important;
+  font-weight: 600 !important;
+}
+
+.card,
+.article-card,
+.tool-card,
+.popular-card,
+.premium-card,
+.spotlight,
+.comparison-container,
+.tool-selector,
+.cta,
+.cta-card {
+  border-radius: var(--ds-radius) !important;
+  border: 1px solid var(--ds-card-border) !important;
+  box-shadow: var(--ds-card-shadow);
+}
+
+.card:hover,
+.article-card:hover,
+.popular-card:hover,
+.premium-card:hover,
+.tool-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: var(--ds-card-shadow-hover) !important;
+}
+
+.card p,
+.article-card p,
+.tool-card p,
+.section-desc,
+.hero p,
+.hero-subtitle {
+  color: var(--ds-text-soft) !important;
+}
+
+.filters,
+.category-tabs {
+  row-gap: 10px;
+}
+
+footer,
+.footer {
+  margin-top: clamp(2.5rem, 5vw, 4rem) !important;
+  padding-top: clamp(2rem, 4vw, 3rem) !important;
+}
+
+.footer-links,
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px !important;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-item-dropdown { position: relative; }
+.dropdown-toggle::after { content: '▾'; font-size: .7rem; margin-left: 4px; }
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 180px;
+  padding: 8px 0;
+  border-radius: 12px;
+  background: var(--bg-card, #1a1a24);
+  border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+  box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: .2s ease;
+  z-index: 30;
+}
+.nav-item-dropdown:hover .dropdown-menu,
+.nav-item-dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown-menu a {
+  display: block;
+  padding: 10px 16px;
+}
+
+@media (max-width: 768px) {
+  .container,
+  nav .container,
+  .nav__container,
+  .footer__container {
+    width: min(var(--ds-max-width), 100% - 32px) !important;
+  }
+
+  .nav-links.mobile-open {
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 14px var(--ds-gutter) 18px !important;
+  }
+
+  .dropdown-menu {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: none;
+    border: 0;
+    padding-left: 12px;
+    background: transparent;
+    display: none;
+  }
+
+  .nav-item-dropdown.mobile-open .dropdown-menu { display: block; }
+
+  .hero-search,
+  .search,
+  .search-container {
+    width: 100%;
+    max-width: 100% !important;
+  }
+}

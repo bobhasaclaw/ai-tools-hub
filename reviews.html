@@ -315,8 +315,17 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr) !important;
       gap: 24px;
-      padding-bottom: 80px;
+      padding: 0 24px 80px;
       align-items: stretch;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    @media (min-width: 1200px) {
+      .articles-grid {
+        padding: 0 48px 80px;
+      }
     }
     .articles-grid .article-card {
       height: auto;

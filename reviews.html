@@ -339,15 +339,17 @@
     .card-preview-image {
       width: 100%;
       height: 160px;
-      object-fit: cover;
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .card-preview-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
     }
     .card-preview-placeholder {
       width: 100%;
@@ -1878,26 +1880,28 @@ if (hash && hashToFilter[hash]) {
       
       // Add preview image to card
       const iconName = hasRating ? data.icon : 'chatgpt';
-      const previewEmojis = {
-        'chatgpt': '🤖', 'claude': '🧠', 'gemini': '✨', 'llama': '🦙', 
-        'mistral': '💨', 'deepseek': '🔍', 'cohere': '🔗', 'midjourney': '🎨',
-        'stablediffusion': '🖼️', 'dalle': '🖌️', 'firefly': '🔥', 'stability': '⚡',
-        'runway': '🎬', 'pika': '📹', 'heygen': '👤', 'synthesia': '🎭',
-        'kling': '🚀', 'sora': '🌊', 'invideo': '📱', 'veed': '✂️',
-        'pictory': '📝', 'lumen5': '💡', 'suno': '🎵', 'elevenlabs': '🎤',
-        'descript': '🎧', 'notion': '🧩', 'otter': '🦦', 'jasper': '✍️',
-        'copyai': '📄', 'writesonic': '📜', 'anyword': '📊', 'grammarly': '✅',
-        'quillbot': '🔄', 'wordtune': '📝', 'rytr': '✏️', 'chatsonic': '💬',
-        'articleforge': '📚', 'frase': '🔎', 'simplified': '⚡', 'canva': '🎨',
-        'figma': '💅', 'cursor': '⌨️', 'github-copilot': '💻', 'copilot': '🤝',
-        'qwen': '🐰', 'huggingface': '🤗', 'perplexity': '🔮'
+      const previewImages = {
+        'chatgpt': 'images/chatgpt.svg', 'claude': 'images/claude.svg', 'gemini': 'images/gemini.svg', 'llama': 'images/llama.svg', 
+        'mistral': 'images/mistral.svg', 'deepseek': 'images/deepseek.svg', 'cohere': 'images/cohere.svg', 'midjourney': 'images/midjourney.svg',
+        'stablediffusion': 'images/stablediffusion.svg', 'dalle': 'images/dalle.svg', 'firefly': 'images/firefly.svg', 'stability': 'images/stability.svg',
+        'runway': 'images/runway.svg', 'pika': 'images/pika.svg', 'heygen': 'images/heygen.svg', 'synthesia': 'images/synthesia.svg',
+        'kling': 'images/kling.svg', 'sora': 'images/sora.svg', 'invideo': 'images/invideo.svg', 'veed': 'images/veed.svg',
+        'pictory': 'images/pictory.svg', 'lumen5': 'images/lumen5.svg', 'suno': 'images/suno.svg', 'elevenlabs': 'images/elevenlabs.svg',
+        'descript': 'images/descript.svg', 'notion': 'images/notion.svg', 'otter': 'images/otter.svg', 'jasper': 'images/jasper.svg',
+        'copyai': 'images/copyai.svg', 'writesonic': 'images/writesonic.svg', 'anyword': 'images/anyword.svg', 'grammarly': 'images/grammarly.svg',
+        'quillbot': 'images/quillbot.svg', 'wordtune': 'images/wordtune.svg', 'rytr': 'images/rytr.svg', 'chatsonic': 'images/chatsonic.svg',
+        'articleforge': 'images/articleforge.svg', 'frase': 'images/frase.svg', 'simplified': 'images/simplified.svg', 'canva': 'images/canva.svg',
+        'figma': 'images/figma.svg', 'cursor': 'images/cursor.svg', 'github-copilot': 'images/github-copilot.svg', 'copilot': 'images/copilot.svg',
+        'qwen': 'images/qwen.svg', 'huggingface': 'images/huggingface.svg', 'perplexity': 'images/perplexity.svg'
       };
-      const emoji = previewEmojis[iconName] || '🤖';
-      
-      // Create preview image element
+      const imgSrc = previewImages[iconName];
       const previewDiv = document.createElement('div');
       previewDiv.className = 'card-preview-image';
-      previewDiv.innerHTML = `<div class="card-preview-placeholder">${emoji}</div>`;
+      if (imgSrc) {
+        previewDiv.innerHTML = `<img src="${imgSrc}" alt="${iconName}" style="width:100%;height:100%;object-fit:contain;padding:20px;">`;
+      } else {
+        previewDiv.innerHTML = `<div class="card-preview-placeholder">🤖</div>`;
+      }
       
       // Insert preview at the beginning of the card
       card.insertBefore(previewDiv, card.firstChild);

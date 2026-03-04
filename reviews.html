@@ -313,10 +313,13 @@
     /* Articles Grid */
     .articles-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr) !important;
       gap: 24px;
       padding-bottom: 80px;
       align-items: stretch;
+    }
+    .articles-grid .article-card {
+      height: auto;
     }
     .article-card {
       background: var(--bg-card);
@@ -357,7 +360,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3.5rem;
+      font-size: 3rem;
       background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     }
     .card-content {

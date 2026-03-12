@@ -256,6 +256,31 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
       display: block;
+      position: relative;
+    }
+    
+    /* Favorite Button */
+    .favorite-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    
+    .favorite-btn:hover {
+      background: rgba(0, 0, 0, 0.7);
+      transform: scale(1.1);
     }
     
     .tool-card:hover {
@@ -472,6 +497,7 @@
       <!-- Category Filters -->
       <div class="category-filters" style="display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;justify-content:center;">
         <button type="button" class="cat-filter active" data-category="all" style="padding:8px 20px;background:var(--accent-primary);border:1px solid var(--accent-primary);border-radius:20px;color:white;font-weight:500;cursor:pointer;">All</button>
+        <button type="button" class="cat-filter" data-category="favorites" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">❤️ Favorites</button>
         <button type="button" class="cat-filter" data-category="Chat" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Chat</button>
         <button type="button" class="cat-filter" data-category="Image" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Image</button>
         <button type="button" class="cat-filter" data-category="Video" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Video</button>
@@ -559,12 +585,49 @@
       { name: "Writesonic", icon: "✍️", category: "Writing", bestFor: "Long-Form", priceType: "paid", desc: "AI content writer.", rating: 4.3, reviews: 2700, price: "$12/mo", href: "tools/writesonic.html" },
     ];
     
+    // Favorites management
+    const FAVORITES_KEY = 'ai-tools-hub-favorites';
+    
+    function getFavorites() {
+      try {
+        return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+      } catch {
+        return [];
+      }
+    }
+    
+    function toggleFavorite(toolName, event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const favorites = getFavorites();
+      const index = favorites.indexOf(toolName);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      } else {
+        favorites.push(toolName);
+      }
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+      renderTools();
+      updateFavoritesButton();
+    }
+    
+    function updateFavoritesButton() {
+      const favBtn = document.querySelector('[data-category="favorites"]');
+      if (favBtn) {
+        const count = getFavorites().length;
+        favBtn.innerHTML = count > 0 ? `❤️ Favorites (${count})` : '❤️ Favorites';
+      }
+    }
+    
     function renderTools(filteredTools = tools) {
+      const favorites = getFavorites();
       const grid = document.getElementById('tools-grid');
       grid.innerHTML = filteredTools.map(tool => {
         const badgeClass = tool.priceType === 'free' ? 'badge-free' : tool.priceType === 'paid' ? 'badge-paid' : tool.priceType === 'premium' ? 'badge-premium' : 'badge-open-source';
+        const isFavorite = favorites.includes(tool.name);
         return `
         <a href="${tool.href || '#'}" class="tool-card">
+          <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite('${tool.name.replace(/'/g, "\\'")}', event)" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}"></button>
           <div class="tool-header">
             <div class="tool-icon">${tool.icon}</div>
             <div class="tool-rating">★ ${tool.rating}</div>
@@ -594,6 +657,7 @@
     
     // Check for query param on page load
     document.addEventListener('DOMContentLoaded', () => {
+      updateFavoritesButton();
       const params = new URLSearchParams(window.location.search);
       const query = params.get('q');
       if (query) {
@@ -628,6 +692,9 @@
         const category = this.dataset.category;
         if (category === 'all') {
           renderTools(tools);
+        } else if (category === 'favorites') {
+          const favorites = getFavorites();
+          renderTools(tools.filter(t => favorites.includes(t.name)));
         } else {
           renderTools(tools.filter(t => t.category === category));
         }

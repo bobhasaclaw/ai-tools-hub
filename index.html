@@ -1901,15 +1901,78 @@ footer .logo { font-size: 1.25rem; }
       .premium-card, .top-pick-card, .tool-card, .card { width: 100% !important; margin-bottom: 12px !important; }
     }
   </style>
+  <!-- Newsletter Form Handling -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const newsletterForm = document.getElementById('newsletter-form');
+      const newsletterMessage = document.getElementById('newsletter-message');
+      
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const email = document.getElementById('newsletter-email').value;
+          
+          // Get existing subscribers or initialize
+          let subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+          
+          // Check if email already exists
+          if (subscribers.includes(email)) {
+            newsletterMessage.textContent = 'You\'re already subscribed!';
+            newsletterMessage.style.display = 'block';
+            newsletterMessage.style.color = '#fbbf24';
+            return;
+          }
+          
+          // Add new subscriber
+          subscribers.push(email);
+          localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
+          
+          // Show success message
+          newsletterMessage.textContent = 'Thanks for subscribing! You\'ll receive AI updates weekly.';
+          newsletterMessage.style.display = 'block';
+          newsletterMessage.style.color = '#22c55e';
+          
+          // Clear form
+          document.getElementById('newsletter-email').value = '';
+          
+          console.log('New newsletter subscriber:', email);
+        });
+      }
+    });
+  </script>
+  
+  <!-- Console Analytics -->
+  <script>
+    (function() {
+      // Page view tracking
+      const pageView = {
+        page: window.location.pathname,
+        title: document.title,
+        timestamp: new Date().toISOString(),
+        referrer: document.referrer
+      };
+      console.log('%c📊 Page View', 'color: #6366f1; font-weight: bold;', pageView);
+      
+      // Track external link clicks
+      document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          const clickData = {
+            url: this.href,
+            page: window.location.pathname,
+            timestamp: new Date().toISOString(),
+            text: this.textContent || this.innerText
+          };
+          console.log('%c🔗 External Link Click', 'color: #8b5cf6; font-weight: bold;', clickData);
+        });
+      });
+      
+      // Track newsletter signups
+      const signupForm = document.getElementById('newsletter-form');
+      if (signupForm) {
+        console.log('%c📧 Newsletter form available', 'color: #06b6d4; font-weight: bold;');
+      }
+    })();
+  </script>
 </body>
 </html>
-
-<!-- Simple Analytics -->
-<script>
-  console.log('AI Tools Hub - Page view: ' + window.location.pathname);
-  document.querySelectorAll('a[href^="http"]').forEach(function(link) {
-    link.addEventListener('click', function() {
-      console.log('External click: ' + this.href);
-    });
-  });
-</script>

@@ -87,7 +87,19 @@
     .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; }
     .footer-links a:hover { color: var(--text-primary); }
     @media (max-width: 768px) { .tool-header-content { flex-direction: column; text-align: center; } .tool-icon-large { margin: 0 auto; } .pros-cons { grid-template-columns: 1fr; } footer .container { flex-direction: column; gap: 24px; } }
-  </style>
+  
+    .share-buttons { display: flex; align-items: center; gap: 12px; padding: 20px 0; flex-wrap: wrap; }
+    .share-buttons span { color: var(--text-secondary); font-weight: 500; font-size: 0.95rem; }
+    .share-buttons a, .share-buttons button { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
+    .share-twitter { background: #1da1f2; color: white; }
+    .share-twitter:hover { background: #0d8bd9; }
+    .share-facebook { background: #4267b2; color: white; }
+    .share-facebook:hover { background: #365899; }
+    .share-linkedin { background: #0077b5; color: white; }
+    .share-linkedin:hover { background: #005885; }
+    .share-copy { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); }
+    .share-copy:hover { background: var(--accent-primary); }
+</style>
 </head>
 <body>
   <div class="bg-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
@@ -96,6 +108,21 @@
     <div class="breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../tools.html">Tools</a> <span>›</span> ChatGPT</div>
     <header class="tool-header"><div class="tool-header-content"><div class="tool-icon-large">💬</div><div class="tool-info"><span class="tool-category-tag">Chat AI</span><h1 class="tool-title">ChatGPT</h1><div class="tool-rating"><span class="stars">★★★★★</span><span class="rating-value">4.9/5</span><span class="reviews">(12,400 reviews)</span></div><span class="tool-price">Free / $20/mo</span></div></div></header>
     <section class="tool-description"><h2>Overview</h2><p>ChatGPT, developed by OpenAI, is the leading AI chatbot in 2026. Powered by the GPT-5.4 family, it offers unparalleled conversational capabilities, coding assistance, and creative writing. With over 200 million weekly active users, ChatGPT dominates the AI assistant market. Whether you need help with writing, coding, brainstorming, or just having a conversation, ChatGPT delivers exceptional results.</p></section>
+    <div class="share-buttons">
+      <span>Share:</span>
+      <a href="#" onclick="shareTwitter()" class="share-twitter">Twitter</a>
+      <a href="#" onclick="shareFacebook()" class="share-facebook">Facebook</a>
+      <a href="#" onclick="shareLinkedIn()" class="share-linkedin">LinkedIn</a>
+      <button class="share-copy" onclick="copyLink()">Copy Link</button>
+    </div>
+    <script>
+    function getTitle() { return document.title.replace(' - AI Tools Hub', '').replace(' Review 2026', ''); }
+    function shareTwitter() { window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(getTitle()) + '&url=' + encodeURIComponent(window.location.href), '_blank'); }
+    function shareFacebook() { window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank'); }
+    function shareLinkedIn() { window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), '_blank'); }
+    function copyLink() { navigator.clipboard.writeText(window.location.href).then(function() { alert('Link copied!'); }); }
+    </script>
+
     <section class="pros-cons"><div class="pros"><h3>✓ Pros</h3><ul><li>Industry-leading conversational AI</li><li>Excellent code generation and debugging</li><li>Wide range of integrations</li><li>Strong free tier available</li><li>Regular model improvements</li></ul></div><div class="cons"><h3>✗ Cons</h3><ul><li>Can hallucinate occasionally</li><li>Knowledge cutoff limitations</li><li>Plus subscription adds up</li></ul></div></section>
     <section class="features"><h2>Key Features</h2><div class="features-grid"><div class="feature-item"><h4>Advanced Voice Mode</h4><p>Natural spoken conversations with AI</p></div><div class="feature-item"><h4>Canvas</h4><p>Collaborative writing and coding workspace</p></div><div class="feature-item"><h4>DALL-E 3 Integration</h4><p>Generate images directly in chat</p></div><div class="feature-item"><h4>GPT Store</h4><p>Custom AI assistants for any task</p></div></div></section>
     <section class="cta-section"><div class="cta-box"><h2>Ready to Try ChatGPT?</h2><p>Visit the official website to get started with ChatGPT.</p><a href="https://chat.openai.com" class="cta-button" target="_blank" rel="noopener">Visit Website →</a></div></section>

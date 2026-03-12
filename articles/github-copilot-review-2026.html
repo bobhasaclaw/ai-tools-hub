@@ -385,6 +385,38 @@ section, .section { padding-top: clamp(2.5rem,4vw,4rem) !important; padding-bott
 }
 </style>
   <link rel="stylesheet" href="../styles/design-system.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is GitHub Copilot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GitHub Copilot is an AI-powered code completion tool developed by GitHub and OpenAI. It suggests code snippets and entire functions as you type in your IDE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does GitHub Copilot work with all programming languages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GitHub Copilot works best with popular languages like Python, JavaScript, TypeScript, Ruby, Go, and Java. It has decent support for most common programming languages but may struggle with more niche languages."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is GitHub Copilot worth the cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For developers, GitHub Copilot can significantly speed up coding by handling repetitive tasks and boilerplate code. At $10/month (or $100/year), many find it pays for itself in time saved. Students and open-source maintainers get it free."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 <button class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:16px;right:16px;z-index:100;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1.1rem;"><span class="icon-dark">🌙</span><span class="icon-light" style="display:none;">☀️</span></button>
@@ -705,7 +737,7 @@ section, .section { padding-top: clamp(2.5rem,4vw,4rem) !important; padding-bott
       
       
     <div class="article-hero" style="margin: 80px auto 40px; max-width: 1000px;">
-        <img src="../images/github-copilot.png" alt="Github Copilot interface" style="width:100%;height:300px;object-fit:cover;border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+        <img loading="lazy" src="../images/github-copilot.png" alt="Github Copilot interface" style="width:100%;height:300px;object-fit:cover;border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
     </div>
     <p>GitHub Copilot is an essential tool for modern software development. Whether you're a seasoned developer looking to speed up your workflow or a beginner learning to code, Copilot provides valuable assistance that can significantly improve your productivity.</p>
       

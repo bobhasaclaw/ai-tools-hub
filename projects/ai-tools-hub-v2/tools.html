@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All AI Tools - AI Tools Hub</title>
+  <meta name="description" content="Discover 45+ AI tools with reviews, ratings, and comparisons. Find the best AI for coding, writing, images, video, and more.">
+  <meta property="og:title" content="All AI Tools - AI Tools Hub">
+  <meta property="og:description" content="Discover 45+ AI tools with reviews, ratings, and comparisons.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Premium Design System - IDENTICAL to index.html */
+    :root {
+      --bg-dark: #030407;
+      --bg-card: #0c0c14;
+      --bg-card-hover: #12121e;
+      --text-primary: #fafafa;
+      --text-secondary: #8b8b9e;
+      --text-muted: #5c5c6e;
+      --accent-primary: #7c3aed;
+      --accent-secondary: #a855f7;
+      --accent-glow: rgba(124, 58, 237, 0.4);
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(124, 58, 237, 0.3);
+      --glass: rgba(255,255,255,0.02);
+      --success: #10b981;
+      --rating: #fbbf24;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Animated Background - IDENTICAL */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-primary), transparent 70%);
+      top: -200px;
+      left: -100px;
+      opacity: 0.35;
+    }
+    
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #0ea5e9, transparent 70%);
+      top: 40%;
+      right: -150px;
+      opacity: 0.25;
+      animation-delay: -7s;
+    }
+    
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent-secondary), transparent 70%);
+      bottom: -100px;
+      left: 30%;
+      opacity: 0.2;
+      animation-delay: -14s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Navigation - IDENTICAL to index.html */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: rgba(3, 4, 7, 0.8);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 160px 0 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Search */
+    .search-wrapper {
+      max-width: 600px;
+      margin: 40px auto;
+    }
+    
+    .search-box {
+      position: relative;
+    }
+    
+    .search-box input {
+      width: 100%;
+      padding: 20px 24px 20px 56px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .search-box input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15), 0 8px 32px rgba(0,0,0,0.3);
+    }
+    
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .search-box .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+    
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 40px 0 80px;
+    }
+    
+    .tool-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      display: block;
+    }
+    
+    .tool-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 60px rgba(124, 58, 237, 0.15);
+    }
+    
+    .tool-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    
+    .tool-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-card-hover));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+    
+    .tool-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--rating);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .tool-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+    
+    .tool-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    
+    .tool-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .tool-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .tool-price {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--success);
+    }
+    
+    .tool-reviews {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    /* Best For Badge */
+    .tool-badges {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .best-for-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    
+    .badge-free {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    .badge-paid {
+      background: rgba(14, 165, 233, 0.15);
+      color: #0ea5e9;
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+    
+    .badge-premium {
+      background: rgba(124, 58, 237, 0.15);
+      color: #a855f7;
+      border: 1px solid rgba(124, 58, 237, 0.3);
+    }
+    
+    .badge-open-source {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    
+    /* Footer - IDENTICAL to index.html */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .footer-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+      footer .container { flex-direction: column; gap: 24px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Same background as index -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  
+  <!-- IDENTICAL NAVIGATION -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        AI Tools Hub
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tools.html" style="color: var(--text-primary);">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <div class="container">
+      <h1>All AI Tools <span id="tool-count" style="font-size: 1rem; color: var(--text-muted); font-weight: 400;"></span></h1>
+      <p>Browse our complete collection of AI tools across all categories.</p>
+      
+      <div class="search-wrapper">
+        <form class="search-box" id="search-form" onsubmit="return handleSearch(event)">
+          <span class="search-icon">⌕</span>
+          <input type="text" placeholder="Search AI tools..." id="search">
+        </form>
+      </div>
+      
+      <!-- Category Filters -->
+      <div class="category-filters" style="display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;justify-content:center;">
+        <button type="button" class="cat-filter active" data-category="all" style="padding:8px 20px;background:var(--accent-primary);border:1px solid var(--accent-primary);border-radius:20px;color:white;font-weight:500;cursor:pointer;">All</button>
+        <button type="button" class="cat-filter" data-category="Chat" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Chat</button>
+        <button type="button" class="cat-filter" data-category="Image" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Image</button>
+        <button type="button" class="cat-filter" data-category="Video" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Video</button>
+        <button type="button" class="cat-filter" data-category="Coding" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Coding</button>
+        <button type="button" class="cat-filter" data-category="Writing" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Writing</button>
+        <button type="button" class="cat-filter" data-category="Voice" style="padding:8px 20px;background:var(--glass);border:1px solid var(--border);border-radius:20px;color:var(--text-secondary);font-weight:500;cursor:pointer;">Voice</button>
+      </div>
+      
+      <!-- Sort Options -->
+      <div class="sort-options" style="display:flex;gap:16px;align-items:center;margin-bottom:24px;">
+        <span style="color:var(--text-muted);font-size:0.9rem;">Sort:</span>
+        <button type="button" class="sort-btn active" data-sort="rating" style="padding:6px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-secondary);cursor:pointer;font-size:0.85rem;">Top Rated</button>
+        <button type="button" class="sort-btn" data-sort="price-low" style="padding:6px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-secondary);cursor:pointer;font-size:0.85rem;">Price: Low</button>
+        <button type="button" class="sort-btn" data-sort="price-high" style="padding:6px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-secondary);cursor:pointer;font-size:0.85rem;">Price: High</button>
+        <button type="button" class="sort-btn" data-sort="name" style="padding:6px 16px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-secondary);cursor:pointer;font-size:0.85rem;">A-Z</button>
+      </div>
+    </div>
+  </section>
+  
+  <div class="container">
+    <div class="tools-grid" id="tools-grid"></div>
+  </div>
+  
+  <!-- IDENTICAL FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-left">
+        <span class="footer-logo">⚡</span>
+        <p>© 2026 AI Tools Hub</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    const tools = [
+      { name: "ChatGPT", icon: "💬", category: "Chat", bestFor: "Conversation", priceType: "free", desc: "OpenAI's flagship AI chatbot. Best for conversation, coding, and content creation.", rating: 4.9, reviews: 12400, price: "Free / $20/mo", href: "tools/chatgpt.html" },
+      { name: "Claude", icon: "🧠", category: "Chat", bestFor: "Writing", priceType: "free", desc: "Anthropic's AI assistant. Excellent for writing, analysis, and nuanced reasoning.", rating: 4.8, reviews: 8200, price: "Free / $20/mo", href: "tools/claude.html" },
+      { name: "Midjourney", icon: "🎨", category: "Image", bestFor: "Art", priceType: "premium", desc: "Industry-leading AI image generation. Best for artistic and photorealistic images.", rating: 4.9, reviews: 6700, price: "$10/mo", href: "tools/midjourney.html" },
+      { name: "DALL-E", icon: "🖼️", category: "Image", bestFor: "Image Generation", priceType: "free", desc: "OpenAI's image generator. Seamless integration with ChatGPT.", rating: 4.6, reviews: 5200, price: "Free credits", href: "tools/dall-e.html" },
+      { name: "Stable Diffusion", icon: "🌅", category: "Image", bestFor: "Open Source", priceType: "open-source", desc: "Open-source image generation. Run locally or use cloud services.", rating: 4.5, reviews: 4800, price: "Free", href: "tools/stable-diffusion.html" },
+      { name: "GitHub Copilot", icon: "💻", category: "Coding", bestFor: "Coding", priceType: "paid", desc: "AI pair programmer. Best for code completion across multiple IDEs.", rating: 4.8, reviews: 9800, price: "$10/mo", href: "tools/github-copilot.html" },
+      { name: "Cursor", icon: "⚡", category: "Coding", bestFor: "Code Editing", priceType: "paid", desc: "AI-first code editor. Built on VS Code with powerful AI features.", rating: 4.7, reviews: 4500, price: "$20/mo", href: "tools/cursor.html" },
+      { name: "Gemini", icon: "🌟", category: "Chat", bestFor: "Multimodal AI", priceType: "free", desc: "Google's AI chatbot. Multimodal with excellent Google integration.", rating: 4.6, reviews: 5600, price: "Free / $20/mo", href: "tools/gemini.html" },
+      { name: "Runway", icon: "🎬", category: "Video", bestFor: "Video Editing", priceType: "paid", desc: "Professional AI video editing. Best for creators and filmmakers.", rating: 4.7, reviews: 3200, price: "$15/mo", href: "tools/runway.html" },
+      { name: "Synthesia", icon: "📹", category: "Video", bestFor: "AI Avatars", priceType: "paid", desc: "AI video generation with virtual presenters. Great for training videos.", rating: 4.6, reviews: 2800, price: "$30/mo", href: "tools/synthesia.html" },
+      { name: "HeyGen", icon: "🎭", category: "Video", bestFor: "Talking Heads", priceType: "paid", desc: "AI video creation with talking avatars. Popular for marketing.", rating: 4.5, reviews: 2400, price: "$29/mo", href: "tools/heygen.html" },
+      { name: "Eleven Labs", icon: "🎙️", category: "Voice", bestFor: "Voice", priceType: "free", desc: "Ultra-realistic AI voice synthesis. Best for audio content.", rating: 4.8, reviews: 4100, price: "Free / $5/mo", href: "tools/eleven-labs.html" },
+      { name: "Perplexity", icon: "🔍", category: "Chat", bestFor: "Research", priceType: "free", desc: "AI-powered search. Best for research and finding information.", rating: 4.7, reviews: 3800, price: "Free / $20/mo", href: "tools/perplexity.html" },
+      { name: "Leonardo.ai", icon: "🎯", category: "Image", bestFor: "Game Assets", priceType: "free", desc: "Powerful AI image generation. Great for games and content creators.", rating: 4.7, reviews: 2900, price: "Free / $25/mo", href: "tools/leonardoai.html" },
+      { name: "Canva AI", icon: "✏️", category: "Design", bestFor: "Design", priceType: "free", desc: "AI-powered design. Create stunning graphics with simple prompts.", rating: 4.5, reviews: 7800, price: "Free / $13/mo", href: "tools/canva-ai.html" },
+      { name: "Notion AI", icon: "📝", category: "Productivity", bestFor: "Note-Taking", priceType: "paid", desc: "AI writing assistant built into Notion. Great for notes and docs.", rating: 4.6, reviews: 5600, price: "$10/mo", href: "tools/notion-ai.html" },
+      { name: "Jasper", icon: "✍️", category: "Writing", bestFor: "Marketing Copy", priceType: "paid", desc: "AI content writing. Great for marketing copy and blog posts.", rating: 4.4, reviews: 4200, price: "$39/mo", href: "tools/jasper.html" },
+      { name: "Copy.ai", icon: "📋", category: "Writing", bestFor: "Short Copy", priceType: "free", desc: "AI copy generator. Fast content creation for marketers.", rating: 4.3, reviews: 3600, price: "Free / $49/mo", href: "tools/copyai.html" },
+      { name: "Grammarly", icon: "✅", category: "Writing", bestFor: "Grammar", priceType: "free", desc: "AI writing assistant. Grammar, style, and clarity improvements.", rating: 4.7, reviews: 12000, price: "Free / $30/mo", href: "tools/grammarly.html" },
+      { name: "Quillbot", icon: "🔄", category: "Writing", bestFor: "Paraphrasing", priceType: "free", desc: "AI paraphrasing tool. Rewrite content in different styles.", rating: 4.5, reviews: 6800, price: "Free / $10/mo", href: "tools/quillbot.html" },
+      { name: "Adobe Firefly", icon: "🎨", category: "Image", bestFor: "Photo Editing", priceType: "free", desc: "Adobe's AI image generator. Integrated with Photoshop.", rating: 4.5, reviews: 3200, price: "Free / $5/mo", href: "tools/adobe-firefly.html" },
+      { name: "Sora", icon: "🎬", category: "Video", bestFor: "Text-to-Video", priceType: "free", desc: "OpenAI's text-to-video AI model.", rating: 4.6, reviews: 2400, price: "Free / $20/mo", href: "tools/sora.html" },
+      { name: "Suno AI", icon: "🎵", category: "Music", bestFor: "Music", priceType: "free", desc: "AI music generation from text.", rating: 4.5, reviews: 1800, price: "Free / $10/mo", href: "tools/suno-ai.html" },
+      { name: "Kling AI", icon: "🎬", category: "Video", bestFor: "Video Generation", priceType: "free", desc: "AI video generation from text.", rating: 4.3, reviews: 1200, price: "Free", href: "tools/kling-ai.html" },
+      { name: "Llama", icon: "🦙", category: "AI Model", bestFor: "Open Source", priceType: "open-source", desc: "Meta's open source AI model.", rating: 4.3, reviews: 3500, price: "Open Source", href: "tools/llama.html" },
+      { name: "Mistral", icon: "🌪️", category: "AI Model", bestFor: "Open Source", priceType: "open-source", desc: "French AI company's open models.", rating: 4.4, reviews: 2800, price: "Open Source", href: "tools/mistral.html" },
+      { name: "Microsoft Copilot", icon: "💡", category: "Chat", bestFor: "Productivity", priceType: "free", desc: "AI assistant integrated with Microsoft 365.", rating: 4.6, reviews: 5600, price: "Free", href: "tools/microsoft-copilot.html" },
+      { name: "Stability AI", icon: "⭐", category: "Image", bestFor: "Open Source", priceType: "open-source", desc: "Open source image generation.", rating: 4.4, reviews: 2800, price: "Free", href: "tools/stability-ai.html" },
+      { name: "InVideo AI", icon: "📹", category: "Video", bestFor: "Quick Videos", priceType: "free", desc: "AI-powered video creation.", rating: 4.3, reviews: 2200, price: "Free", href: "tools/invideo.html" },
+      { name: "Otter.ai", icon: "🦦", category: "Transcription", bestFor: "Transcription", priceType: "free", desc: "AI meeting transcription.", rating: 4.5, reviews: 2100, price: "Free / $10/mo", href: "tools/otter-ai.html" },
+      { name: "Anyword", icon: "✍️", category: "Writing", bestFor: "Ad Copy", priceType: "paid", desc: "AI writing for marketing.", rating: 4.2, reviews: 1800, price: "Free / $39/mo", href: "tools/anyword.html" },
+      { name: "Article Forge", icon: "📰", category: "Writing", bestFor: "Articles", priceType: "paid", desc: "AI article writer.", rating: 4.1, reviews: 1200, price: "$13/mo", href: "tools/articleforge.html" },
+      { name: "Chatsonic", icon: "💬", category: "Chat", bestFor: "Web Search", priceType: "paid", desc: "AI chatbot with web search.", rating: 4.4, reviews: 2400, price: "$20/mo", href: "tools/chatsonic.html" },
+      { name: "Cohere", icon: "🔗", category: "AI API", bestFor: "Enterprise", priceType: "premium", desc: "Enterprise AI platform.", rating: 4.5, reviews: 2800, price: "Enterprise", href: "tools/cohere.html" },
+      { name: "Descript", icon: "🎙️", category: "Video", bestFor: "Podcast Editing", priceType: "paid", desc: "AI video and podcast editing.", rating: 4.4, reviews: 2600, price: "$12/mo", href: "tools/descript.html" },
+      { name: "Frase", icon: "🔍", category: "SEO", bestFor: "SEO", priceType: "paid", desc: "AI content optimization.", rating: 4.3, reviews: 1500, price: "$45/mo", href: "tools/frase.html" },
+      { name: "Hugging Face", icon: "🤗", category: "AI Platform", bestFor: "ML Models", priceType: "open-source", desc: "Open source AI model hub.", rating: 4.6, reviews: 4200, price: "Free", href: "tools/huggingface.html" },
+      { name: "Lumen5", icon: "📺", category: "Video", bestFor: "Social Media", priceType: "free", desc: "AI video for content.", rating: 4.3, reviews: 1900, price: "Free", href: "tools/lumen5.html" },
+      { name: "Pictory", icon: "🖼️", category: "Video", bestFor: "Script to Video", priceType: "paid", desc: "AI video from scripts.", rating: 4.2, reviews: 1400, price: "$19/mo", href: "tools/pictory.html" },
+      { name: "Pika", icon: "🎨", category: "Video", bestFor: "Short Videos", priceType: "free", desc: "AI video generation.", rating: 4.3, reviews: 1600, price: "Free", href: "tools/pika.html" },
+      { name: "Rytr", icon: "✏️", category: "Writing", bestFor: "Blog Writing", priceType: "free", desc: "AI writing assistant.", rating: 4.2, reviews: 2200, price: "Free / $12/mo", href: "tools/rytr.html" },
+      { name: "Simplified", icon: "✨", category: "Design", bestFor: "Social Graphics", priceType: "free", desc: "AI design platform.", rating: 4.3, reviews: 2500, price: "Free", href: "tools/simplified.html" },
+      { name: "VEED", icon: "📹", category: "Video", bestFor: "Online Editing", priceType: "free", desc: "AI video editor.", rating: 4.4, reviews: 3100, price: "Free", href: "tools/veed.html" },
+      { name: "Wordtune", icon: "📝", category: "Writing", bestFor: "Rewriting", priceType: "free", desc: "AI writing rewriter.", rating: 4.3, reviews: 2300, price: "Free / $10/mo", href: "tools/wordtune.html" },
+      { name: "Writesonic", icon: "✍️", category: "Writing", bestFor: "Long-Form", priceType: "paid", desc: "AI content writer.", rating: 4.3, reviews: 2700, price: "$12/mo", href: "tools/writesonic.html" },
+    ];
+    
+    function renderTools(filteredTools = tools) {
+      const grid = document.getElementById('tools-grid');
+      grid.innerHTML = filteredTools.map(tool => {
+        const badgeClass = tool.priceType === 'free' ? 'badge-free' : tool.priceType === 'paid' ? 'badge-paid' : tool.priceType === 'premium' ? 'badge-premium' : 'badge-open-source';
+        return `
+        <a href="${tool.href || '#'}" class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon">${tool.icon}</div>
+            <div class="tool-rating">★ ${tool.rating}</div>
+          </div>
+          <div class="tool-name">${tool.name}</div>
+          <div class="tool-badges">
+            <span class="best-for-badge ${badgeClass}">Best for ${tool.bestFor}</span>
+          </div>
+          <div class="tool-category">${tool.category}</div>
+          <p class="tool-desc">${tool.desc}</p>
+          <div class="tool-footer">
+            <span class="tool-price">${tool.price}</span>
+            <span class="tool-reviews">${tool.reviews.toLocaleString()} reviews</span>
+          </div>
+        </a>
+      `}).join('');
+    }
+    
+    // Handle search from homepage
+    function handleSearch(e) {
+      e.preventDefault();
+      const query = document.getElementById('search').value.trim();
+      if (query) {
+        window.location.href = 'tools.html?q=' + encodeURIComponent(query);
+      }
+    }
+    
+    // Check for query param on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('q');
+      if (query) {
+        document.getElementById('search').value = query;
+        renderTools(tools.filter(t => 
+          t.name.toLowerCase().includes(query.toLowerCase()) || 
+          t.category.toLowerCase().includes(query.toLowerCase()) ||
+          t.desc.toLowerCase().includes(query.toLowerCase())
+        ));
+      } else {
+        renderTools();
+      }
+    });
+    
+    // Update tool count
+    const toolCount = document.getElementById('tool-count');
+    if(toolCount) toolCount.textContent = '— ' + tools.length + ' tools';
+    
+    // Category filter buttons
+    document.querySelectorAll('.cat-filter').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Update active state
+        document.querySelectorAll('.cat-filter').forEach(b => {
+          b.style.background = 'var(--glass)';
+          b.style.color = 'var(--text-secondary)';
+          b.style.borderColor = 'var(--border)';
+        });
+        this.style.background = 'var(--accent-primary)';
+        this.style.color = 'white';
+        this.style.borderColor = 'var(--accent-primary)';
+        
+        const category = this.dataset.category;
+        if (category === 'all') {
+          renderTools(tools);
+        } else {
+          renderTools(tools.filter(t => t.category === category));
+        }
+      });
+    });
+    
+    // Sorting functionality
+    let currentTools = tools;
+    
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.sort-btn').forEach(b => b.style.background = 'transparent');
+        this.style.background = 'var(--accent-primary)';
+        
+        const sortType = this.dataset.sort;
+        let sorted = [...currentTools];
+        
+        if (sortType === 'rating') {
+          sorted.sort((a, b) => b.rating - a.rating);
+        } else if (sortType === 'price-low') {
+          sorted.sort((a, b) => {
+            const aPrice = a.price.includes('Free') ? 0 : parseInt(a.price.replace(/[^0-9]/g, '')) || 999;
+            const bPrice = b.price.includes('Free') ? 0 : parseInt(b.price.replace(/[^0-9]/g, '')) || 999;
+            return aPrice - bPrice;
+          });
+        } else if (sortType === 'price-high') {
+          sorted.sort((a, b) => {
+            const aPrice = a.price.includes('Free') ? 0 : parseInt(a.price.replace(/[^0-9]/g, '')) || 999;
+            const bPrice = b.price.includes('Free') ? 0 : parseInt(b.price.replace(/[^0-9]/g, '')) || 999;
+            return bPrice - aPrice;
+          });
+        } else if (sortType === 'name') {
+          sorted.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        
+        renderTools(sorted);
+      });
+    });
+  </script>
+</body>
+</html>

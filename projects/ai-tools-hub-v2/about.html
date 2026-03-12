@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - AI Tools Hub</title>
+  <meta name="description" content="Learn about AI Tools Hub - your trusted source for honest AI tool reviews, comparisons, and recommendations to help you find the best AI solutions.">
+  <meta property="og:title" content="About - AI Tools Hub">
+  <meta property="og:description" content="Learn about AI Tools Hub - your trusted source for honest AI tool reviews, comparisons, and recommendations.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Premium Design System - Same as index */
+    :root {
+      --bg-dark: #030407;
+      --bg-card: #0c0c14;
+      --bg-card-hover: #12121e;
+      --text-primary: #fafafa;
+      --text-secondary: #8b8b9e;
+      --text-muted: #5c5c6e;
+      --accent-primary: #7c3aed;
+      --accent-secondary: #a855f7;
+      --accent-glow: rgba(124, 58, 237, 0.4);
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(124, 58, 237, 0.3);
+      --glass: rgba(255,255,255,0.02);
+      --success: #10b981;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Animated Background - Same as index */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-primary), transparent 70%);
+      top: -200px;
+      left: -100px;
+      opacity: 0.35;
+    }
+    
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #0ea5e9, transparent 70%);
+      top: 40%;
+      right: -150px;
+      opacity: 0.25;
+      animation-delay: -7s;
+    }
+    
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent-secondary), transparent 70%);
+      bottom: -100px;
+      left: 30%;
+      opacity: 0.2;
+      animation-delay: -14s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Navigation - IDENTICAL to index.html */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: rgba(3, 4, 7, 0.8);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+    
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 160px 0 60px;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Content */
+    .content {
+      padding: 40px 0 80px;
+    }
+    
+    .content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 40px 0 16px;
+    }
+    
+    .content p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+    
+    .content ul {
+      color: var(--text-secondary);
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .content li {
+      margin-bottom: 8px;
+    }
+    
+    /* Footer - IDENTICAL to index.html */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      margin-top: 40px;
+    }
+    
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .footer-logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      footer .container { flex-direction: column; gap: 24px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Same background as index -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  
+  <!-- IDENTICAL NAVIGATION -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⚡</span>
+        AI Tools Hub
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <div class="container">
+      <h1>About AI Tools Hub</h1>
+      <p>Your trusted source for AI tool reviews and recommendations.</p>
+    </div>
+  </section>
+  
+  <div class="container content">
+    <h2>Our Mission</h2>
+    <p>We help you discover the best AI tools to boost your productivity and creativity. Our in-depth reviews and comparisons make it easy to find the right tool for your needs.</p>
+    
+    <h2>What We Do</h2>
+    <ul>
+      <li>Curated AI tool reviews with honest assessments</li>
+      <li>Detailed pricing comparisons</li>
+      <li>Feature comparisons across categories</li>
+      <li>Regular updates on the latest AI developments</li>
+    </ul>
+    
+    <h2>Our Values</h2>
+    <ul>
+      <li><strong>Honest Reviews</strong> - We tell it like it is</li>
+      <li><strong>Independent</strong> - We don't accept paid placements</li>
+      <li><strong>Up-to-Date</strong> - We keep our content current</li>
+    </ul>
+  </div>
+  
+  <!-- IDENTICAL FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-left">
+        <span class="footer-logo">⚡</span>
+        <p>© 2026 AI Tools Hub</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

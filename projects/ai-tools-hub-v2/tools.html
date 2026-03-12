@@ -537,6 +537,64 @@
   </footer>
   
   <script>
+    // Affiliate URLs - update these with actual affiliate links when available
+    const affiliateUrls = {
+      "ChatGPT": "https://chat.openai.com",
+      "Claude": "https://claude.ai",
+      "Midjourney": "https://www.midjourney.com",
+      "DALL-E": "https://openai.com/dall-e",
+      "Stable Diffusion": "https://stability.ai",
+      "GitHub Copilot": "https://github.com/features/copilot",
+      "Cursor": "https://cursor.sh",
+      "Gemini": "https://gemini.google.com",
+      "Runway": "https://runwayml.com",
+      "Synthesia": "https://synthesia.io",
+      "HeyGen": "https://heygen.com",
+      "Eleven Labs": "https://elevenlabs.io",
+      "Perplexity": "https://perplexity.ai",
+      "Leonardo.ai": "https://leonardo.ai",
+      "Canva AI": "https://canva.com",
+      "Notion AI": "https://notion.so",
+      "Jasper": "https://jasper.ai",
+      "Copy.ai": "https://copy.ai",
+      "Grammarly": "https://grammarly.com",
+      "Quillbot": "https://quillbot.com",
+      "Adobe Firefly": "https://firefly.adobe.com",
+      "Sora": "https://sora.openai.com",
+      "Suno AI": "https://suno.ai",
+      "Kling AI": "https://klingai.com",
+      "Llama": "https://llama.com",
+      "Mistral": "https://mistral.ai",
+      "Microsoft Copilot": "https://copilot.microsoft.com",
+      "Stability AI": "https://stability.ai",
+      "InVideo AI": "https://invideo.io",
+      "Otter.ai": "https://otter.ai",
+      "Anyword": "https://anyword.com",
+      "Article Forge": "https://articleforge.com",
+      "Chatsonic": "https://writesonic.com/chatsonic",
+      "Cohere": "https://cohere.com",
+      "Descript": "https://descript.com",
+      "Frase": "https://frase.io",
+      "Hugging Face": "https://huggingface.co",
+      "Lumen5": "https://lumen5.com",
+      "Pictory": "https://pictory.ai",
+      "Pika": "https://pika.art",
+      "Rytr": "https://rytr.me",
+      "Simplified": "https://simplified.com",
+      "VEED": "https://veed.io",
+      "Wordtune": "https://wordtune.com",
+      "Writesonic": "https://writesonic.com"
+    };
+
+    // Affiliate click tracking
+    function trackAffiliateClick(toolName, event) {
+      event.preventDefault();
+      const url = affiliateUrls[toolName] || '#';
+      console.log('Affiliate click:', toolName, url);
+      // Open in new tab for affiliate links
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
     const tools = [
       { name: "ChatGPT", icon: "💬", category: "Chat", bestFor: "Conversation", priceType: "free", desc: "OpenAI's flagship AI chatbot. Best for conversation, coding, and content creation.", rating: 4.9, reviews: 12400, price: "Free / $20/mo", href: "tools/chatgpt.html" },
       { name: "Claude", icon: "🧠", category: "Chat", bestFor: "Writing", priceType: "free", desc: "Anthropic's AI assistant. Excellent for writing, analysis, and nuanced reasoning.", rating: 4.8, reviews: 8200, price: "Free / $20/mo", href: "tools/claude.html" },
@@ -625,8 +683,9 @@
       grid.innerHTML = filteredTools.map(tool => {
         const badgeClass = tool.priceType === 'free' ? 'badge-free' : tool.priceType === 'paid' ? 'badge-paid' : tool.priceType === 'premium' ? 'badge-premium' : 'badge-open-source';
         const isFavorite = favorites.includes(tool.name);
+        const affiliateUrl = affiliateUrls[tool.name] || tool.href || '#';
         return `
-        <a href="${tool.href || '#'}" class="tool-card">
+        <a href="${affiliateUrl}" class="tool-card" data-affiliate="${tool.name.toLowerCase().replace(/\s+/g, '-')}" onclick="trackAffiliateClick('${tool.name.replace(/'/g, "\\'")}', event)" target="_blank" rel="noopener noreferrer">
           <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite('${tool.name.replace(/'/g, "\\'")}', event)" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}"></button>
           <div class="tool-header">
             <div class="tool-icon">${tool.icon}</div>

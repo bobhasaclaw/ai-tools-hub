@@ -46,6 +46,9 @@
     .breadcrumb a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; }
     .breadcrumb a:hover { color: var(--accent-primary); }
     .breadcrumb span { color: var(--text-muted); margin: 0 8px; }
+    .hero-image { width: 100%; height: 320px; border-radius: 24px; overflow: hidden; margin-bottom: 32px; position: relative; }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(3,4,7,0.8)); }
     .tool-header { padding: 40px 0 60px; }
     .tool-header-content { display: flex; gap: 40px; align-items: flex-start; }
     .tool-icon-large { width: 120px; height: 120px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; flex-shrink: 0; }
@@ -106,6 +109,7 @@
   <nav><div class="container"><a href="../index.html" class="logo"><span class="logo-icon">⚡</span>AI Tools Hub</a><ul class="nav-links"><li><a href="../index.html">Home</a></li><li><a href="../tools.html">Tools</a></li><li><a href="../about.html">About</a></li></ul></div></nav>
   <div class="container">
     <div class="breadcrumb"><a href="../index.html">Home</a> <span>›</span> <a href="../tools.html">Tools</a> <span>›</span> ChatGPT</div>
+    <div class="hero-image"><img src="images/chatgpt.jpg" alt="ChatGPT AI Chatbot"></div>
     <header class="tool-header"><div class="tool-header-content"><div class="tool-icon-large">💬</div><div class="tool-info"><span class="tool-category-tag">Chat AI</span><h1 class="tool-title">ChatGPT</h1><div class="tool-rating"><span class="stars">★★★★★</span><span class="rating-value">4.9/5</span><span class="reviews">(12,400 reviews)</span></div><span class="tool-price">Free / $20/mo</span></div></div></header>
     <section class="tool-description"><h2>Overview</h2><p>ChatGPT, developed by OpenAI, is the leading AI chatbot in 2026. Powered by the GPT-5.4 family, it offers unparalleled conversational capabilities, coding assistance, and creative writing. With over 200 million weekly active users, ChatGPT dominates the AI assistant market. Whether you need help with writing, coding, brainstorming, or just having a conversation, ChatGPT delivers exceptional results.</p></section>
     <div class="share-buttons">

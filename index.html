@@ -346,10 +346,18 @@
       background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 28px;
+      padding: 0;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
       display: block;
+      overflow: hidden;
+    }
+    
+    .tool-card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
     }
     
     .tool-card:hover {
@@ -364,6 +372,8 @@
       align-items: flex-start;
       justify-content: space-between;
       margin-bottom: 16px;
+      padding: 0 28px;
+      padding-top: 20px;
     }
     
     .tool-icon {
@@ -594,7 +604,7 @@
       
       <div class="stats">
         <div class="stat">
-          <div class="stat-value" id="tool-count">45+</div>
+          <div class="stat-value" id="tool-count">51+</div>
           <div class="stat-label">AI Tools</div>
         </div>
         <div class="stat">
@@ -665,24 +675,25 @@
     
     // Featured tools - always show 12
     const featuredTools = [
-      { name: "ChatGPT", icon: "💬", category: "Chat", desc: "OpenAI's flagship AI chatbot. Best for conversation, coding, and content creation.", rating: 4.9, reviews: 12400, price: "Free / $20/mo", href: "tools/chatgpt.html" },
-      { name: "Claude", icon: "🧠", category: "Chat", desc: "Anthropic's AI assistant. Excellent for writing, analysis, and nuanced reasoning.", rating: 4.8, reviews: 8200, price: "Free / $20/mo", href: "tools/claude.html" },
-      { name: "Midjourney", icon: "🎨", category: "Image", desc: "Industry-leading AI image generation. Best for artistic and photorealistic images.", rating: 4.9, reviews: 6700, price: "$10/mo", href: "tools/midjourney.html" },
-      { name: "GitHub Copilot", icon: "💻", category: "Coding", desc: "AI pair programmer. Best for code completion across multiple IDEs.", rating: 4.8, reviews: 9800, price: "$10/mo", href: "tools/github-copilot.html" },
-      { name: "Cursor", icon: "⚡", category: "Coding", desc: "AI-first code editor. Built on VS Code with powerful AI features.", rating: 4.7, reviews: 4500, price: "$20/mo", href: "tools/cursor.html" },
-      { name: "Gemini", icon: "🌟", category: "Chat", desc: "Google's AI chatbot. Multimodal with excellent Google integration.", rating: 4.6, reviews: 5600, price: "Free / $20/mo", href: "tools/gemini.html" },
-      { name: "Runway", icon: "🎬", category: "Video", desc: "Professional AI video editing. Best for creators and filmmakers.", rating: 4.7, reviews: 3200, price: "$15/mo", href: "tools/runway.html" },
-      { name: "Eleven Labs", icon: "🎙️", category: "Voice", desc: "Ultra-realistic AI voice synthesis. Best for audio content.", rating: 4.8, reviews: 4100, price: "Free / $5/mo", href: "tools/eleven-labs.html" },
-      { name: "Perplexity", icon: "🔍", category: "Chat", desc: "AI-powered search. Best for research and finding information.", rating: 4.7, reviews: 3800, price: "Free / $20/mo", href: "tools/perplexity.html" },
-      { name: "DALL-E", icon: "🖼️", category: "Image", desc: "OpenAI's image generator. Seamless integration with ChatGPT.", rating: 4.6, reviews: 5200, price: "Free credits", href: "tools/dall-e.html" },
-      { name: "Leonardo.ai", icon: "🎯", category: "Image", desc: "Powerful AI image generation. Great for games and content creators.", rating: 4.7, reviews: 2900, price: "Free / $25/mo", href: "tools/leonardoai.html" },
-      { name: "Canva AI", icon: "✏️", category: "Design", desc: "AI-powered design. Create stunning graphics with simple prompts.", rating: 4.5, reviews: 7800, price: "Free / $13/mo", href: "tools/canva-ai.html" },
+      { name: "ChatGPT", icon: "💬", category: "Chat", desc: "OpenAI's flagship AI chatbot. Best for conversation, coding, and content creation.", rating: 4.9, reviews: 12400, price: "Free / $20/mo", href: "tools/chatgpt.html", img: "tools/images/chatgpt.jpg" },
+      { name: "Claude", icon: "🧠", category: "Chat", desc: "Anthropic's AI assistant. Excellent for writing, analysis, and nuanced reasoning.", rating: 4.8, reviews: 8200, price: "Free / $20/mo", href: "tools/claude.html", img: "tools/images/claude.jpg" },
+      { name: "Midjourney", icon: "🎨", category: "Image", desc: "Industry-leading AI image generation. Best for artistic and photorealistic images.", rating: 4.9, reviews: 6700, price: "$10/mo", href: "tools/midjourney.html", img: "tools/images/midjourney.jpg" },
+      { name: "GitHub Copilot", icon: "💻", category: "Coding", desc: "AI pair programmer. Best for code completion across multiple IDEs.", rating: 4.8, reviews: 9800, price: "$10/mo", href: "tools/github-copilot.html", img: "tools/images/github-copilot.jpg" },
+      { name: "Cursor", icon: "⚡", category: "Coding", desc: "AI-first code editor. Built on VS Code with powerful AI features.", rating: 4.7, reviews: 4500, price: "$20/mo", href: "tools/cursor.html", img: "tools/images/cursor.jpg" },
+      { name: "Gemini", icon: "🌟", category: "Chat", desc: "Google's AI chatbot. Multimodal with excellent Google integration.", rating: 4.6, reviews: 5600, price: "Free / $20/mo", href: "tools/gemini.html", img: "tools/images/gemini.jpg" },
+      { name: "Runway", icon: "🎬", category: "Video", desc: "Professional AI video editing. Best for creators and filmmakers.", rating: 4.7, reviews: 3200, price: "$15/mo", href: "tools/runway.html", img: "tools/images/runway.jpg" },
+      { name: "Eleven Labs", icon: "🎙️", category: "Voice", desc: "Ultra-realistic AI voice synthesis. Best for audio content.", rating: 4.8, reviews: 4100, price: "Free / $5/mo", href: "tools/eleven-labs.html", img: "tools/images/eleven-labs.jpg" },
+      { name: "Perplexity", icon: "🔍", category: "Chat", desc: "AI-powered search. Best for research and finding information.", rating: 4.7, reviews: 3800, price: "Free / $20/mo", href: "tools/perplexity.html", img: "tools/images/perplexity.jpg" },
+      { name: "DALL-E", icon: "🖼️", category: "Image", desc: "OpenAI's image generator. Seamless integration with ChatGPT.", rating: 4.6, reviews: 5200, price: "Free credits", href: "tools/dall-e.html", img: "tools/images/dall-e.jpg" },
+      { name: "Leonardo.ai", icon: "🎯", category: "Image", desc: "Powerful AI image generation. Great for games and content creators.", rating: 4.7, reviews: 2900, price: "Free / $25/mo", href: "tools/leonardoai.html", img: "tools/images/leonardoai.jpg" },
+      { name: "Canva AI", icon: "✏️", category: "Design", desc: "AI-powered design. Create stunning graphics with simple prompts.", rating: 4.5, reviews: 7800, price: "Free / $13/mo", href: "tools/canva-ai.html", img: "tools/images/canva-ai.jpg" },
     ];
     
     function renderFeatured() {
       const grid = document.getElementById('tools-grid');
       grid.innerHTML = featuredTools.map(tool => `
         <a href="${tool.href}" class="tool-card">
+          <img src="${tool.img}" alt="${tool.name}" class="tool-card-img">
           <div class="tool-header">
             <div class="tool-icon">${tool.icon}</div>
             <div class="tool-rating">★ ${tool.rating}</div>
@@ -716,10 +727,9 @@
     // Initial render
     renderFeatured();
     
-    <!-- Update tool count dynamically - count all tools from tools array -->
-    const allToolsCount = tools.length;
+    <!-- Update tool count - static value for articles -->
     const toolCount = document.getElementById('tool-count');
-    if(toolCount) toolCount.textContent = allToolsCount + '+'; // Total tools
+    if(toolCount) toolCount.textContent = '54+';
   </script>
 </body>
 </html>

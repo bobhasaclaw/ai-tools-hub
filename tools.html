@@ -252,11 +252,19 @@
       background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 28px;
+      padding: 0;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
       display: block;
       position: relative;
+      overflow: hidden;
+    }
+    
+    .tool-card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
     }
     
     /* Favorite Button */
@@ -295,6 +303,28 @@
       align-items: flex-start;
       justify-content: space-between;
       margin-bottom: 16px;
+      padding: 0 28px;
+      padding-top: 20px;
+    }
+    
+    .visit-btn {
+      display: block;
+      width: calc(100% - 56px);
+      margin: 0 28px 20px;
+      padding: 10px 16px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .visit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--accent-glow);
     }
     
     .tool-icon {
@@ -643,6 +673,24 @@
       { name: "Writesonic", icon: "✍️", category: "Writing", bestFor: "Long-Form", priceType: "paid", desc: "AI content writer.", rating: 4.3, reviews: 2700, price: "$12/mo", href: "tools/writesonic.html" },
     ];
     
+    // Image mapping for tool thumbnails
+    const toolImages = {
+      "ChatGPT": "chatgpt.jpg", "Claude": "claude.jpg", "Midjourney": "midjourney.jpg",
+      "DALL-E": "dall-e.jpg", "Stable Diffusion": "stable-diffusion.jpg", "GitHub Copilot": "github-copilot.jpg",
+      "Cursor": "cursor.jpg", "Gemini": "gemini.jpg", "Runway": "runway.jpg", "Synthesia": "synthesia.jpg",
+      "HeyGen": "heygen.jpg", "Eleven Labs": "eleven-labs.jpg", "Perplexity": "perplexity.jpg",
+      "Leonardo.ai": "leonardoai.jpg", "Canva AI": "canva-ai.jpg", "Notion AI": "notion-ai.jpg",
+      "Jasper": "jasper.jpg", "Copy.ai": "copyai.jpg", "Grammarly": "grammarly.jpg", "Quillbot": "quillbot.jpg",
+      "Adobe Firefly": "adobe-firefly.jpg", "Sora": "sora.jpg", "Suno AI": "suno-ai.jpg", "Kling AI": "kling-ai.jpg",
+      "Llama": "llama.jpg", "Mistral": "mistral.jpg", "Microsoft Copilot": "microsoft-copilot.jpg",
+      "Stability AI": "stability-ai.jpg", "InVideo AI": "invideo.jpg", "Otter.ai": "otter-ai.jpg",
+      "Anyword": "anyword.jpg", "Article Forge": "articleforge.jpg", "Chatsonic": "chatsonic.jpg",
+      "Cohere": "cohere.jpg", "Descript": "descript.jpg", "Frase": "frase.jpg", "Hugging Face": "huggingface.jpg",
+      "Lumen5": "lumen5.jpg", "Pictory": "pictory.jpg", "Pika": "pika.jpg", "Rytr": "rytr.jpg",
+      "Simplified": "simplified.jpg", "VEED": "veed.jpg", "Wordtune": "wordtune.jpg", "Writesonic": "writesonic.jpg"
+    };
+    tools.forEach(tool => { tool.img = toolImages[tool.name] || tool.name.toLowerCase().replace(/\s+/g, '-') + '.jpg'; });
+    
     // Favorites management
     const FAVORITES_KEY = 'ai-tools-hub-favorites';
     
@@ -683,10 +731,12 @@
       grid.innerHTML = filteredTools.map(tool => {
         const badgeClass = tool.priceType === 'free' ? 'badge-free' : tool.priceType === 'paid' ? 'badge-paid' : tool.priceType === 'premium' ? 'badge-premium' : 'badge-open-source';
         const isFavorite = favorites.includes(tool.name);
-        const affiliateUrl = affiliateUrls[tool.name] || tool.href || '#';
+        const articleUrl = tool.href || '#';
+        const imgName = tool.img || tool.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-') + '.jpg';
         return `
-        <a href="${affiliateUrl}" class="tool-card" data-affiliate="${tool.name.toLowerCase().replace(/\s+/g, '-')}" onclick="trackAffiliateClick('${tool.name.replace(/'/g, "\\'")}', event)" target="_blank" rel="noopener noreferrer">
+        <a href="${articleUrl}" class="tool-card">
           <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite('${tool.name.replace(/'/g, "\\'")}', event)" title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}"></button>
+          <img src="tools/images/${imgName}" alt="${tool.name}" class="tool-card-img" onerror="this.style.display='none'">
           <div class="tool-header">
             <div class="tool-icon">${tool.icon}</div>
             <div class="tool-rating">★ ${tool.rating}</div>
@@ -701,6 +751,7 @@
             <span class="tool-price">${tool.price}</span>
             <span class="tool-reviews">${tool.reviews.toLocaleString()} reviews</span>
           </div>
+          <button class="visit-btn" onclick="trackAffiliateClick('${tool.name.replace(/'/g, "\\'")}', event)" target="_blank" rel="noopener noreferrer">Visit Website →</button>
         </a>
       `}).join('');
     }

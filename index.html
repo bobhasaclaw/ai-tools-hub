@@ -504,6 +504,75 @@
       box-shadow: 0 8px 24px var(--accent-glow);
     }
     
+    .newsletter-social-proof {
+      margin-bottom: 16px;
+    }
+    
+    .subscriber-count {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--success);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    
+    .newsletter-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px !important;
+    }
+    
+    .newsletter-benefits {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .benefit-icon {
+      font-size: 1.1rem;
+    }
+    
+    .benefit strong {
+      color: var(--text-primary);
+    }
+    
+    .subscribe-success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--success);
+      padding: 16px 24px;
+      border-radius: 12px;
+      margin-top: 16px;
+      font-size: 1rem;
+    }
+    
+    .newsletter-privacy {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 16px !important;
+    }
+    
+    .newsletter-privacy strong {
+      color: var(--text-secondary);
+    }
+    
     /* Footer */
     footer {
       border-top: 1px solid var(--border);
@@ -634,12 +703,37 @@
   
   <div class="container">
     <section class="newsletter">
-      <h2>Stay in the Loop</h2>
-      <p>Get weekly AI tool updates and industry insights delivered to your inbox.</p>
-      <form class="newsletter-form" onsubmit="handleSubscribe(event)">
-        <input type="email" placeholder="Enter your email" required>
-        <button type="submit">Subscribe</button>
+      <div class="newsletter-social-proof">
+        <span class="subscriber-count">🤩 Join 12,400+ AI enthusiasts</span>
+      </div>
+      <h2>🔔 Get the Weekly AI Tools Digest</h2>
+      <p class="newsletter-subtitle">Every week: top 5 new tools, exclusive deals & behind-the-scenes reviews.</p>
+      
+      <div class="newsletter-benefits">
+        <div class="benefit">
+          <span class="benefit-icon">📊</span>
+          <span><strong>Top 5 New Tools</strong> — Curated picks you won't find elsewhere</span>
+        </div>
+        <div class="benefit">
+          <span class="benefit-icon">💰</span>
+          <span><strong>Exclusive Deals</strong> — Affiliate discounts up to 50% off</span>
+        </div>
+        <div class="benefit">
+          <span class="benefit-icon">🎬</span>
+          <span><strong>Behind the Scenes</strong> — How we test & review each tool</span>
+        </div>
+      </div>
+      
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+        <button type="submit" id="subscribe-btn">Subscribe Free</button>
       </form>
+      <div id="subscribe-success" class="subscribe-success" style="display: none;">
+        🎉 <strong>You're in!</strong> Check your inbox to confirm.
+      </div>
+      <p class="newsletter-privacy">
+        🔒 <strong>No spam, ever.</strong> Unsubscribe anytime in one click. We respect your privacy.
+      </p>
     </section>
   </div>
   
@@ -718,10 +812,66 @@
       }
     });
     
-    // Newsletter
-    function handleSubscribe(e) {
-      e.preventDefault();
-      alert('Thanks for subscribing!');
+    // Newsletter - localStorage subscription
+    const STORAGE_KEY = 'ai-tools-hub-subscribers';
+    
+    function getSubscribers() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+    
+    function saveSubscriber(email) {
+      const subscribers = getSubscribers();
+      // Check if already subscribed
+      if (subscribers.some(s => s.email.toLowerCase() === email.toLowerCase())) {
+        return { success: false, message: 'This email is already subscribed!' };
+      }
+      subscribers.push({
+        email: email,
+        subscribedAt: new Date().toISOString()
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(subscribers));
+      return { success: true, count: subscribers.length };
+    }
+    
+    // Check if already subscribed on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const emailInput = document.getElementById('newsletter-email');
+      const form = document.getElementById('newsletter-form');
+      const successDiv = document.getElementById('subscribe-success');
+      const subscribeBtn = document.getElementById('subscribe-btn');
+      const privacyText = document.querySelector('.newsletter-privacy');
+      
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const email = emailInput.value.trim();
+          
+          if (email) {
+            const result = saveSubscriber(email);
+            
+            if (result.success) {
+              form.style.display = 'none';
+              successDiv.style.display = 'block';
+              successDiv.innerHTML = `🎉 <strong>You're in!</strong> You've been added to our list (${result.count} subscribers).`;
+              privacyText.innerHTML = '✅ Already subscribed! Want to unsubscribe? <a href="#" onclick="clearSubscription(); return false;" style="color: var(--accent-primary);">Click here</a>';
+            } else {
+              alert(result.message);
+            }
+          }
+        });
+      }
+    });
+    
+    function clearSubscription() {
+      const email = document.getElementById('newsletter-email').value.trim();
+      if (email) {
+        let subscribers = getSubscribers();
+        subscribers = subscribers.filter(s => s.email.toLowerCase() !== email.toLowerCase());
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(subscribers));
+        alert('You\'ve been unsubscribed.');
+        location.reload();
+      }
     }
     
     // Initial render

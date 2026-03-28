@@ -21,7 +21,7 @@ This plan outlines how to grow AI Tools Hub from a hobby project to a revenue-ge
 - Steps:
   1. Sign up at cloudflare.com
   2. Search for available domains
-  3. Buy ai-tools-hub.com or aitoolsreview.com
+  3. Buy aitoolsreview.com (⚠️ DO NOT BUY ai-tools-hub.com — squatter site, copies our content, DANGEROUS)
   4. Point to GitHub Pages
 
 **Option C: Cheap Alternatives**
